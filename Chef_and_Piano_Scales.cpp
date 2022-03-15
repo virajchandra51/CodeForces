@@ -19,44 +19,32 @@ using namespace std;
 
 void solve()
 {
-    int n,m;
-    cin>>n>>m;
-    int a[n][m];
-    rep(i,n)
-        { string s;
-        cin>>s;
-            rep(j,m)
-            { 
-                a[i][j]=s[j]-'0';
-            }
-        }
-        
-    if(n==1 || m==1)
-    cout<<"YES"<<endl;
-    else
-    {
-        
-        
-
-        
-        for(int i=0;i<n-1;i++)
-        {
-            for(int j=0;j<m-1;j++)
-            {
-                
-                int count = a[i][j]+a[i][j+1]+a[i+1][j]+a[i+1][j+1];
-                if(count==3)
-                {
-                    cout<<"NO"<<endl;
-                    return;
-                }
-            }
-        }
-        cout<<"YES"<<endl;
-
-
-    }
-
+int n;
+	    string str;
+	    cin>>str;
+	    cin>>n;
+	    n = n*12;
+	    int sz = str.length();
+	    int cnt = 0;
+	    for(int i=0; i<sz; i++){
+	        if(str[i] == 'T'){
+	            cnt += 2;
+	        }
+	        else{
+	            cnt += 1;
+	        }
+	    }
+	    int ans = 0;
+	    for(int i=1; i<100001; i++){
+	        int z = cnt*i + 1;
+	        if(z <= n){
+	            ans += n-z+1; 
+	        }
+	        else{
+	            break;
+	        }
+	    }
+	    cout<<ans<<endl;
 }
 
 

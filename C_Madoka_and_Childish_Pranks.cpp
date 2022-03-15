@@ -22,40 +22,23 @@ void solve()
     int n,m;
     cin>>n>>m;
     int a[n][m];
+    vector<array<int,4>> ans;
     rep(i,n)
-        { string s;
+    {   string s;
         cin>>s;
-            rep(j,m)
-            { 
-                a[i][j]=s[j]-'0';
-            }
-        }
-        
-    if(n==1 || m==1)
-    cout<<"YES"<<endl;
-    else
-    {
-        
-        
-
-        
-        for(int i=0;i<n-1;i++)
+        rep(j,m)
         {
-            for(int j=0;j<m-1;j++)
-            {
-                
-                int count = a[i][j]+a[i][j+1]+a[i+1][j]+a[i+1][j+1];
-                if(count==3)
-                {
-                    cout<<"NO"<<endl;
-                    return;
-                }
-            }
+            a[i][j]=s[j]-'0';
         }
-        cout<<"YES"<<endl;
-
-
     }
+
+    if(a[0][0]==1)
+    {
+        cout<<"-1"<<endl;
+        return;
+    }
+
+    
 
 }
 
