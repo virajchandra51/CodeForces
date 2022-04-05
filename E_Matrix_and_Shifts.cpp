@@ -7,14 +7,13 @@ using namespace std;
 #define M 1000000007
 #define pb push_back
 #define mp make_pair
+#define all(x) x.begin(), x.end()
 #define f first
 #define s second
 #define foreach(i, j, k, in) for(int i=j;i<k;i+=in)
 #define rforeach(i, j, k, in) for(int i=j;i>=k;i-=in)
 #define rep(i,j) foreach(i,0,j,1)
 #define rrep(i,j) rforeach(i,j,0,1)
-#define set_bits __builtin_popcountll
-#define all(x) x.begin(), x.end()
 #define ps(x,y) fixed<<setprecision(y)<<x
 
 typedef long long ll;
@@ -31,35 +30,47 @@ typedef vector<vl> vvl;
 typedef map<int,int> mp;
 typedef set<int> st;
 
-#ifndef ONLINE_JUDGE
-#define debug(x) cerr<<#x<<" ";_print(x); cerr<<endl;
-#else
-#define debug(x)
-#endif
-
-void _print(ll t) {cerr << t;}
-void _print(int t) {cerr << t;}
-void _print(string t) {cerr << t;}
-void _print(char t) {cerr << t;}
-void _print(double t) {cerr << t;}
-
 void solve()
 {
-    int a=10;
-    a++;
-    debug(a);
+    int n;
+    cin>>n;
+    int v[n][n];
+    int one=0;
+    rep(i,n)
+    {
+        string s;
+        cin>>s;
+        rep(j,n)
+        {
+            v[i][j]=s[j]-'0';
+            one+=v[i][j];           
+        }
+    }
+    int ans=0;
+    map<int,int> mp;
+    rep(i,n)
+    {
+        rep(j,n)
+        {
+            if(v[i][j]==1)
+            mp[(n-j+i)%n]++;
+        }
+    }
+    for(auto it : mp)
+    {
+        ans=max(ans,it.s);
+    }
+    cout<<(n-ans)+(one-ans)<<endl;
 }
 
 
 int32_t main()
 {
     fastio()
-    #ifndef ONLINE_JUDGE
-        freopen("Error.txt","w",stderr);
-    #endif
     //Rating? Neh. In love with experience.
     //Code Karlo, Coz KHNH :)
-    int t=1;
+    int t;
+    cin>>t;
     while(t--)
     {
     solve();
