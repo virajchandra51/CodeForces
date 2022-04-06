@@ -15,6 +15,8 @@ using namespace std;
 #define rrep(i,j) rforeach(i,j,0,1)
 #define set_bits __builtin_popcountll
 #define all(x) x.begin(), x.end()
+#define py cout<<"YES"<<endl
+#define pn cout<<"NO"<<endl
 #define ps(x,y) fixed<<setprecision(y)<<x
 
 typedef long long ll;
@@ -45,9 +47,14 @@ void _print(double t) {cerr << t;}
 
 void solve()
 {
-    int a=10;
-    a++;
-    debug(a);
+    int a,b,c,m;
+    cin>>a>>b>>c>>m;
+    int arr[3]={a,b,c};
+    sort(arr,arr+3);
+    if(m>(a+b+c-3) || m<(arr[2]-arr[1]-arr[0]-1))
+    pn;
+    else
+    py;
 }
 
 
@@ -59,7 +66,8 @@ int32_t main()
     #endif
     //Rating? Neh. In love with experience.
     //Code Karlo, Coz KHNH :)
-    int t=1;
+    int t;
+    cin>>t;
     while(t--)
     {
     solve();

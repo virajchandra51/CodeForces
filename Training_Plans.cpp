@@ -15,6 +15,8 @@ using namespace std;
 #define rrep(i,j) rforeach(i,j,0,1)
 #define set_bits __builtin_popcountll
 #define all(x) x.begin(), x.end()
+#define py cout<<"YES"<<endl
+#define pn cout<<"NO"<<endl
 #define ps(x,y) fixed<<setprecision(y)<<x
 
 typedef long long ll;
@@ -37,6 +39,7 @@ typedef set<int> st;
 #define debug(x)
 #endif
 
+
 void _print(ll t) {cerr << t;}
 void _print(int t) {cerr << t;}
 void _print(string t) {cerr << t;}
@@ -45,9 +48,28 @@ void _print(double t) {cerr << t;}
 
 void solve()
 {
-    int a=10;
-    a++;
-    debug(a);
+    int n;
+    cin>>n;
+    vector<pi> v(n);
+    rep(i,n) cin>>v[i].f;
+    rep(i,n) cin>>v[i].s;
+
+    vvi a(n);
+    for(auto it:v)
+    a[it.s].pb(it.f);
+    priority_queue<int> pq;
+    lld ans=0.0;
+    ll sum=0;
+    for(int i=0;i<n;i++)
+    {
+        for(auto it:a[i])
+        pq.push(it);
+        if(pq.empty())break;
+        sum+=pq.top();pq.pop();
+        ans = max(ans,sum/lld(i+1));
+    }
+    cout<<ps(ans,6)<<endl;
+
 }
 
 
@@ -59,7 +81,8 @@ int32_t main()
     #endif
     //Rating? Neh. In love with experience.
     //Code Karlo, Coz KHNH :)
-    int t=1;
+    int t;
+    cin>>t;
     while(t--)
     {
     solve();

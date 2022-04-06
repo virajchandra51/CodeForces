@@ -45,9 +45,29 @@ void _print(double t) {cerr << t;}
 
 void solve()
 {
-    int a=10;
-    a++;
-    debug(a);
+    int n;
+    cin>>n;
+    vl a(n); ll sum=0;
+    rep(i,n)
+    {
+        cin>>a[i];
+        sum+=a[i];
+    }
+    sort(all(a)); 
+    int m;
+    cin>>m;
+    while(m--)
+    {
+        ll x,y;
+        cin>>x>>y;
+        ll ans = 2e18;
+        int i = lower_bound(a.begin(),a.end(),x)-a.begin();
+        if(i>0)
+        ans = min(ans, (x - a[i - 1]) + max(0LL, y - sum + a[i - 1]));
+        if(i<n)
+        ans = min(ans, max(0LL, y - sum + a[i]));
+        cout<<ans<<endl;
+    }
 }
 
 
@@ -59,7 +79,8 @@ int32_t main()
     #endif
     //Rating? Neh. In love with experience.
     //Code Karlo, Coz KHNH :)
-    int t=1;
+    int t;
+    t=1;
     while(t--)
     {
     solve();
