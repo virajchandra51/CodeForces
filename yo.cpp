@@ -1,68 +1,44 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-#define fastio() ios_base::sync_with_stdio(false), cin.tie(nullptr), cout.tie(nullptr);
+int memo[1000][1000];
 
-#define PI (3.141592653589)
-#define M 1000000007
-#define pb push_back
-#define mp make_pair
-#define f first
-#define s second
-#define foreach(i, j, k, in) for(int i=j;i<k;i+=in)
-#define rforeach(i, j, k, in) for(int i=j;i>=k;i-=in)
-#define rep(i,j) foreach(i,0,j,1)
-#define rrep(i,j) rforeach(i,j,0,1)
-#define set_bits __builtin_popcountll
-#define all(x) x.begin(), x.end()
-#define ps(x,y) fixed<<setprecision(y)<<x
-
-typedef long long ll;
-typedef unsigned long long ull;
-typedef long double lld;
-typedef pair<int, int> pi;
-typedef pair<ll, ll> pl;
-typedef vector<int> vi;
-typedef vector<ll> vl;
-typedef vector<pi> vpi;
-typedef vector<pl> vpl;
-typedef vector<vi> vvi;
-typedef vector<vl> vvl;
-typedef map<int,int> mp;
-typedef set<int> st;
-
-#ifndef ONLINE_JUDGE
-#define debug(x) cerr<<#x<<" ";_print(x); cerr<<endl;
-#else
-#define debug(x)
-#endif
-
-void _print(ll t) {cerr << t;}
-void _print(int t) {cerr << t;}
-void _print(string t) {cerr << t;}
-void _print(char t) {cerr << t;}
-void _print(double t) {cerr << t;}
-
-void solve()
+int knap(int n, int w, int val[], int wt[])
 {
-    int a=10;
-    a++;
-    debug(a);
+        if(memo[n][w]==-1)
+{
+    if(n==0 ||w==0)
+    memo[n][w]= 0;
+    else  if(wt[n-1]<=w)
+    {
+        memo[n][w]= max(knap(n-1,w,val,wt),max(val[n-1]+knap(n,w-wt[n-1],val,wt),val[n-1]+
+                    knap(n-1,w-wt[n-1],val,wt)));
+    }
+    else
+    {
+        memo[n][w]=  knap(n-1,w,val,wt);
+    }
+    
 }
-
+    return memo[n][w];
+}
+int knapSack(int n, int w, int val[], int wt[])
+{
+    memset(memo,-1,sizeof(memo));
+    return knap(n,w,val,wt);
+}
 
 int32_t main()
 {
-    fastio()
-    #ifndef ONLINE_JUDGE
-        freopen("Error.txt","w",stderr);
-    #endif
-    //Rating? Neh. In love with experience.
-    //Code Karlo, Coz KHNH :)
-    int t=1;
-    while(t--)
+    int n;
+    cin>>n;
+    int wt[n];
+    int vl[n];
+    for(int i=0;i<n;i++)
     {
-    solve();
+        vl[i]=i+1;
+        cin>>wt[i];
     }
+    cout<<knapSack(n,n,wt,vl);
     return 0;
 }

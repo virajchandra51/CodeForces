@@ -1,1 +1,1 @@
-{"name":"Local: yo","url":"/Users/virajchandra/Developer/CodeForces/yo.cpp","tests":[{"id":1649187238183,"input":"1","output":"3"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/Users/virajchandra/Developer/CodeForces/yo.cpp","group":"local","local":true}
+{"name":"Local: yo","url":"/Users/virajchandra/Developer/CodeForces/yo.cpp","tests":[{"id":1649187238183,"input":"4 1 5 8 9","output":"10"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/Users/virajchandra/Developer/CodeForces/yo.cpp","group":"local","local":true}
