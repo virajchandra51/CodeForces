@@ -1,4 +1,4 @@
-//Viraj Chandra 
+//Viraj Chandra
 //Linkedin: https://www.linkedin.com/in/viraj-chandra-4073a8223/
 //Codeforces: https://codeforces.com/profile/khnhcodingkarlo
 //Codechef: https://www.codechef.com/users/codecozkhnhs
@@ -9,11 +9,10 @@ using namespace std;
 //Speed
 #define fastio() ios_base::sync_with_stdio(false), cin.tie(nullptr), cout.tie(nullptr);
 
-//macros
+//Macros
 #define PI (3.141592653589)
 #define M 1000000007
 #define pb push_back
-#define mp make_pair
 #define f first
 #define s second
 #define foreach(i, j, k, in) for(int i=j;i<k;i+=in)
@@ -28,7 +27,7 @@ using namespace std;
 #define pm cout<<"-1"<<endl
 #define ps(x,y) fixed<<setprecision(y)<<x
 
-//typedef
+//Typedef
 typedef long long ll;
 typedef unsigned long long ull;
 typedef long double lld;
@@ -82,11 +81,41 @@ ll powermod(ll x, ll y, ll p){ll res = 1;x = x % p;if (x == 0) return 0;while (y
 
 void solve()
 {
-    int n;
-    cin<<n;
-    pi pairr(n);
-    cin>>pairr;
-    cout<<pairr;
+    int n,k;
+    cin>>n>>k;
+    vi a(n);
+    cin>>a;
+    vi bit(31,0);
+    rep(i,n)
+    {
+        int x = a[i];
+        int in=0;
+        while(x>0)
+        {
+            if(x%2)
+            bit[in]++;
+            x=x/2;
+            in++;
+        }
+    }
+    for(int i=30;i>=0;i--)
+    {
+        int diff = n-bit[i];
+        if(k>=diff)
+        {
+            k-=diff;
+            bit[i]=n;
+        }
+    }
+    ll ans=0;
+    for(int i=30;i>=0;i--)
+    {
+        if(bit[i]==n)
+        {
+            ans+=pow(2,i);
+        }
+    }
+    cout<<ans<<endl; 
 }
 
 
