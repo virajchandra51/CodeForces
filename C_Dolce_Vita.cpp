@@ -81,7 +81,12 @@ ll powermod(ll x, ll y, ll p){ll res = 1;x = x % p;if (x == 0) return 0;while (y
 
 void solve()
 {
-
+    int n,x;
+    cin>>n>>x;
+    vi a(n);
+    cin>>a;
+    sort(all(a));
+       
 }
 
 

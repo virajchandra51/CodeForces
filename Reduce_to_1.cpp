@@ -81,7 +81,35 @@ ll powermod(ll x, ll y, ll p){ll res = 1;x = x % p;if (x == 0) return 0;while (y
 
 void solve()
 {
-
+    ll n;
+    cin>>n;
+    if(n==1)
+    {
+        cout<<0<<endl;
+        return;
+    }
+    if(n&1)
+    cout<<1<<endl;
+    else
+    {
+        ll count=0; ll temp=n;
+        while(n%2==0)
+        {
+            n=n/2;
+            count++;
+        }
+        if(count&1)
+        cout<<-1<<endl;
+        else
+        {
+            if(isPerfectSquare(temp))
+            {
+                cout<<1<<endl;
+                return;
+            }
+            cout<<2<<endl;
+        }
+    }
 }
 
 

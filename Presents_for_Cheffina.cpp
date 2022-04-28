@@ -81,7 +81,9 @@ ll powermod(ll x, ll y, ll p){ll res = 1;x = x % p;if (x == 0) return 0;while (y
 
 void solve()
 {
-
+    int n;
+    cin>>n;
+    cout<< n-(n/5)<<endl;
 }
 
 

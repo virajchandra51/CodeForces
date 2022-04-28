@@ -81,7 +81,28 @@ ll powermod(ll x, ll y, ll p){ll res = 1;x = x % p;if (x == 0) return 0;while (y
 
 void solve()
 {
-
+    string s;
+    cin>>s;
+    if(s.size()==1)
+    {
+        pn;return;
+    }
+    if(s[0]!=s[1])
+    {
+        pn;return;
+    }
+    if(s[s.size()-1]!=s[s.size()-2])
+    {
+        pn;return;
+    }
+    for(int i=1;i<s.size()-1;i++)
+    {
+        if(s[i]!=s[i-1] && s[i]!=s[i+1])
+        {
+            pn;return;
+        }
+    }
+    py;
 }
 
 

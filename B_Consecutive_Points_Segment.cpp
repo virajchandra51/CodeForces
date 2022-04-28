@@ -81,7 +81,49 @@ ll powermod(ll x, ll y, ll p){ll res = 1;x = x % p;if (x == 0) return 0;while (y
 
 void solve()
 {
-
+    int n;
+    cin>>n;
+    vi a(n);
+    cin>>a;
+    int one=0,two=0,three=0,c=0;
+    for(int i=1;i<n;i++)
+    {
+        int diff=a[i]-a[i-1];
+        if(diff==1)
+        one++;
+        else if(diff==2)
+        two++;
+        else if(diff==3)
+        three++;
+        else
+        c++;
+    }
+    if(c>0)
+    {
+        pn;return;
+    }
+    if(three>0)
+    {
+        if(three>1)
+        pn;
+        else if(two!=0)
+        pn;
+        else 
+        py;
+    }
+    else if(two>0)
+    {
+        if(two>0)
+        {
+            if(two>2)
+            pn;
+            else
+            py;
+        }
+    }
+    else
+    py;
+    
 }
 
 

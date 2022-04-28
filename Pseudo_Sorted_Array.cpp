@@ -81,7 +81,29 @@ ll powermod(ll x, ll y, ll p){ll res = 1;x = x % p;if (x == 0) return 0;while (y
 
 void solve()
 {
-
+    int n;
+    cin>>n;
+    vi a(n);
+    cin>>a;
+    for(int i=1;i<n;i++)
+    {
+        if(a[i-1]>a[i])
+        {
+            swap(a[i-1],a[i]);break;
+        }
+    }
+    int flag =1;
+    for(int i=1;i<n;i++)
+    {
+        if(a[i-1]>a[i])
+        {
+            flag = 0;break;
+        }
+    }
+    if(flag==0)
+    pn;
+    else
+    py;
 }
 
 

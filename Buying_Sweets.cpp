@@ -81,7 +81,32 @@ ll powermod(ll x, ll y, ll p){ll res = 1;x = x % p;if (x == 0) return 0;while (y
 
 void solve()
 {
-
+    int n,r;
+    cin >> n >> r;
+    vi a(n);
+    cin>>a;
+    vi b(n);
+    cin>>b;
+    vector<pair<int,pair<int,int>>> v(n);
+    rep(i,n)
+    {
+        v[i].first = a[i]-b[i];
+        v[i].second.first = a[i];
+        v[i].second.second = b[i];
+    }
+    sort(all(v));
+    ll sweets=0;
+    for(auto it:v)
+    {
+        if(r>=it.second.first)
+        {
+            int diff = r - it.second.first;
+            int factor = diff/it.first +1;
+            r-=(factor*it.first);
+            sweets+=factor;
+        }
+    }
+    cout<<sweets<<endl;
 }
 
 

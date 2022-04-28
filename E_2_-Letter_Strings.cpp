@@ -81,7 +81,25 @@ ll powermod(ll x, ll y, ll p){ll res = 1;x = x % p;if (x == 0) return 0;while (y
 
 void solve()
 {
-
+    int n; cin>>n;
+    vector<string> s(n); cin>>s;
+    map<string,ll> mp;
+    set<string> st;
+    vl start(26,0),end(26,0);
+    rep(i,n)
+    {
+        mp[s[i]]++;
+        st.insert(s[i]);
+        start[s[i][0]-97]++;   
+        end[s[i][1]-97]++;   
+    }
+    ll ans=0;
+    for(auto it:st)
+    {
+        ans+=(start[it[0]-97]-mp[it])*mp[it];
+        ans+=(end[it[1]-97]-mp[it])*mp[it];
+    }
+    cout<<ans/2<<endl;
 }
 
 
