@@ -83,10 +83,9 @@ void solve()
 {
     int n;
     cin>>n;
-    vi a(n);
-    cin>>a;
-    sort(all(a));
-    cout<<a[n-1]-a[0]<<endl;
+    cout<< (n/2)*3<<endl;
+
+
 }
 
 

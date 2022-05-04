@@ -81,12 +81,22 @@ ll powermod(ll x, ll y, ll p){ll res = 1;x = x % p;if (x == 0) return 0;while (y
 
 void solve()
 {
-    int n;
-    cin>>n;
-    vi a(n);
-    cin>>a;
-    sort(all(a));
-    cout<<a[n-1]-a[0]<<endl;
+    int x,y,z;
+    cin>>x>>y>>z;
+    if (z>=x && z<x+y)
+    {
+        cout<<1<<endl;
+    }
+    else if(z>=x+y)
+    {
+        cout<<2<<endl;
+    }
+    else
+    {
+        cout<<0<<endl;
+    }
+    
+
 }
 
 

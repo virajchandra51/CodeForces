@@ -81,12 +81,34 @@ ll powermod(ll x, ll y, ll p){ll res = 1;x = x % p;if (x == 0) return 0;while (y
 
 void solve()
 {
-    int n;
-    cin>>n;
-    vi a(n);
-    cin>>a;
-    sort(all(a));
-    cout<<a[n-1]-a[0]<<endl;
+    string s;
+    cin>>s;
+    string t;
+    cin>>t;
+    int c1=0,c2=0;
+    rep(i,s.size())
+    {
+        if(s[i]=='a')
+        c1++;
+    }
+    rep(i,t.size())
+    {
+        if(t[i]=='a')
+        c2++;
+    }
+    if(c1>0 && c2>0)
+    {
+        if(t.size()==1)
+        cout<<1<<endl;
+        else
+        cout<<-1<<endl;   
+    }
+    else if(s.size()==1 && c2==0)
+    cout<<2<<endl;
+    else if(c1>0 && c2==0)
+    cout<<(ll)(pow(2,s.size()))<<endl;
+    else
+    cout<<1<<endl;
 }
 
 

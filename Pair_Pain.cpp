@@ -85,8 +85,16 @@ void solve()
     cin>>n;
     vi a(n);
     cin>>a;
-    sort(all(a));
-    cout<<a[n-1]-a[0]<<endl;
+    int one=0,two=0;
+    rep(i,n)
+    {
+        if(a[i]==1)
+        one++;
+        if(a[i]==2)
+        two++;
+    }
+    ll ans = one*(one-1)/2  +  two*(two-1)/2  +  one*(n-one);
+    cout<<ans<<endl;
 }
 
 

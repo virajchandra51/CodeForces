@@ -81,12 +81,77 @@ ll powermod(ll x, ll y, ll p){ll res = 1;x = x % p;if (x == 0) return 0;while (y
 
 void solve()
 {
-    int n;
-    cin>>n;
-    vi a(n);
-    cin>>a;
-    sort(all(a));
-    cout<<a[n-1]-a[0]<<endl;
+    int x,y;
+    cin >>x>>y;
+    if(x&1 && y&1)
+    {
+        cout<<-1<<endl;return;
+    }
+    if(x&1)
+    {
+        if(x==1)
+        {
+            cout<<-1<<endl;return;
+        }
+        for(int i=1;i<=(y/2);i++)
+        cout<<'b';
+        for(int i=1;i<=x;i++)
+        cout<<'a';
+        for(int i=1;i<=(y/2);i++)
+        cout<<'b';
+        cout<<endl;
+        for(int i=1;i<=(x/2);i++)
+        cout<<'a';
+        for(int i=1;i<=(y/2);i++)
+        cout<<'b';
+        cout<<'a';
+        for(int i=1;i<=(y/2);i++)
+        cout<<'b';
+        for(int i=1;i<=(x/2);i++)
+        cout<<'a';
+        cout<<endl;
+    }
+    else if(y&1)
+    {
+        if(y==1)
+        {
+            cout<<-1<<endl;return;
+        }
+        for(int i=1;i<=(x/2);i++)
+        cout<<'a';
+        for(int i=1;i<=y;i++)
+        cout<<'b';
+        for(int i=1;i<=(x/2);i++)
+        cout<<'a';
+        cout<<endl;
+        for(int i=1;i<=(y/2);i++)
+        cout<<'b';
+        for(int i=1;i<=(x/2);i++)
+        cout<<'a';
+        cout<<'b';
+        for(int i=1;i<=(x/2);i++)
+        cout<<'a';
+        for(int i=1;i<=(y/2);i++)
+        cout<<'b';
+        cout<<endl;
+    }
+    else
+    {
+        for(int i=1;i<=(y/2);i++)
+        cout<<'b';
+        for(int i=1;i<=x;i++)
+        cout<<'a';
+        for(int i=1;i<=(y/2);i++)
+        cout<<'b';
+        cout<<endl;
+        for(int i=1;i<=(x/2);i++)
+        cout<<'a';
+        for(int i=1;i<=y;i++)
+        cout<<'b';
+        for(int i=1;i<=(x/2);i++)
+        cout<<'a';
+        cout<<endl;
+    }
 }
 
 

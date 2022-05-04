@@ -83,10 +83,18 @@ void solve()
 {
     int n;
     cin>>n;
-    vi a(n);
-    cin>>a;
-    sort(all(a));
-    cout<<a[n-1]-a[0]<<endl;
+    if(n&1)
+    {
+        cout<<0<<endl;return;
+    }
+    n=n/2;
+    ll factorial = 1;
+    rep(i,n)
+    {
+        factorial =(ll)(factorial*(i+1))%((ll)998244353);
+    }
+    factorial =(ll)(factorial*factorial)%(ll)998244353;
+    cout<<factorial<<endl;
 }
 
 

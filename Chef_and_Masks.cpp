@@ -81,12 +81,27 @@ ll powermod(ll x, ll y, ll p){ll res = 1;x = x % p;if (x == 0) return 0;while (y
 
 void solve()
 {
-    int n;
-    cin>>n;
-    vi a(n);
-    cin>>a;
-    sort(all(a));
-    cout<<a[n-1]-a[0]<<endl;
+    int x,y;
+    cin>>x>>y;
+    int cost1,cost2;
+    cost1=x*100;
+    cost2=y*10;
+    if (cost1>cost2)
+    {
+        cout<<"Cloth"<<endl;
+    }
+    else if (cost1==cost2)
+    {
+        cout<<"Cloth"<<endl;
+    }
+    else
+    {
+        cout<<"Disposable"<<endl;
+    }
+    
+    
+
+
 }
 
 

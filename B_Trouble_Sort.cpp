@@ -85,8 +85,28 @@ void solve()
     cin>>n;
     vi a(n);
     cin>>a;
+    vi b(n);
+    cin>>b;
+    vi c=a;
     sort(all(a));
-    cout<<a[n-1]-a[0]<<endl;
+    if(a==c)
+    {
+        cout<<"Yes"<<endl;
+        return;
+    }
+    int c1=0,c2=0;
+    rep(i,n)
+    {
+        if(b[i]==0)
+        c1++;
+        else
+        c2++;
+    }
+    if(c1>0 && c2>0)
+    cout<<"Yes"<<endl;
+    else
+    cout<<"No"<<endl;
+
 }
 
 
