@@ -22,31 +22,37 @@ void answertoProb()
     int a[n];
     rep(i,n)
     cin>>a[i];
-    int dp[n+1][33];
-    for(int i=1;i<=n;i++)
+    int dp[33][n+1];
+    for(int i=0;i<33;i++)
     {
-        int temp = a[i-1];
-        for(int j=0;j<33;j++)
+        for(int j=0;j<n;j++)
         {
-            dp[i][j]=dp[i-1][j];
+            if( (a[j]^((ll)pow(2,i))) > (a[j]&((ll)pow(2,i))) )
+            dp[i][j]=1;
+            else
+            dp[i][j]=0;
         }
-        int pwr=32;
-        if(temp!=0) pwr = (int)(log(temp)/log(2));
-        dp[i][pwr]++;
     }
+    rep(i,33)
+    {
+        for(int j=1;j<n;j++)
+        {
+            dp[i][j]+=dp[i][j-1];
+        }
+        cout<<endl;
+    }
+    
     int q;
     cin>>q;
     while(q--)
     {
         int si,ei,x;
-        cin>> si >> ei>>x;
-        int scnt=0;
-        int pwr=32;
-        if(x!=0) pwr=(int)(log(x)/log(2));
-        scnt = dp[ei][pwr]-dp[si-1][pwr];
-        int ans = ei-si+1-scnt;
-        cout<<ans<<endl;
-
+        cin>>si >> ei>>x;
+        int p = (log2(x));
+        if(si==1)
+        cout<<dp[p][ei-1]<<endl;
+        else
+        cout<<dp[p][ei-1]-dp[p][si-1]<<endl;
     }
 }
 
