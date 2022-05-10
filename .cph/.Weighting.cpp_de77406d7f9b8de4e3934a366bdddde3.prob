@@ -1,0 +1,1 @@
+{"name":"Local: Weighting","url":"/Users/virajchandra/Developer/CodeForces/Weighting.cpp","tests":[{"id":1652089267337,"input":"4\n89\nVIRAJ\n989\nVIV\n909\nVI\n10\nRIVIR\n78\nYO","output":""}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/Users/virajchandra/Developer/CodeForces/Weighting.cpp","group":"local","local":true}
