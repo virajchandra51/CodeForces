@@ -17,23 +17,26 @@ typedef map<int,int> mii;
 
 void answertoProb()
 {
-    int n; 
-    cin >> n;
+    int n,m,k;
+    cin >> n >> m >> k;
     int a[n];
-    for(int i=0; i<4; i++)
+    for (int i=0; i<n; i++)
     {
         cin >> a[i];
     }
-    int max = a[0];
-    for(int i=1; i<4; i++)
-    {
-        if (max < a[i])
-        {
-            max = a[i];
+    for (int i=0; i<m; i++){
+        if (a[i]==0){
+            cout << 0 <<endl;
+            return;
         }
-
     }
-    cout << max << endl;
+    for(int i=m;i<n;i++){
+        if(a[i]==0){
+            cout<<k<<endl;
+            return;
+        }
+    }
+    cout<<100<<endl;
 }
 
 

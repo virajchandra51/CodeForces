@@ -81,7 +81,24 @@ ll powermod(ll x, ll y, ll p){ll res = 1;x = x % p;if (x == 0) return 0;while (y
 
 void solve()
 {
-
+    cout<<endl;
+    cout<<"NAME: Viraj Chandra"<<endl;
+    cout<<"BRANCH: Information Technology"<<endl;
+    cout<<"ROLL NO: 21118112"<<endl;
+    cout<<endl;
+    string s1,s2;
+    cout<<"Enter 2 Strings"<<endl;
+    cin>>s1>>s2;
+    s1.append(s2);
+    cout<<"Concatenated Strings Are "<<s1<<endl;
+    s2=s1;
+    cout<<"Second String copied to First String is "<<s2<<endl;
+    if(s1.compare(s2)>0)
+    cout<<s1<<" greater than "<<s2<<endl;
+    else if(s1.compare(s2)<0)
+    cout<<s1<<" smaller than "<<s2<<endl;
+    else
+    cout<<"Strings are equal"<<endl;
 }
 
 
@@ -94,7 +111,7 @@ int32_t main()
     //Rating? Neh. In love with experience.
     //Code Karlo, Coz KHNH :)
     int t;
-    cin>>t;
+    t=1;
     while(t--)
     {
     solve();
