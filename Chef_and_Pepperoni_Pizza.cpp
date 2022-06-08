@@ -91,12 +91,40 @@ void solve()
         instr(s);
         rep(j,n)
         {
-            if(s[j] == 0)
+            if(s[j] == '0')
             a[i][j] = 0;
             else
             a[i][j] = 1;
         }
     }
+    vector<pair<int,int>> v;
+    rep(i,n)
+    {
+        int l=0,r=0;
+        for(int j=0;j<n/2;j++)
+        l+=a[i][j];
+        for(int j=n/2;j<n;j++)
+        r+=a[i][j];
+        v.pb({l,r});
+    }
+    int ls=0,rs=0;
+    for(auto it:v)
+    {
+        ls+=it.f;
+        rs+=it.s;
+    }
+    int ans = abs(ls-rs);
+    for(auto it:v)
+    {
+        int lsc = ls;
+        int rsc = rs;
+        lsc-=it.f;
+        lsc+=it.s;
+        rsc-=it.s;
+        rsc+=it.f;
+        ans=min(ans,abs(rsc-lsc));
+    }
+    cout<<ans<<endl;
 }
 
 
