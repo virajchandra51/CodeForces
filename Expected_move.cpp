@@ -84,15 +84,10 @@ ll powermod(ll x, ll y, ll p){ll res = 1;x = x % p;if (x == 0) return 0;while (y
 
 void solve()
 {
-    ll a,b;
-    cin>>a>>b;
-    ll mn = min(a, b);
-    ll mx = max(a, b);
-    
-    if(mx>=(3*mn))
-    cout<<mn<<endl;
-    else
-    cout<<(mn+mx)/4<<endl;
+    ll x,n;
+    cin>>x>>n;
+    ll res = (x-1)*(2*n-x);
+    cout<<res<<endl;
 }
 
 

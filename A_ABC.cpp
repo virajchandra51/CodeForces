@@ -84,15 +84,14 @@ ll powermod(ll x, ll y, ll p){ll res = 1;x = x % p;if (x == 0) return 0;while (y
 
 void solve()
 {
-    ll a,b;
-    cin>>a>>b;
-    ll mn = min(a, b);
-    ll mx = max(a, b);
-    
-    if(mx>=(3*mn))
-    cout<<mn<<endl;
+    int n;
+    cin>>n;
+    string s;
+    cin>>s;
+    if((n==1 || (n==2 && s[0]!=s[1])))
+    py;
     else
-    cout<<(mn+mx)/4<<endl;
+    pn;
 }
 
 

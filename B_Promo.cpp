@@ -84,15 +84,21 @@ ll powermod(ll x, ll y, ll p){ll res = 1;x = x % p;if (x == 0) return 0;while (y
 
 void solve()
 {
-    ll a,b;
-    cin>>a>>b;
-    ll mn = min(a, b);
-    ll mx = max(a, b);
-    
-    if(mx>=(3*mn))
-    cout<<mn<<endl;
-    else
-    cout<<(mn+mx)/4<<endl;
+    int n,q;
+    cin>>n>>q;
+    vl a(n);
+    cin>>a;
+    sort(all(a));
+    vl b=a;
+    for(int i=1;i<n;i++)
+    a[i]+=a[i-1];
+    while(q--)
+    {
+        int x,y;
+        cin>>y>>x;
+        ll ans = a[n-y-1+x]-a[n-y]+b[n-y];
+        cout<<ans<<endl;
+    }
 }
 
 
@@ -105,7 +111,7 @@ int32_t main()
     //Rating? Neh. In love with experience.
     //Code Karlo, Coz KHNH :)
     int t;
-    cin>>t;
+    t=1;
     while(t--)
     {
     solve();
