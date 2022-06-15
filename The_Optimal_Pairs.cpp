@@ -21,6 +21,9 @@ using namespace std;
 #define rrep(i,j) rforeach(i,j,0,1)
 #define set_bits(x) __builtin_popcountll(x)
 #define zero_bits(x) __builtin_ctzll(x)
+#define inint(x) int x; cin>>x;
+#define inll(x) long long int x; cin>>x;
+#define instr(x) string x; cin>>x;
 #define all(x) x.begin(), x.end()
 #define py cout<<"YES"<<endl
 #define pn cout<<"NO"<<endl
@@ -83,9 +86,27 @@ void solve()
 {
     int n;
     cin>>n;
-    vi a(n);
-    cin>>a;
-    cout<<a;
+    ll c=0;
+    for(int i=1;i<=sqrt(n);i++)
+    {
+        if(n%i==0)
+        {
+            if(n/i==i)
+            c++;
+            else
+            c+=2;
+        }
+    }
+    if(n&1)
+    {
+        c--;
+        cout<<c*2<<endl;
+    }
+    else
+    {
+        c-=2;
+        cout<<2*c+1<<endl;
+    }
 
 }
 

@@ -21,6 +21,9 @@ using namespace std;
 #define rrep(i,j) rforeach(i,j,0,1)
 #define set_bits(x) __builtin_popcountll(x)
 #define zero_bits(x) __builtin_ctzll(x)
+#define inint(x) int x; cin>>x;
+#define inll(x) long long int x; cin>>x;
+#define instr(x) string x; cin>>x;
 #define all(x) x.begin(), x.end()
 #define py cout<<"YES"<<endl
 #define pn cout<<"NO"<<endl
@@ -81,12 +84,11 @@ ll powermod(ll x, ll y, ll p){ll res = 1;x = x % p;if (x == 0) return 0;while (y
 
 void solve()
 {
-    int n;
-    cin>>n;
-    vi a(n);
-    cin>>a;
-    cout<<a;
-
+    int n,k;
+    cin>>n>>k;
+    int t = ceil(k/5.0);
+    int to = ceil(n/5.0);
+    cout<<to-t<<endl;
 }
 
 
