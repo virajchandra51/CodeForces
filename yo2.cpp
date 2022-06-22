@@ -86,7 +86,6 @@ void solve()
     vi a(n);
     cin>>a;
     cout<<a;
-
 }
 
 
