@@ -1,7 +1,8 @@
-//Viraj Chandra
-//Linkedin: https://www.linkedin.com/in/viraj-chandra-4073a8223/
-//Codeforces: https://codeforces.com/profile/khnhcodingkarlo
-//Codechef: https://www.codechef.com/users/codecozkhnhs
+// 2022-06-26 17:04:00
+// Viraj Chandra
+// Linkedin: https://www.linkedin.com/in/viraj-chandra-4073a8223/
+// Codeforces: https://codeforces.com/profile/khnhcodingkarlo
+// Codechef: https://www.codechef.com/users/codecozkhnhs
 
 #include <bits/stdc++.h>
 using namespace std;
@@ -21,6 +22,9 @@ using namespace std;
 #define rrep(i,j) rforeach(i,j,0,1)
 #define set_bits(x) __builtin_popcountll(x)
 #define zero_bits(x) __builtin_ctzll(x)
+#define inint(x) int x; cin>>x;
+#define inll(x) long long int x; cin>>x;
+#define instr(x) string x; cin>>x;
 #define all(x) x.begin(), x.end()
 #define py cout<<"YES"<<endl
 #define pn cout<<"NO"<<endl
@@ -81,24 +85,19 @@ ll powermod(ll x, ll y, ll p){ll res = 1;x = x % p;if (x == 0) return 0;while (y
 
 void solve()
 {
-    cout<<endl;
-    cout<<"NAME: Viraj Chandra"<<endl;
-    cout<<"BRANCH: Information Technology"<<endl;
-    cout<<"ROLL NO: 21118112"<<endl;
-    cout<<endl;
-    string s1,s2;
-    cout<<"Enter 2 Strings"<<endl;
-    cin>>s1>>s2;
-    s1.append(s2);
-    cout<<"Concatenated Strings Are "<<s1<<endl;
-    s2=s1;
-    cout<<"Second String copied to First String is "<<s2<<endl;
-    if(s1.compare(s2)>0)
-    cout<<s1<<" greater than "<<s2<<endl;
-    else if(s1.compare(s2)<0)
-    cout<<s1<<" smaller than "<<s2<<endl;
-    else
-    cout<<"Strings are equal"<<endl;
+    int n;
+    cin>>n;
+    vi a(n);
+    cin>>a;
+    int c=0;
+    for(int i=0;i<n-1;i++)
+    {
+        if(a[i]>a[i + 1])
+        {
+            c++;i++;
+        }
+    }
+    cout<<c<<endl;
 }
 
 
@@ -111,7 +110,7 @@ int32_t main()
     //Rating? Neh. In love with experience.
     //Code Karlo, Coz KHNH :)
     int t;
-    t=1;
+    cin>>t;
     while(t--)
     {
     solve();
