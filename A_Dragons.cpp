@@ -1,4 +1,4 @@
-// 2022-06-28 20:08:56
+// 2022-06-28 22:06:58
 // Viraj Chandra
 // Linkedin: https://www.linkedin.com/in/viraj-chandra-4073a8223/
 // Codeforces: https://codeforces.com/profile/khnhcodingkarlo
@@ -83,19 +83,32 @@ ll lcm(ll a, ll b){return (a/gcd(a,b)*b);}
 ll moduloMultiplication(ll a,ll b,ll mod){ll res = 0;a %= mod;while (b){if (b & 1)res = (res + a) % mod;b >>= 1;}return res;}
 ll powermod(ll x, ll y, ll p){ll res = 1;x = x % p;if (x == 0) return 0;while (y > 0){if (y & 1)res = (res*x) % p;y = y>>1;x = (x*x) % p;}return res;}
 
-
 void solve()
 {
-    int n;
-    cin>>n;
-    vi a(n);
+    int ss,n;
+    cin>>ss>>n;
+    vector<pair<int,int>> v(n);
     rep(i,n)
-    a[i]=i+1;
-    for(int i=n-1;i>0;i--)
-    swap(a[i],a[i-1]);
+    {
+        int a,b;
+        cin>>a>>b;
+        v[i]={a,b};
+    }
+    sort(all(v));
+    int flag=1;
     rep(i,n)
-    cout<<a[i]<<" ";
-    cout<<endl;
+    {
+        if(ss>v[i].first)
+        ss+=v[i].second;
+        else
+        {
+            flag=0;break;
+        }
+    }
+    if(flag)
+    py;
+    else
+    pn;
 }
 
 

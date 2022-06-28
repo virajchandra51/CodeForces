@@ -1,4 +1,4 @@
-// 2022-06-28 20:08:56
+// 2022-06-28 21:02:58
 // Viraj Chandra
 // Linkedin: https://www.linkedin.com/in/viraj-chandra-4073a8223/
 // Codeforces: https://codeforces.com/profile/khnhcodingkarlo
@@ -83,19 +83,52 @@ ll lcm(ll a, ll b){return (a/gcd(a,b)*b);}
 ll moduloMultiplication(ll a,ll b,ll mod){ll res = 0;a %= mod;while (b){if (b & 1)res = (res + a) % mod;b >>= 1;}return res;}
 ll powermod(ll x, ll y, ll p){ll res = 1;x = x % p;if (x == 0) return 0;while (y > 0){if (y & 1)res = (res*x) % p;y = y>>1;x = (x*x) % p;}return res;}
 
-
 void solve()
 {
     int n;
     cin>>n;
-    vi a(n);
-    rep(i,n)
-    a[i]=i+1;
-    for(int i=n-1;i>0;i--)
-    swap(a[i],a[i-1]);
-    rep(i,n)
-    cout<<a[i]<<" ";
-    cout<<endl;
+    int c=2*n;
+    int cc=0;
+    for(int i=1;i<=(n+1);i++)
+    {
+        for(int j=1;j<=c;j++)
+        cout<<" ";
+        if(c==(2*n))
+        cout<<0;
+        else
+        {for(int k=0;k<=cc;k++)
+        cout<<k<<" ";}
+        for(int k=cc-1;k>=0;k--)
+        {
+            if(k==0)
+            cout<<k;
+            else
+            cout<<k<<" ";
+        }
+        c-=2;cc++;
+        cout<<endl;
+    }
+    cc=n-1;
+    c=2;
+    for(int i=1;i<=(n);i++)
+    {
+        for(int j=1;j<=c;j++)
+        cout<<" ";
+        if(i==n)
+        cout<<0;
+        else
+        {for(int k=0;k<=cc;k++)
+        cout<<k<<" ";}
+        for(int k=cc-1;k>=0;k--)
+        {
+            if(k==0)
+            cout<<k;
+            else
+            cout<<k<<" ";
+        }
+        c+=2;cc--;
+        cout<<endl;
+    }
 }
 
 

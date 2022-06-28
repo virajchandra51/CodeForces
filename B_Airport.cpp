@@ -1,4 +1,4 @@
-// 2022-06-28 20:08:56
+// 2022-06-28 22:25:27
 // Viraj Chandra
 // Linkedin: https://www.linkedin.com/in/viraj-chandra-4073a8223/
 // Codeforces: https://codeforces.com/profile/khnhcodingkarlo
@@ -83,23 +83,61 @@ ll lcm(ll a, ll b){return (a/gcd(a,b)*b);}
 ll moduloMultiplication(ll a,ll b,ll mod){ll res = 0;a %= mod;while (b){if (b & 1)res = (res + a) % mod;b >>= 1;}return res;}
 ll powermod(ll x, ll y, ll p){ll res = 1;x = x % p;if (x == 0) return 0;while (y > 0){if (y & 1)res = (res*x) % p;y = y>>1;x = (x*x) % p;}return res;}
 
-
 void solve()
 {
-    int n;
-    cin>>n;
-    vi a(n);
-    rep(i,n)
-    a[i]=i+1;
-    for(int i=n-1;i>0;i--)
-    swap(a[i],a[i-1]);
-    rep(i,n)
-    cout<<a[i]<<" ";
-    cout<<endl;
+    int n,m;
+    cin>>n>>m;
+    vi a(m);
+    cin>>a;
+    if(m==1)
+    {
+        int count=1;
+        ll sum=0;
+        while(count<=n)
+        {
+            sum+=a[0];
+            a[0]--;
+            count++;
+        }
+        cout<<sum<<" "<<sum<<endl;
+        return;
+    }
+    sort(all(a));
+    vi b=a;
+    ll m1=0;
+    int i=0;
+    int count=1;
+    while(count<=n)
+    {
+        m1+=a[m-1];
+        a[m-1]--;
+        sort(all(a));
+        count++;
+    }
+    ll m2=0;
+    reverse(all(b));
+    a=b;
+    count=1;
+    i=0;
+    reverse(all(a));
+    while(count<=n)
+    {
+        if(a[i]>0)
+        {
+            m2+=a[i];
+            count++;
+            a[i]--;
+        }
+        else
+        {
+            i++;
+        }
+    }
+    cout<<m1<<" "<<m2<<endl;
 }
 
 
-int32_t main()
+int main()
 {
     fastio()
     #ifndef ONLINE_JUDGE
