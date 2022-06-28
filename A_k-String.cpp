@@ -1,4 +1,4 @@
-// 2022-06-27 20:20:56
+// 2022-06-28 19:47:29
 // Viraj Chandra
 // Linkedin: https://www.linkedin.com/in/viraj-chandra-4073a8223/
 // Codeforces: https://codeforces.com/profile/khnhcodingkarlo
@@ -87,23 +87,34 @@ void solve()
 {
     int n;
     cin>>n;
-    vi a(n);
-    cin>>a;
-    int m;
-    cin>>m;
-    vi b(m);
-    cin>>b;
-    vi ans(n);
-    rep(i,n)
-    ans[a[i]-1]=i+1;
-    ll v=0,p=0;
-    rep(i,m)
+    string s;
+    cin>>s;
+    map<char,int> mp;
+    rep(i,s.size())
+    mp[s[i]]++;
+    int flag=1;
+    for(auto it:mp)
     {
-        v+=ans[b[i]-1];
-        p+=(n-ans[b[i]-1]+1);
+        if(it.s%n!=0)
+        {
+            flag=0;break;
+        }
     }
-    cout<<v<<" "<<p<<endl;
-    
+    if(flag!=1)
+    pm;
+    else
+    {
+        string w = "";
+        for(auto it:mp)
+        {
+            for(int i=1;i<=(it.s/n);i++)
+            w+=it.f;
+        }
+        string c=w;
+        for(int i=1;i<(s.size()/c.size());i++)
+        w+=c;
+        cout<<w<<endl;
+    }
 }
 
 

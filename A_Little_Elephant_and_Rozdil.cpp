@@ -1,4 +1,4 @@
-// 2022-06-27 20:20:56
+// 2022-06-28 10:45:08
 // Viraj Chandra
 // Linkedin: https://www.linkedin.com/in/viraj-chandra-4073a8223/
 // Codeforces: https://codeforces.com/profile/khnhcodingkarlo
@@ -89,21 +89,25 @@ void solve()
     cin>>n;
     vi a(n);
     cin>>a;
-    int m;
-    cin>>m;
-    vi b(m);
-    cin>>b;
-    vi ans(n);
+    mii mp;
     rep(i,n)
-    ans[a[i]-1]=i+1;
-    ll v=0,p=0;
-    rep(i,m)
+    mp[a[i]]++;
+    int ans=INT_MAX;
+    for(auto it: mp)
+    ans=min(ans,it.f);
+    if(mp[ans]>1)
+    cout<<"Still Rozdil"<<endl;
+    else
     {
-        v+=ans[b[i]-1];
-        p+=(n-ans[b[i]-1]+1);
+        rep(i,n)
+        {
+            if(a[i]==ans)
+            {
+                cout<<i+1<<endl;
+                break;
+            }
+        }
     }
-    cout<<v<<" "<<p<<endl;
-    
 }
 
 

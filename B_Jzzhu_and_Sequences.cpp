@@ -1,4 +1,4 @@
-// 2022-06-27 20:20:56
+// 2022-06-27 22:25:20
 // Viraj Chandra
 // Linkedin: https://www.linkedin.com/in/viraj-chandra-4073a8223/
 // Codeforces: https://codeforces.com/profile/khnhcodingkarlo
@@ -83,27 +83,87 @@ ll lcm(ll a, ll b){return (a/gcd(a,b)*b);}
 ll moduloMultiplication(ll a,ll b,ll mod){ll res = 0;a %= mod;while (b){if (b & 1)res = (res + a) % mod;b >>= 1;}return res;}
 ll powermod(ll x, ll y, ll p){ll res = 1;x = x % p;if (x == 0) return 0;while (y > 0){if (y & 1)res = (res*x) % p;y = y>>1;x = (x*x) % p;}return res;}
 
+// 2 3 1 -2 -3 -1 2 3 1 
+// 0 -1 -1 0 1 1
 void solve()
 {
+    int x,y;
+    cin>>x>>y;
     int n;
     cin>>n;
-    vi a(n);
-    cin>>a;
-    int m;
-    cin>>m;
-    vi b(m);
-    cin>>b;
-    vi ans(n);
-    rep(i,n)
-    ans[a[i]-1]=i+1;
-    ll v=0,p=0;
-    rep(i,m)
+    n%=6;
+    if(n==1)
     {
-        v+=ans[b[i]-1];
-        p+=(n-ans[b[i]-1]+1);
+        if(x%M==0)
+        {
+            cout<<0<<endl;
+            return;
+        }
+        if(x<0)
+        cout<<M+x%M<<endl;
+        else
+        cout<<x%M<<endl;
     }
-    cout<<v<<" "<<p<<endl;
-    
+    else if(n==2)
+    {
+        if(y%M==0)
+        {
+            cout<<0<<endl;
+            return;
+        }
+        if(y<0)
+        cout<<M+y%M<<endl;
+        else
+        cout<<y%M<<endl;
+    }
+    else if(n==3)
+    {
+        if((y-x)%M==0)
+        {
+            cout<<0<<endl;
+            return;
+        }
+        if((y-x)<0)
+        cout<<M+(y-x)%M<<endl;
+        else
+        cout<<(y-x)%M<<endl;
+    }
+    else if(n==4)
+    {
+        if((-1*x)%M==0)
+        {
+            cout<<0<<endl;
+            return;
+        }
+        if((-1*x)<0)
+        cout<<M+(-1*x)%M<<endl;
+        else
+        cout<<(-1*x)%M<<endl;
+    }
+    else if(n==5)
+    {
+        if((-1*y)%M==0)
+        {
+            cout<<0<<endl;
+            return;
+        }
+        if((-1*y)<0)
+        cout<<M+(-1*y)%M<<endl;
+        else
+        cout<<(-1*y)%M<<endl;
+    }    
+    else
+    {
+        if((x-y)%M==0)
+        {
+            cout<<0<<endl;
+            return;
+        }
+        if((x-y)<0)
+        cout<<M+(x-y)%M<<endl;
+        else
+        cout<<(x-y)%M<<endl;
+    }
 }
 
 

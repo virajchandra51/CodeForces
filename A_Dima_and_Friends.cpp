@@ -1,4 +1,4 @@
-// 2022-06-27 20:20:56
+// 2022-06-27 22:06:20
 // Viraj Chandra
 // Linkedin: https://www.linkedin.com/in/viraj-chandra-4073a8223/
 // Codeforces: https://codeforces.com/profile/khnhcodingkarlo
@@ -89,21 +89,16 @@ void solve()
     cin>>n;
     vi a(n);
     cin>>a;
-    int m;
-    cin>>m;
-    vi b(m);
-    cin>>b;
-    vi ans(n);
+    int sum=0;
     rep(i,n)
-    ans[a[i]-1]=i+1;
-    ll v=0,p=0;
-    rep(i,m)
+    sum+=a[i];
+    int c=0;
+    rep(j,5)
     {
-        v+=ans[b[i]-1];
-        p+=(n-ans[b[i]-1]+1);
+        if((sum+j+1)%(n+1)==1)
+        c++;
     }
-    cout<<v<<" "<<p<<endl;
-    
+    cout<<5-c<<endl;
 }
 
 

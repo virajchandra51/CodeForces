@@ -1,4 +1,4 @@
-// 2022-06-27 20:20:56
+// 2022-06-28 15:34:28
 // Viraj Chandra
 // Linkedin: https://www.linkedin.com/in/viraj-chandra-4073a8223/
 // Codeforces: https://codeforces.com/profile/khnhcodingkarlo
@@ -93,17 +93,24 @@ void solve()
     cin>>m;
     vi b(m);
     cin>>b;
-    vi ans(n);
+    map<double,int> mp;
     rep(i,n)
-    ans[a[i]-1]=i+1;
-    ll v=0,p=0;
-    rep(i,m)
     {
-        v+=ans[b[i]-1];
-        p+=(n-ans[b[i]-1]+1);
+        rep(j,m)
+        {
+            mp[(b[j]*1.0)/a[i]]++;
+        }
     }
-    cout<<v<<" "<<p<<endl;
-    
+    int f=-1;double ans=-1.0;
+    for(auto it:mp)
+    {
+        if(ceil(it.f)==floor(it.f) && it.f>ans)
+        {
+            f=it.s;
+            ans=it.f;
+        }
+    }
+    cout<<f<<endl;
 }
 
 

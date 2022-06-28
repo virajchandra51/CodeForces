@@ -1,4 +1,4 @@
-// 2022-06-27 20:20:56
+// 2022-06-27 22:41:09
 // Viraj Chandra
 // Linkedin: https://www.linkedin.com/in/viraj-chandra-4073a8223/
 // Codeforces: https://codeforces.com/profile/khnhcodingkarlo
@@ -87,23 +87,35 @@ void solve()
 {
     int n;
     cin>>n;
-    vi a(n);
-    cin>>a;
-    int m;
-    cin>>m;
-    vi b(m);
-    cin>>b;
-    vi ans(n);
+    vector<pair<int,int>> v(n);
     rep(i,n)
-    ans[a[i]-1]=i+1;
-    ll v=0,p=0;
-    rep(i,m)
     {
-        v+=ans[b[i]-1];
-        p+=(n-ans[b[i]-1]+1);
+        int a,b;
+        cin>>a>>b;
+        v[i]={a,b};
     }
-    cout<<v<<" "<<p<<endl;
-    
+    int mc=0;
+    for(int i=0;i<n;i++)
+    {
+        int pa = v[i].f;
+        int pb = v[i].s;
+        int fu=0,fd=0,fl=0,fr=0;
+        for(int j=0;j<n;j++)
+        {
+            if(v[j].f==pa && v[j].s>pb)
+            fu=1;
+            if(v[j].f==pa && v[j].s<pb)
+            fd=1;
+            if(v[j].f>pa && v[j].s==pb)
+            fl=1;
+            if(v[j].f<pa && v[j].s==pb)
+            fr=1;
+        }
+        if(fu==1 && fd==1 && fr==1 && fl==1)
+        mc++;
+    }
+    cout<<mc<<endl;
+
 }
 
 

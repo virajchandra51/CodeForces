@@ -1,4 +1,4 @@
-// 2022-06-27 20:20:56
+// 2022-06-28 17:00:27
 // Viraj Chandra
 // Linkedin: https://www.linkedin.com/in/viraj-chandra-4073a8223/
 // Codeforces: https://codeforces.com/profile/khnhcodingkarlo
@@ -83,27 +83,16 @@ ll lcm(ll a, ll b){return (a/gcd(a,b)*b);}
 ll moduloMultiplication(ll a,ll b,ll mod){ll res = 0;a %= mod;while (b){if (b & 1)res = (res + a) % mod;b >>= 1;}return res;}
 ll powermod(ll x, ll y, ll p){ll res = 1;x = x % p;if (x == 0) return 0;while (y > 0){if (y & 1)res = (res*x) % p;y = y>>1;x = (x*x) % p;}return res;}
 
-void solve()
+int solve()
 {
-    int n;
-    cin>>n;
+    int n,m;
+    cin>>n>>m;
     vi a(n);
     cin>>a;
-    int m;
-    cin>>m;
-    vi b(m);
-    cin>>b;
-    vi ans(n);
+    ll sum=0;
     rep(i,n)
-    ans[a[i]-1]=i+1;
-    ll v=0,p=0;
-    rep(i,m)
-    {
-        v+=ans[b[i]-1];
-        p+=(n-ans[b[i]-1]+1);
-    }
-    cout<<v<<" "<<p<<endl;
-    
+    sum+=a[i];
+    return sum%m;
 }
 
 
@@ -116,10 +105,10 @@ int32_t main()
     //Rating? Neh. In love with experience.
     //Code Karlo, Coz KHNH :)
     int t;
-    t=1;
-    while(t--)
+    cin>>t;
+    rep(i,t)
     {
-    solve();
+    cout<<"Case #"<<i+1<<": "<<solve()<<endl;
     }
     return 0;
 }

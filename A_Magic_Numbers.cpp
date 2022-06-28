@@ -1,4 +1,4 @@
-// 2022-06-27 20:20:56
+// 2022-06-28 15:18:07
 // Viraj Chandra
 // Linkedin: https://www.linkedin.com/in/viraj-chandra-4073a8223/
 // Codeforces: https://codeforces.com/profile/khnhcodingkarlo
@@ -85,25 +85,54 @@ ll powermod(ll x, ll y, ll p){ll res = 1;x = x % p;if (x == 0) return 0;while (y
 
 void solve()
 {
-    int n;
-    cin>>n;
-    vi a(n);
-    cin>>a;
-    int m;
-    cin>>m;
-    vi b(m);
-    cin>>b;
-    vi ans(n);
-    rep(i,n)
-    ans[a[i]-1]=i+1;
-    ll v=0,p=0;
-    rep(i,m)
-    {
-        v+=ans[b[i]-1];
-        p+=(n-ans[b[i]-1]+1);
-    }
-    cout<<v<<" "<<p<<endl;
+    string s;
+    cin>>s;
+    int n = s.size();
     
+    bool flag=true;
+    rep(i,n)
+    {
+        if(s[i]!='1' && s[i]!='4')
+        {
+            flag=false;break;
+        }
+    }
+    if(flag)
+    {
+        int f=1;
+        int i=0;
+        while(i<n)
+        {
+            if(s[i] == '1')
+            {
+                if(s[i+1]== '1' && i+1<n)
+                {
+                    i++;
+                }
+                else if(s[i+1]== '4' && i+1<n)
+                {
+                    if(s[i+2]=='4' && i+2<n)
+                    i+=3;
+                    else
+                    i+=2;
+                }
+                else
+                {
+                    break;
+                }
+            }
+            else
+            {
+                f=0;break;
+            }
+        }
+        if(f)
+        py;
+        else
+        pn;
+    }
+    else
+    pn;
 }
 
 

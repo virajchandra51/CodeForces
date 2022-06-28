@@ -1,4 +1,4 @@
-// 2022-06-27 20:20:56
+// 2022-06-28 10:32:38
 // Viraj Chandra
 // Linkedin: https://www.linkedin.com/in/viraj-chandra-4073a8223/
 // Codeforces: https://codeforces.com/profile/khnhcodingkarlo
@@ -89,21 +89,23 @@ void solve()
     cin>>n;
     vi a(n);
     cin>>a;
-    int m;
-    cin>>m;
-    vi b(m);
-    cin>>b;
-    vi ans(n);
-    rep(i,n)
-    ans[a[i]-1]=i+1;
-    ll v=0,p=0;
-    rep(i,m)
+    int ans1=-1,ans2=-1;
+    int ans = INT_MAX;
+    rep(i,n-1)
     {
-        v+=ans[b[i]-1];
-        p+=(n-ans[b[i]-1]+1);
+        if(abs(a[i]-a[i+1])<ans)
+        {
+            ans=abs(a[i]-a[i+1]);
+            ans1=i+1;
+            ans2=i+2;
+        }
     }
-    cout<<v<<" "<<p<<endl;
-    
+    if(abs(a[0]-a[n-1])<ans)
+    {
+        ans1=n;
+        ans2=1;
+    }
+    cout<<ans1<<" "<<ans2<<endl;
 }
 
 

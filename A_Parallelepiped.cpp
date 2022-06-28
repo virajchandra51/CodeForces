@@ -1,4 +1,4 @@
-// 2022-06-27 20:20:56
+// 2022-06-27 23:03:26
 // Viraj Chandra
 // Linkedin: https://www.linkedin.com/in/viraj-chandra-4073a8223/
 // Codeforces: https://codeforces.com/profile/khnhcodingkarlo
@@ -83,26 +83,27 @@ ll lcm(ll a, ll b){return (a/gcd(a,b)*b);}
 ll moduloMultiplication(ll a,ll b,ll mod){ll res = 0;a %= mod;while (b){if (b & 1)res = (res + a) % mod;b >>= 1;}return res;}
 ll powermod(ll x, ll y, ll p){ll res = 1;x = x % p;if (x == 0) return 0;while (y > 0){if (y & 1)res = (res*x) % p;y = y>>1;x = (x*x) % p;}return res;}
 
+// V =  sqrt (abc)
+// SA =  2[ab + bc+ ac]
+
+// 4[a+b+c]
+
+//20 10 50
+// 2*2*5 2*5 5*2*5
+// 2 5 10 
+// 4 7 12
+// 4*7 4*12 12*7 
+// 7 12 21
+// 6*7 7*8 6*8
+// 3*7 7*4 3*8
+// 2*3 2*2 2*3 
+// 2 3 1 
+// a*b a*c b*c 
+// 4*[a+b+c] 
 void solve()
 {
-    int n;
-    cin>>n;
-    vi a(n);
-    cin>>a;
-    int m;
-    cin>>m;
-    vi b(m);
-    cin>>b;
-    vi ans(n);
-    rep(i,n)
-    ans[a[i]-1]=i+1;
-    ll v=0,p=0;
-    rep(i,m)
-    {
-        v+=ans[b[i]-1];
-        p+=(n-ans[b[i]-1]+1);
-    }
-    cout<<v<<" "<<p<<endl;
+    int a,b,c;
+    cin>>a>>b>>c;
     
 }
 

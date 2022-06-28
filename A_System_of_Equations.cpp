@@ -1,4 +1,4 @@
-// 2022-06-27 20:20:56
+// 2022-06-28 16:22:03
 // Viraj Chandra
 // Linkedin: https://www.linkedin.com/in/viraj-chandra-4073a8223/
 // Codeforces: https://codeforces.com/profile/khnhcodingkarlo
@@ -85,25 +85,18 @@ ll powermod(ll x, ll y, ll p){ll res = 1;x = x % p;if (x == 0) return 0;while (y
 
 void solve()
 {
-    int n;
-    cin>>n;
-    vi a(n);
-    cin>>a;
-    int m;
-    cin>>m;
-    vi b(m);
-    cin>>b;
-    vi ans(n);
-    rep(i,n)
-    ans[a[i]-1]=i+1;
-    ll v=0,p=0;
-    rep(i,m)
+    int n,m;
+    cin>>n>>m;
+    int h = n+m;
+    ll ans=0;
+    for(int i=0;(1.0*i*(i+1)-h*1.0)>=(0.25);i++)
     {
-        v+=ans[b[i]-1];
-        p+=(n-ans[b[i]-1]+1);
+        int k = (1.0*i*(i+1))-h;
+
+        if(ceil(sqrt(1.0-4.0*k))==floor(sqrt(1.0-4.0*k)))
+        ans++;
     }
-    cout<<v<<" "<<p<<endl;
-    
+    cout<<ans<<endl;
 }
 
 
