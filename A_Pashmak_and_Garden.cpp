@@ -1,4 +1,4 @@
-// 2022-06-27 23:03:26
+// 2022-06-29 19:36:33
 // Viraj Chandra
 // Linkedin: https://www.linkedin.com/in/viraj-chandra-4073a8223/
 // Codeforces: https://codeforces.com/profile/khnhcodingkarlo
@@ -85,9 +85,28 @@ ll powermod(ll x, ll y, ll p){ll res = 1;x = x % p;if (x == 0) return 0;while (y
 
 void solve()
 {
-    int a,b,c;
-    cin>>a>>b>>c;
-    cout<<4*(sqrt((a*b)/c)+sqrt((a*c)/b)+sqrt((b*c)/a))<<endl;
+    int x1,y1,x2,y2;
+    cin>>x1>>y1>>x2>>y2;
+    if(x1>x2)
+    {
+        swap(x1,x2);
+        swap(y1,y2);
+    }
+    if(x1==x2 && y1!=y2)
+    {
+        cout<<x1+abs(y1-y2)<<" "<<y1<<" "<<x2+abs(y1-y2)<<" "<<y2;
+    }
+    else if(x1!=x2 && y1==y2)
+    {
+        cout<<x1<<" "<<y1+abs(x1-x2)<<" "<<x2<<" "<<y2+abs(x1-x2);
+    }
+    else
+    {
+        if(abs(x1-x2)!=abs(y1-y2))
+        pm;
+        else
+        cout<<x1+abs(x1-x2)<<" "<<y1<<" "<<x2-abs(x1-x2)<<" "<<y2;
+    }
 }
 
 

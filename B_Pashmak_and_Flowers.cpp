@@ -1,4 +1,4 @@
-// 2022-06-27 23:03:26
+// 2022-06-29 19:25:13
 // Viraj Chandra
 // Linkedin: https://www.linkedin.com/in/viraj-chandra-4073a8223/
 // Codeforces: https://codeforces.com/profile/khnhcodingkarlo
@@ -85,9 +85,32 @@ ll powermod(ll x, ll y, ll p){ll res = 1;x = x % p;if (x == 0) return 0;while (y
 
 void solve()
 {
-    int a,b,c;
-    cin>>a>>b>>c;
-    cout<<4*(sqrt((a*b)/c)+sqrt((a*c)/b)+sqrt((b*c)/a))<<endl;
+    int n;
+    cin>>n;
+    vi a(n);
+    cin>>a;
+    sort(all(a));
+    int c1=1,c2=1;
+    for(int i=1;i<n;i++)
+    {
+        if(a[i]==a[0])
+        c1++;
+        else
+        break;
+    }
+    for(int i=n-2;i>=0;i--)
+    {
+        if(a[i]==a[n-1])
+        c2++;
+        else
+        break;
+    }
+    ll ans;
+    if(c1==n)
+    ans=(ll)n*(ll)(n-1)/2;
+    else
+    ans=(ll)c1*(ll)c2;
+    cout<<a[n-1]-a[0]<<" "<<ans<<endl;
 }
 
 

@@ -1,4 +1,4 @@
-// 2022-06-27 23:03:26
+// 2022-06-29 02:57:59
 // Viraj Chandra
 // Linkedin: https://www.linkedin.com/in/viraj-chandra-4073a8223/
 // Codeforces: https://codeforces.com/profile/khnhcodingkarlo
@@ -85,9 +85,49 @@ ll powermod(ll x, ll y, ll p){ll res = 1;x = x % p;if (x == 0) return 0;while (y
 
 void solve()
 {
-    int a,b,c;
-    cin>>a>>b>>c;
-    cout<<4*(sqrt((a*b)/c)+sqrt((a*c)/b)+sqrt((b*c)/a))<<endl;
+    int n,m;
+    cin>>n>>m;
+    char a[n][m];
+    char b[n][m];
+    rep(i,n)
+    {
+        string s;
+        cin>>s;
+        rep(j,m)
+        {
+            a[i][j] = s[j];
+        }
+    }
+    bool f=true;
+    rep(i,n)
+    {
+        rep(j,m)
+        {
+            if(f)
+            b[i][j]='B';
+            else
+            b[i][j]='W';
+            f=!f;
+        }
+        if(!(m&1))
+        f=!f;
+    }
+    rep(i,n)
+    {
+        rep(j,m)
+        {
+            if(a[i][j]=='-')
+            b[i][j]=a[i][j];
+        }
+    }
+    rep(i,n)
+    {
+        rep(j,m)
+        {
+            cout<<b[i][j];
+        }
+        cout<<endl;
+    }
 }
 
 

@@ -1,4 +1,4 @@
-// 2022-06-27 23:03:26
+// 2022-06-29 19:03:17
 // Viraj Chandra
 // Linkedin: https://www.linkedin.com/in/viraj-chandra-4073a8223/
 // Codeforces: https://codeforces.com/profile/khnhcodingkarlo
@@ -85,9 +85,27 @@ ll powermod(ll x, ll y, ll p){ll res = 1;x = x % p;if (x == 0) return 0;while (y
 
 void solve()
 {
-    int a,b,c;
-    cin>>a>>b>>c;
-    cout<<4*(sqrt((a*b)/c)+sqrt((a*c)/b)+sqrt((b*c)/a))<<endl;
+    int n;
+    cin>>n;
+    vi a(n);
+    cin>>a;
+    int ans=-1;
+    rep(i,n)
+    {
+        int x=0;
+        rep(j,n)
+        {
+            if(j!=i)   
+            {
+                x=x^a[j];
+            }
+        }
+        if(x==a[i])
+        {
+            ans=a[i];break;
+        }
+    }
+    cout<<ans<<endl;
 }
 
 
@@ -100,7 +118,7 @@ int32_t main()
     //Rating? Neh. In love with experience.
     //Code Karlo, Coz KHNH :)
     int t;
-    t=1;
+    cin>>t;
     while(t--)
     {
     solve();
