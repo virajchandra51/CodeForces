@@ -39,9 +39,7 @@ void solve()
     {
         auto it = find(all(a),e[0]);
         cout<<it-a.begin()+1<<endl;
-    }
-    
-    
+    } 
 }
 
 
