@@ -1,4 +1,4 @@
-// 2022-07-10 04:41:38
+// 2022-07-11 04:44:20
 // Viraj Chandra
 // Linkedin: https://www.linkedin.com/in/viraj-chandra-4073a8223/
 // Codeforces: https://codeforces.com/profile/khnhcodingkarlo
@@ -96,33 +96,22 @@ ll powermod(ll x, ll y, ll p){ll res = 1;x = x % p;if (x == 0) return 0;while (y
 
 void solve()
 {
-    int n,k;
-    cin>>n>>k;
     string s;
     cin>>s;
-    map<char,int> mp;
+    int n=s.size();
+    int ans=0;
+    set<char> ss;
     rep(i,n)
-    mp[s[i]]++;
-    vi ans;
-    for(auto it:mp)
-    ans.pb(it.s);
-    sort(all(ans));
-    reverse(all(ans));
-    ll sum=0; ll o=k;
-    rep(i,ans.size())
     {
-        if(k>=ans[i] && k>0)
+        ss.insert(s[i]);
+        if(ss.size()>3)
         {
-            k-=ans[i];
-            sum+=(pow(ans[i],2));
-        }
-        else
-        {
-            sum+=(pow(k,2));
-            break;
+            ans++;
+            ss.clear();
+            ss.insert(s[i]);
         }
     }
-    cout<<sum<<endl;
+    cout<<ans+1<<endl;
 }
 
 
@@ -135,7 +124,7 @@ int32_t main()
     //Rating? Neh. In love with experience.
     //Code Karlo, Coz KHNH :)
     int t;
-    t=1;
+    cin>>t;
     while(t--)
     {
     solve();

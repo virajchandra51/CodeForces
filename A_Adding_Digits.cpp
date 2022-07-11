@@ -1,4 +1,4 @@
-// 2022-07-10 04:41:38
+// 2022-07-10 13:21:22
 // Viraj Chandra
 // Linkedin: https://www.linkedin.com/in/viraj-chandra-4073a8223/
 // Codeforces: https://codeforces.com/profile/khnhcodingkarlo
@@ -96,33 +96,13 @@ ll powermod(ll x, ll y, ll p){ll res = 1;x = x % p;if (x == 0) return 0;while (y
 
 void solve()
 {
-    int n,k;
-    cin>>n>>k;
-    string s;
-    cin>>s;
-    map<char,int> mp;
-    rep(i,n)
-    mp[s[i]]++;
-    vi ans;
-    for(auto it:mp)
-    ans.pb(it.s);
-    sort(all(ans));
-    reverse(all(ans));
-    ll sum=0; ll o=k;
-    rep(i,ans.size())
+    int a,b,c;
+    cin >> a>>b>>c;
+    int f=1;
+    while(c--)
     {
-        if(k>=ans[i] && k>0)
-        {
-            k-=ans[i];
-            sum+=(pow(ans[i],2));
-        }
-        else
-        {
-            sum+=(pow(k,2));
-            break;
-        }
+        
     }
-    cout<<sum<<endl;
 }
 
 

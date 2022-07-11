@@ -1,4 +1,4 @@
-// 2022-07-10 04:41:38
+// 2022-07-11 17:33:15
 // Viraj Chandra
 // Linkedin: https://www.linkedin.com/in/viraj-chandra-4073a8223/
 // Codeforces: https://codeforces.com/profile/khnhcodingkarlo
@@ -96,33 +96,40 @@ ll powermod(ll x, ll y, ll p){ll res = 1;x = x % p;if (x == 0) return 0;while (y
 
 void solve()
 {
-    int n,k;
-    cin>>n>>k;
     string s;
     cin>>s;
-    map<char,int> mp;
+    int p;
+    cin>>p;
+    int n=s.size();
+    int sum=0;
     rep(i,n)
-    mp[s[i]]++;
-    vi ans;
-    for(auto it:mp)
-    ans.pb(it.s);
-    sort(all(ans));
-    reverse(all(ans));
-    ll sum=0; ll o=k;
-    rep(i,ans.size())
+    sum+=(s[i]-'a'+1);
+    vector<pair<char,int>> v(n);
+    rep(i,n)
     {
-        if(k>=ans[i] && k>0)
+        v[i].first = s[i];
+        v[i].second = i;
+    }
+    set<int> ans;
+    sort(all(v));
+    reverse(all(v));
+    rep(i,n)
+    {
+        if(sum>(p))
         {
-            k-=ans[i];
-            sum+=(pow(ans[i],2));
+            sum-=(v[i].f-'a'+1);
+            ans.insert(v[i].second);
         }
         else
-        {
-            sum+=(pow(k,2));
-            break;
-        }
+        break;
     }
-    cout<<sum<<endl;
+    rep(i,n)
+    {
+        if(ans.find(i)==ans.end())
+        cout<<s[i];
+    }
+    cout<<endl;
+
 }
 
 
@@ -135,7 +142,7 @@ int32_t main()
     //Rating? Neh. In love with experience.
     //Code Karlo, Coz KHNH :)
     int t;
-    t=1;
+    cin>>t;
     while(t--)
     {
     solve();

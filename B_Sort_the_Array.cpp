@@ -1,4 +1,4 @@
-// 2022-07-10 04:41:38
+// 2022-07-10 13:00:40
 // Viraj Chandra
 // Linkedin: https://www.linkedin.com/in/viraj-chandra-4073a8223/
 // Codeforces: https://codeforces.com/profile/khnhcodingkarlo
@@ -96,33 +96,45 @@ ll powermod(ll x, ll y, ll p){ll res = 1;x = x % p;if (x == 0) return 0;while (y
 
 void solve()
 {
-    int n,k;
-    cin>>n>>k;
-    string s;
-    cin>>s;
-    map<char,int> mp;
+    int n;
+    cin>>n;
+    vi a(n);
+    cin>>a;
+    vi b=a;
+    sort(all(b));
+    int l=-1,r=-1;
     rep(i,n)
-    mp[s[i]]++;
-    vi ans;
-    for(auto it:mp)
-    ans.pb(it.s);
-    sort(all(ans));
-    reverse(all(ans));
-    ll sum=0; ll o=k;
-    rep(i,ans.size())
     {
-        if(k>=ans[i] && k>0)
+        if(a[i]!=b[i])
         {
-            k-=ans[i];
-            sum+=(pow(ans[i],2));
-        }
-        else
-        {
-            sum+=(pow(k,2));
-            break;
+            l=i;break;
         }
     }
-    cout<<sum<<endl;
+    rrep(i,n-1)
+    {
+        if(a[i]!=b[i])
+        {
+            r=i;break;
+        }
+    }
+    vi ans;
+    for(int i=l;i<=r;i++)
+    ans.pb(a[i]);
+    vi ans2=ans;
+    sort(all(ans2));
+    reverse(all(ans));
+    if(l==-1 && r==-1)
+    {
+        l=0;r=0;
+    }
+    if(ans==ans2)
+    {
+        cout<<"yes"<<endl;
+        cout<<l+1<<" "<<r+1<<endl;
+    }
+    else
+    cout<<"no"<<endl;
+       
 }
 
 
