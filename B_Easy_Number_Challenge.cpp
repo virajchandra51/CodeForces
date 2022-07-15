@@ -1,4 +1,4 @@
-// 2022-07-07 19:03:28
+// 2022-07-12 03:26:59
 // Viraj Chandra
 // Linkedin: https://www.linkedin.com/in/viraj-chandra-4073a8223/
 // Codeforces: https://codeforces.com/profile/khnhcodingkarlo
@@ -15,6 +15,7 @@ using namespace std;
 #define PI (3.141592653589)
 #define M 1000000007
 #define pb push_back
+#define f first
 #define s second
 #define foreach(i, j, k, in) for(int i=j;i<k;i+=in)
 #define rforeach(i, j, k, in) for(int i=j;i>=k;i-=in)
@@ -93,68 +94,33 @@ ll lcm(ll a, ll b){return (a/gcd(a,b)*b);}
 ll moduloMultiplication(ll a,ll b,ll mod){ll res = 0;a %= mod;while (b){if (b & 1)res = (res + a) % mod;b >>= 1;}return res;}
 ll powermod(ll x, ll y, ll p){ll res = 1;x = x % p;if (x == 0) return 0;while (y > 0){if (y & 1)res = (res*x) % p;y = y>>1;x = (x*x) % p;}return res;}
 
-// 0 1 1 0 1 1 0 1
-// 1 0 0 1 0 0 1 0
-// 1 0 0 1 0 0 1 0
-// 0 1 1 0 1 1 0 1
-
-// 0 1 0 1 0 1 0 1 0 1
-// 1 1 0 1 0 1 0 1 0 0
-// 1 1 0 1 1 1 0 0 1 1
-// 0 1 0 1 0 0 1 0 1 0
-
-// 1 0 0 1 1 0 0 1 1 0 0 1
-// 0 1 1 0 0 1 1 0 0 1 1 0
-// 0 1 1 0 0 1 1 0 0 1 1 0
-// 1 0 0 1 1 0 0 1 1 0 0 1
-// 1 0 0 1
+// important method to create an array of count of divisors
 
 void solve()
 {
-    int n,m;
-    cin>>n>>m;
-    vi a;
-    vi b;
-    int f = m/4;
-    rep(i,f)
+    int a,b,c;
+    cin>>a>>b>>c;
+    int n = a*b*c;
+    vi arr(n+1);
+    for(int i=1;i<=n;i++)
     {
-        a.pb(1);
-        a.pb(0);
-        a.pb(0);
-        a.pb(1);
-    }
-    f=m%4;
-    if(f==1)
-    a.pb(1);
-    if(f==2)
-    {
-        a.pb(1);
-        a.pb(0);
-    }
-    if(f==3)
-    {
-        a.pb(1);
-        a.pb(0);
-        a.pb(0);
-    }
-    rep(i,a.size())
-    b.pb(!(a[i]));
-    n=n/2;
-    int ff=1;
-    rep(i,n)
-    {
-        if(ff)
+        for(int j=i;j<=n;j+=i)
         {
-            cout<<a<<endl;
-            cout<<b<<endl;
+            arr[j]=((ll)(arr[j]+1)%(ll)(1073741824));
         }
-        else
-        {
-            cout<<b<<endl;
-            cout<<a<<endl;
-        }
-        ff=!ff;
     }
+    ll sum=0;
+    for(int i=1;i<=a;i++)
+    {
+        for(int j=1;j<=b;j++)
+        {
+            for(int k=1;k<=c;k++)
+            {
+                sum+=((ll)arr[i*j*k]%(ll)(1073741824));
+            }
+        }
+    }
+    cout<<sum<<endl;
 }
 
 
@@ -167,7 +133,7 @@ int32_t main()
     //Rating? Neh. In love with experience.
     //Code Karlo, Coz KHNH :)
     int t;
-    cin>>t;
+    t=1;
     while(t--)
     {
     solve();
