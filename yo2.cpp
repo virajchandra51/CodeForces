@@ -1,7 +1,8 @@
-//Viraj Chandra
-//Linkedin: https://www.linkedin.com/in/viraj-chandra-4073a8223/
-//Codeforces: https://codeforces.com/profile/khnhcodingkarlo
-//Codechef: https://www.codechef.com/users/codecozkhnhs
+// 2022-07-15 23:35:40
+// Viraj Chandra
+// Linkedin: https://www.linkedin.com/in/viraj-chandra-4073a8223/
+// Codeforces: https://codeforces.com/profile/khnhcodingkarlo
+// Codechef: https://www.codechef.com/users/codecozkhnhs
 
 #include <bits/stdc++.h>
 using namespace std;
@@ -10,6 +11,7 @@ using namespace std;
 #define fastio() ios_base::sync_with_stdio(false), cin.tie(nullptr), cout.tie(nullptr);
 
 //Macros
+#define IOtext freopen("input.txt","r",stdin); freopen("output.txt","w",stdout);
 #define PI (3.141592653589)
 #define M 1000000007
 #define pb push_back
@@ -21,6 +23,11 @@ using namespace std;
 #define rrep(i,j) rforeach(i,j,0,1)
 #define set_bits(x) __builtin_popcountll(x)
 #define zero_bits(x) __builtin_ctzll(x)
+#define sz(s) (int)(s.size())
+#define Num_of_Digits(n) ((int)log10(n) + 1)
+#define inint(x) int x; cin>>x;
+#define inll(x) long long int x; cin>>x;
+#define instr(x) string x; cin>>x;
 #define all(x) x.begin(), x.end()
 #define py cout<<"YES"<<endl
 #define pn cout<<"NO"<<endl
@@ -73,7 +80,15 @@ bool isPrime(ll n){if(n<=1)return false;if(n<=3)return true;if(n%2==0||n%3==0)re
 bool isPowerOfTwo(int n){if(n==0)return false;return (ceil(log2(n)) == floor(log2(n)));}
 bool isPerfectSquare(ll x){if (x >= 0) {ll sr = sqrt(x);return (sr * sr == x);}return false;}
 
+//Constants
+vector <ll> primes;
+vector <bool> is_prime;
+
 // Mathematical functions
+void Sieve(int n){ is_prime.assign(n + 1, true); is_prime[0] = is_prime[1] = false; for(ll i = 2; i * i <= n; i++) if(is_prime[i]) for(ll j = i * i; j <= n; j += i) is_prime[j] = false;}
+void get_primes(int n){ for(int i = 2; i <= n; i++)  if(is_prime[i])  primes.push_back(i); }
+ll mod_add(ll a, ll b, ll m) {a = a % m; b = b % m; return (((a + b) % m) + m) % m;}
+ll mod_sub(ll a, ll b, ll m) {a = a % m; b = b % m; return (((a - b) % m) + m) % m;}
 ll gcd(ll a, ll b){if (b == 0)return a;return gcd(b, a % b);} //__gcd 
 ll lcm(ll a, ll b){return (a/gcd(a,b)*b);}
 ll moduloMultiplication(ll a,ll b,ll mod){ll res = 0;a %= mod;while (b){if (b & 1)res = (res + a) % mod;b >>= 1;}return res;}
@@ -81,11 +96,7 @@ ll powermod(ll x, ll y, ll p){ll res = 1;x = x % p;if (x == 0) return 0;while (y
 
 void solve()
 {
-    int n;
-    cin>>n;
-    vi a(n);
-    cin>>a;
-    cout<<a;
+
 }
 
 
