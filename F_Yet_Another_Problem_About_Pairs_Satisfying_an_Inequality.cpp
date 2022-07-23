@@ -1,4 +1,4 @@
-// 2022-07-10 03:04:46
+// 2022-07-24 04:20:05
 // Viraj Chandra
 // Linkedin: https://www.linkedin.com/in/viraj-chandra-4073a8223/
 // Codeforces: https://codeforces.com/profile/khnhcodingkarlo
@@ -98,24 +98,19 @@ void solve()
 {
     int n;
     cin>>n;
-    vi a(n);
-    cin>>a;
-    vi dp(n);
-    dp[0]=a[0];
-    for(int i=1;i<n;i++)
-    dp[i]=dp[i-1]+a[i];
-    cout<<dp<<endl;
-    int m=-1;
-    rep(i,n)
+    vi a(n+1);
+    for(int i=1;i<=n;i++)
+    cin>>a[i];
+    vi v;
+    ll res=0;
+    for(int i=1;i<=n;i++)
     {
-        for(int j=i;j<n;j++)
-        {
-            int t = dp[j]-dp[i];
-            int di = j-i+1;
-            m = max(m,dp[n-1]-t+(di-t));
-        }
+        if(a[i]>=i)
+        continue;
+        res+= (lower_bound(all(v),a[i])-v.begin());
+        v.pb(i);
     }
-    cout<<m<<endl;
+    cout<<res<<endl;
 }
 
 
@@ -128,7 +123,7 @@ int32_t main()
     //Rating? Neh. In love with experience.
     //Code Karlo, Coz KHNH :)
     int t;
-    t=1;
+    cin>>t;
     while(t--)
     {
     solve();

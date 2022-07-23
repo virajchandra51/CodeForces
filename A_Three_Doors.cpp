@@ -1,4 +1,4 @@
-// 2022-07-10 03:04:46
+// 2022-07-24 02:55:19
 // Viraj Chandra
 // Linkedin: https://www.linkedin.com/in/viraj-chandra-4073a8223/
 // Codeforces: https://codeforces.com/profile/khnhcodingkarlo
@@ -96,26 +96,14 @@ ll powermod(ll x, ll y, ll p){ll res = 1;x = x % p;if (x == 0) return 0;while (y
 
 void solve()
 {
-    int n;
-    cin>>n;
-    vi a(n);
-    cin>>a;
-    vi dp(n);
-    dp[0]=a[0];
-    for(int i=1;i<n;i++)
-    dp[i]=dp[i-1]+a[i];
-    cout<<dp<<endl;
-    int m=-1;
-    rep(i,n)
-    {
-        for(int j=i;j<n;j++)
-        {
-            int t = dp[j]-dp[i];
-            int di = j-i+1;
-            m = max(m,dp[n-1]-t+(di-t));
-        }
-    }
-    cout<<m<<endl;
+    int x; cin>>x;
+    int a,b,c;
+    cin>>a>>b>>c;
+    if(a==1 || b==2 || c==3)
+    pn;
+    else if((x==1 && a==0) || (x==2 && b==0) || (x==3 && c==0))
+    pn;
+    else py;
 }
 
 
@@ -128,7 +116,7 @@ int32_t main()
     //Rating? Neh. In love with experience.
     //Code Karlo, Coz KHNH :)
     int t;
-    t=1;
+    cin>>t;
     while(t--)
     {
     solve();

@@ -1,4 +1,4 @@
-// 2022-07-10 03:04:46
+// 2022-07-24 02:59:47
 // Viraj Chandra
 // Linkedin: https://www.linkedin.com/in/viraj-chandra-4073a8223/
 // Codeforces: https://codeforces.com/profile/khnhcodingkarlo
@@ -96,26 +96,37 @@ ll powermod(ll x, ll y, ll p){ll res = 1;x = x % p;if (x == 0) return 0;while (y
 
 void solve()
 {
-    int n;
-    cin>>n;
+    int n,m;
+    cin>>n>>m;
     vi a(n);
     cin>>a;
-    vi dp(n);
-    dp[0]=a[0];
+    vl l(n);
+    vl r(n);
+    l[0]=0;
     for(int i=1;i<n;i++)
-    dp[i]=dp[i-1]+a[i];
-    cout<<dp<<endl;
-    int m=-1;
-    rep(i,n)
     {
-        for(int j=i;j<n;j++)
-        {
-            int t = dp[j]-dp[i];
-            int di = j-i+1;
-            m = max(m,dp[n-1]-t+(di-t));
-        }
+        if(a[i]<a[i-1])
+        l[i] = l[i-1] + (a[i-1]-a[i]);
+        else
+        l[i] = l[i-1];
+    }    
+    r[n-1]=0;
+    for(int i=n-2;i>=0;i--)
+    {
+        if(a[i]>a[i+1])
+        r[i] = r[i+1];
+        else
+        r[i] = r[i+1] + (a[i+1]-a[i]);
     }
-    cout<<m<<endl;
+    while(m--)
+    {
+        int a,b;
+        cin>>a>>b;
+        if(a>b)
+        cout<<r[b-1]-r[a-1]<<endl;
+        else
+        cout<<l[b-1]-l[a-1]<<endl;
+    }
 }
 
 

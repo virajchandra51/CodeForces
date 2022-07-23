@@ -104,18 +104,18 @@ void solve()
             cin>>a[i][j];
         }
     }
-    vi ans;
-    for(int i=0;i<5;i++)
+    vi arr(5);
+    rep(i,5)
+    arr[i]=i;
+    int m=-1;
+    do
     {
-        for(int j=0;j<i;j++)
-        {
-            ans.pb(a[i][j]+a[j][i]);
-        }
-    }
-    sort(all(ans));
-    reverse(all(ans));
-    cout<<ans<<endl;
-    cout<<2*(ans[0]+ans[1])+ans[2]+ans[3];
+        m=max(m,
+        a[arr[0]][arr[1]]+a[arr[1]][arr[0]]+a[arr[2]][arr[3]]+a[arr[3]][arr[2]]+
+        a[arr[1]][arr[2]]+a[arr[2]][arr[1]]+a[arr[3]][arr[4]]+a[arr[4]][arr[3]]+
+        a[arr[2]][arr[3]]+a[arr[3]][arr[2]]+a[arr[3]][arr[4]]+a[arr[4]][arr[3]]);
+    }while(next_permutation(all(arr)));
+    cout<<m<<endl;
 }
 
 
