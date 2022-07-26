@@ -94,23 +94,25 @@ ll lcm(ll a, ll b){return (a/gcd(a,b)*b);}
 ll moduloMultiplication(ll a,ll b,ll mod){ll res = 0;a %= mod;while (b){if (b & 1)res = (res + a) % mod;b >>= 1;}return res;}
 ll powermod(ll x, ll y, ll p){ll res = 1;x = x % p;if (x == 0) return 0;while (y > 0){if (y & 1)res = (res*x) % p;y = y>>1;x = (x*x) % p;}return res;}
 
+
 void solve()
 {
-    int n,a,b,c;
+    ll n,a,b,c;
     cin >> n >> a >> b >> c;
-    int arr[] = {a,b,c};
-    sort(arr,arr+3);
-    int m1 = arr[0],m2 = arr[1],m3 = arr[2];
-    int ans = n/m1;
-    n%=m1;
-    while(n%m2!=0 && n%m3!=0)
+    vi dp(n+1);
+    dp[0]=0;
+    for(int i=1;i<=n;i++)
     {
-        n+=m1;
-        ans--;
+        int x=INT_MIN,y=INT_MIN,z=INT_MIN;
+        if(i-a>=0)
+        x=dp[i-a];
+        if(i-b>=0)
+        y=dp[i-b];
+        if(i-c>=0)
+        z=dp[i-c];
+        dp[i] = 1+max(x,max(y,z));
     }
-    if(n!=0)
-    ans++;
-    cout<<ans<<endl;
+    cout<<dp[n]<<endl;
 }
 
 

@@ -96,13 +96,22 @@ ll powermod(ll x, ll y, ll p){ll res = 1;x = x % p;if (x == 0) return 0;while (y
 
 void solve()
 {
-    int a,b,c;
-    cin >> a>>b>>c;
-    int f=1;
-    while(c--)
+    ll a,b,c;
+    cin>>a>>b>>c;
+    int f=0;
+    rep(i,10)
     {
-        
+        if(((a*10)+i)%b==0)
+        {a= (a*10 +i);f=1;break;}
     }
+    if(f)
+    {
+        cout<<a;
+        rep(i,c-1)
+        cout<<0;
+    }
+    else
+    pm;
 }
 
 

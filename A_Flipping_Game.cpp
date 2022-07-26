@@ -100,19 +100,20 @@ void solve()
     cin>>n;
     vi a(n);
     cin>>a;
-    vi dp(n);
-    dp[0]=a[0];
-    for(int i=1;i<n;i++)
-    dp[i]=dp[i-1]+a[i];
-    cout<<dp<<endl;
     int m=-1;
-    rep(i,n)
+    for(int i=0;i<n;i++)
     {
         for(int j=i;j<n;j++)
         {
-            int t = dp[j]-dp[i];
-            int di = j-i+1;
-            m = max(m,dp[n-1]-t+(di-t));
+            int c=0;
+            for(int k=0;k<n;k++)
+            {
+                if(k>=i && k<=j)
+                c+=(1-a[k]);
+                else
+                c+=a[k];
+            }
+            m=max(c,m);
         }
     }
     cout<<m<<endl;
