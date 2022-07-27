@@ -96,7 +96,40 @@ ll powermod(ll x, ll y, ll p){ll res = 1;x = x % p;if (x == 0) return 0;while (y
 
 void solve()
 {
-
+    int n,k;
+    cin>>n>>k;
+    vi neg,pos; ll sum=0; 
+    rep(i,n)
+    {
+        int x; cin>>x;
+        if(x<0)
+        neg.pb(x);
+        else
+        pos.pb(x);
+        sum+=x;
+    }
+    if(k>=neg.size())
+    {
+        rep(i,neg.size())
+        sum+=(2*-1*neg[i]);
+        k-=neg.size();
+        vi ans;
+        rep(i,neg.size())
+        ans.pb(-1*neg[i]);
+        rep(i,pos.size())
+        ans.pb(pos[i]);
+        sort(all(ans));
+        if(k&1)
+        cout<<sum-2*ans[0]<<endl;
+        else
+        cout<<sum<<endl;
+    }
+    else
+    {
+        rep(i,k)
+        sum+=(2*-1*neg[i]);
+        cout<<sum<<endl;
+    }
 }
 
 
