@@ -1,4 +1,4 @@
-// 2022-07-15 23:35:40
+// 2022-09-02 23:29:41
 // Viraj Chandra
 // Linkedin: https://www.linkedin.com/in/viraj-chandra-4073a8223/
 // Codeforces: https://codeforces.com/profile/khnhcodingkarlo
@@ -96,7 +96,14 @@ ll powermod(ll x, ll y, ll p){ll res = 1;x = x % p;if (x == 0) return 0;while (y
 
 void solve()
 {
-    
+    ll n;
+    cin>>n;
+    ll sum=n;
+    ll two = n/2;
+    ll three = n/3;
+    sum+=(two*2);
+    sum+=(three*2);
+    cout<<sum<<endl;
 }
 
 
