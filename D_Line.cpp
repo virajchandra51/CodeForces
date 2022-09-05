@@ -1,4 +1,4 @@
-// 2022-09-02 17:53:34
+// 2022-09-06 01:25:47
 // Viraj Chandra
 // Linkedin: https://www.linkedin.com/in/viraj-chandra-4073a8223/
 // Codeforces: https://codeforces.com/profile/khnhcodingkarlo
@@ -96,7 +96,32 @@ ll powermod(ll x, ll y, ll p){ll res = 1;x = x % p;if (x == 0) return 0;while (y
 
 void solve()
 {
-    
+    int n;
+    cin>>n;
+    string s;
+    cin>>s;
+    ll sum=0;
+    vl v;
+    for(int i=0;i<n;i++)
+    {
+        if(s[i]=='L')
+        {
+            sum+=i;
+            v.push_back(n-i-1-i);
+        }
+        else
+        {
+            sum+=(n-i-1);
+            v.push_back(i-(n-i-1));
+        }
+    }
+    sort(all(v),greater<int>());
+    rep(i,v.size())
+    {
+        if(v[i]>0) sum+=v[i];
+        cout<<sum<<" ";
+    }
+    cout<<endl;
 }
 
 
