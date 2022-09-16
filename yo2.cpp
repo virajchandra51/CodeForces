@@ -1,4 +1,4 @@
-// 2022-07-15 23:35:40
+// 2022-09-16 22:28:09
 // Viraj Chandra
 // Linkedin: https://www.linkedin.com/in/viraj-chandra-4073a8223/
 // Codeforces: https://codeforces.com/profile/khnhcodingkarlo
@@ -66,6 +66,10 @@ template<typename T> // cin >> vector<T>
 istream& operator>>(istream &istream, vector<T> &v){for (auto &it : v)cin >> it;return istream;}
 template<typename T> // cout << vector<T>
 ostream& operator<<(ostream &ostream, const vector<T> &c) { for (auto &it : c) cout << it << " "; return ostream; }
+template<typename T, typename V> // cin >> map<T,T>
+istream& operator<<(istream &istream, const map<T,V> &c) { for (auto &it : c) cout >> it.first>> it.second; return istream; }
+template<typename T, typename V> // cout << map<T,T>
+ostream& operator<<(ostream &ostream, const map<T,V> &c) { for (auto &it : c) cout << it.first << " " << it.second<<endl; return ostream; }
 
 //Sorting
 bool sorta(const pair<int,int> &a,const pair<int,int> &b){return (a.second < b.second);}
@@ -96,7 +100,11 @@ ll powermod(ll x, ll y, ll p){ll res = 1;x = x % p;if (x == 0) return 0;while (y
 
 void solve()
 {
-    
+    int n;
+    cin>>n;
+    vi a;
+    cin>>a;
+    cout<<a<<endl;
 }
 
 
