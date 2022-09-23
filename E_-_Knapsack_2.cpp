@@ -1,4 +1,4 @@
-// 2022-09-23 09:21:13
+// 2022-09-23 11:15:14
 // Viraj Chandra
 // Linkedin: https://www.linkedin.com/in/viraj-chandra-4073a8223/
 // Codeforces: https://codeforces.com/profile/khnhcodingkarlo
@@ -96,35 +96,44 @@ ll lcm(ll a, ll b){return (a/gcd(a,b)*b);}
 ll moduloMultiplication(ll a,ll b,ll mod){ll res = 0;a %= mod;while (b){if (b & 1)res = (res + a) % mod;b >>= 1;}return res;}
 ll powermod(ll x, ll y, ll p){ll res = 1;x = x % p;if (x == 0) return 0;while (y > 0){if (y & 1)res = (res*x) % p;y = y>>1;x = (x*x) % p;}return res;}
 
-ll dp[101][1000001];
+vvl dp(101,vl(100001,INT_MAX));
 
-ll knapSack(int i, int w, vector<ll> &weights, vector<ll> &values)
-{
-    if(i<0 || w==0)
-    return 0;
-    if(dp[i][w]!=-1) return dp[i][w];
-    if(weights[i]>w)
-    {
-        dp[i][w] = knapSack(i-1, w, weights,values);
-        return dp[i][w];
-    }
-    else
-    {
-        dp[i][w] = max(values[i]+knapSack(i-1, w-weights[i], weights, values),
-        knapSack(i-1, w, weights, values));
-        return dp[i][w];
-    }
-}
-
+// dp[index][value] represents minimum weight that can be taken
+// when taking elemenets upto index with a net sum of value
 
 void solve()
 {
-    ll n,w;
-    cin>>n>>w;
-    vl weights(n),values(n);
-    rep(i,n)
-    cin>>weights[i]>>values[i];
-    cout<<knapSack(n, w, weights, values)<<endl;
+    ll n,W;
+	cin>>n>>W;
+	vl w(n),v(n);
+    
+	for(int i=0;i<n;i++){
+		cin>>w[i]>>v[i];
+	}
+    dp[0][0]=0; // if at first element, the value is 0 means we did not take that element hence 0 value hence no weight in knapSack hence 0 weight
+    dp[0][v[0]] = w[0]; // if at first element, the value is v[0] and if take is hence knapSach w[0]
+	for(int id=1;id<n;id++){
+        dp[id][0] = 0; // at each element if we take no value means we did not take any element hence 0 weight
+        for(int j=1;j<=100000;j++){
+			
+			// Discard current object
+			dp[id][j] = dp[id-1][j];
+			
+			// Pick current object
+			if(j >= v[id]) // if current value j is greater than the value element then
+				dp[id][j] = min(dp[id][j], w[id] + dp[id-1][j-v[id]]);
+                // j-v[id] represents the value after we reduce the current element's value, because we are taking that element
+			
+		}
+	}
+    for(int i=100000;i>=0;i--)
+    {
+        if(dp[n-1][i]<=W)
+        {
+            cout<<i<<endl;
+            return;
+        }
+    }
 }
 
 

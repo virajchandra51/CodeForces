@@ -1,4 +1,4 @@
-// 2022-09-23 09:21:13
+// 2022-09-23 11:15:14
 // Viraj Chandra
 // Linkedin: https://www.linkedin.com/in/viraj-chandra-4073a8223/
 // Codeforces: https://codeforces.com/profile/khnhcodingkarlo
@@ -96,35 +96,48 @@ ll lcm(ll a, ll b){return (a/gcd(a,b)*b);}
 ll moduloMultiplication(ll a,ll b,ll mod){ll res = 0;a %= mod;while (b){if (b & 1)res = (res + a) % mod;b >>= 1;}return res;}
 ll powermod(ll x, ll y, ll p){ll res = 1;x = x % p;if (x == 0) return 0;while (y > 0){if (y & 1)res = (res*x) % p;y = y>>1;x = (x*x) % p;}return res;}
 
-vector<vector<ll>> dp(101,vector<ll>(100001,-1));
+vvl dp(101,vl(100001));
 
-ll knapSack(int i, int w, vector<ll> &weights, vector<ll> &values)
-{
-    if(i<0 || w==0)
-    return 0;
-    if(dp[i][w]!=-1) return dp[i][w];
-    if(weights[i]>w)
-    {
-        dp[i][w] = knapSack(i-1, w, weights,values);
-        return dp[i][w];
-    }
-    else
-    {
-        dp[i][w] = max(values[i]+knapSack(i-1, w-weights[i], weights, values),
-        knapSack(i-1, w, weights, values));
-        return dp[i][w];
-    }
-}
-
+// dp[index][weight] represents maximum value that can be formed
+// when taking elemenets upto index with a knapsack capacity of weight
 
 void solve()
 {
-    ll n,w;
-    cin>>n>>w;
-    vl weights(n),values(n);
-    rep(i,n)
-    cin>>weights[i]>>values[i];
-    cout<<knapSack(n, w, weights, values)<<endl;
+    ll n,W;
+	cin>>n>>W;
+	vl w(n),v(n);
+    
+	for(int i=0;i<n;i++){
+		cin>>w[i]>>v[i];
+	}
+    // below we initiliase base cases, for first element at our disposal
+    // if for first element, the capacity is less than the weight of first element, dp is 0, else dp = val
+	for(int cap = 0; cap <= W; cap++){
+		ll wt = w[0];
+		ll val = v[0];
+		if(cap < wt){
+			dp[0][cap] = 0; // impossible to take, definitely not take
+		}
+		else{
+			// possible to take
+			dp[0][cap] = val; // definitely take it
+		}
+		
+	}
+	for(int id=1;id<n;id++){
+		for(int j=1;j<=W;j++){
+			
+			// Discard current object
+			dp[id][j] = dp[id-1][j];
+			
+			// Pick current object
+			if(j >= w[id])
+				dp[id][j] = max(dp[id][j], v[id] + dp[id-1][j-w[id]]);
+                // j-w[id] represents the weight after we deduce the current element's weight, because we are taking that element
+			
+		}
+	}
+	cout<<dp[n-1][W]<<endl;
 }
 
 
