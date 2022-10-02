@@ -48,6 +48,7 @@ typedef vector<vi> vvi;
 typedef vector<vl> vvl;
 typedef map<int,int> mii;
 typedef set<int> st;
+typedef unordered_map<int,int> ump;
 
 #ifndef ONLINE_JUDGE
 #define debug(x) cerr<<#x<<" ";_print(x); cerr<<endl;

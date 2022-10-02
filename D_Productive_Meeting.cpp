@@ -100,37 +100,31 @@ void solve()
     cin>>n;
     vi a(n);
     cin>>a;
-    vpi v;
+    multiset<pair<int,int>> mp;
     rep(i,n)
     {
-        if(a[i]!=0)
-        v.pb({a[i],i+1});
+        if(a[i]==0)
+        continue;
+        mp.insert({a[i],i+1});
     }
-    sort(all(v));
-
-    for(auto it:v)
-    cout<<it.f<<" "<<it.s<<endl;
-    cout<<endl;
-    int l=0,r=v.size()-1;
-    while(l<r)
+    vpi v;
+    while(mp.size()>1)
     {
-        if(v[r].f>0 && v[l].f>0)
-        {
-            cout<<v[r].s<<" "<<v[l].s<<endl;
-            v[r].f--;v[l].f--;
-        }
-        else if(v[r].f>0 && v[l].f==0)
-        {
-            l++;
-        }
-        else
-        {
-            r--;
-        }
+        pair<int,int> p = *mp.rbegin();
+        mp.erase(p);
+        pair<int,int> q = *mp.rbegin();
+        mp.erase(q);
+        v.pb({p.s,q.s});
+        p.f--;
+        q.f--;
+        if(p.f>0)
+        mp.insert(p);
+        if(q.f>0)
+        mp.insert(q);
     }
-
-
-    cout<<endl;
+    cout<<v.size()<<endl;
+    for(auto it:v)
+    cout<<it.s<<" "<<it.f<<endl;
 
 }
 
