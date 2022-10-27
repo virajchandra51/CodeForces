@@ -1,4 +1,4 @@
-// 2022-10-26 13:03:29
+// 2022-10-27 00:28:04
 // Viraj Chandra
 // Linkedin: https://www.linkedin.com/in/viraj-chandra-4073a8223/
 // Codeforces: https://codeforces.com/profile/khnhcodingkarlo
@@ -98,41 +98,29 @@ ll powermod(ll x, ll y, ll p){ll res = 1;x = x % p;if (x == 0) return 0;while (y
 
 void solve()
 {
-    int n;
+    ll n;
     cin>>n;
-    vector<vector<int>> graph(10);
-    rep(i,n)
+    int c =0;
+    while(n%2==0)
     {
-        int a,b;
-        cin>>a>>b;
-        graph[a].pb(b);
-        graph[b].pb(a);
+        c++;
+        n/=2;
     }
-    vector<bool> visited(n+1,false);
-    visited[2]=true;
-    queue<int> q;
-    q.push(2);
-    int d = 1;
-    vector<int> dis(n+2,0);
-    while(!q.empty())
+    if(c&1)
     {
-        int num = q.front();
-        visited[num] = true;
-        q.pop();
-        int f=0;
-        for(auto it:graph[num])
+        c--;
+        n*=2;
+    }
+    for(int i=1;i<=sqrt(n);i++)
+    {
+        int a = i*i;
+        if(ceil(sqrt(n-a))==floor(sqrt(n-a)))
         {
-            if(!visited[it])
-            {
-                f=1;
-                q.push(it);
-                dis[it] = d;
-            }
+            cout<<((int)sqrt(n-a)<<(c/2))<<" "<<(i<<(c/2))<<endl;
+            return;
         }
-        if(f)
-        d++;
     }
-    cout<<dis<<endl;
+    pm;
 }
 
 
@@ -145,7 +133,7 @@ int32_t main()
     //Rating? Neh. In love with experience.
     //Code Karlo, Coz KHNH :)
     int t;
-    t=1;
+    cin>>t;
     while(t--)
     {
     solve();

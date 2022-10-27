@@ -1,4 +1,4 @@
-// 2022-10-26 13:03:29
+// 2022-10-27 00:25:52
 // Viraj Chandra
 // Linkedin: https://www.linkedin.com/in/viraj-chandra-4073a8223/
 // Codeforces: https://codeforces.com/profile/khnhcodingkarlo
@@ -98,41 +98,12 @@ ll powermod(ll x, ll y, ll p){ll res = 1;x = x % p;if (x == 0) return 0;while (y
 
 void solve()
 {
-    int n;
-    cin>>n;
-    vector<vector<int>> graph(10);
-    rep(i,n)
+    int n;cin>>n;string s;cin>>s;int c=0;
+    rep(i,n-1)
     {
-        int a,b;
-        cin>>a>>b;
-        graph[a].pb(b);
-        graph[b].pb(a);
+        if(s[i]=='1' && s[i+1]=='0') c++;
     }
-    vector<bool> visited(n+1,false);
-    visited[2]=true;
-    queue<int> q;
-    q.push(2);
-    int d = 1;
-    vector<int> dis(n+2,0);
-    while(!q.empty())
-    {
-        int num = q.front();
-        visited[num] = true;
-        q.pop();
-        int f=0;
-        for(auto it:graph[num])
-        {
-            if(!visited[it])
-            {
-                f=1;
-                q.push(it);
-                dis[it] = d;
-            }
-        }
-        if(f)
-        d++;
-    }
-    cout<<dis<<endl;
+    cout<<c<<endl;
 }
 
 
@@ -145,7 +116,7 @@ int32_t main()
     //Rating? Neh. In love with experience.
     //Code Karlo, Coz KHNH :)
     int t;
-    t=1;
+    cin>>t;
     while(t--)
     {
     solve();

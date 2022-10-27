@@ -1,4 +1,4 @@
-// 2022-10-26 13:03:29
+// 2022-10-27 05:08:49
 // Viraj Chandra
 // Linkedin: https://www.linkedin.com/in/viraj-chandra-4073a8223/
 // Codeforces: https://codeforces.com/profile/khnhcodingkarlo
@@ -66,8 +66,6 @@ template<typename T> // cin >> vector<T>
 istream& operator>>(istream &istream, vector<T> &v){for (auto &it : v)cin >> it;return istream;}
 template<typename T> // cout << vector<T>
 ostream& operator<<(ostream &ostream, const vector<T> &c) { for (auto &it : c) cout << it << " "; return ostream; }
-template<typename T, typename V> // cout << map<T,T>
-ostream& operator<<(ostream &ostream, const map<T,V> &c) { for (auto &it : c) cout << it.first << " " << it.second<<endl; return ostream; }
 
 //Sorting
 bool sorta(const pair<int,int> &a,const pair<int,int> &b){return (a.second < b.second);}
@@ -98,41 +96,13 @@ ll powermod(ll x, ll y, ll p){ll res = 1;x = x % p;if (x == 0) return 0;while (y
 
 void solve()
 {
-    int n;
-    cin>>n;
-    vector<vector<int>> graph(10);
-    rep(i,n)
+    int x;
+    cin>>x;
+    while(x!=42)
     {
-        int a,b;
-        cin>>a>>b;
-        graph[a].pb(b);
-        graph[b].pb(a);
+        cout<<x<<endl;
+        cin>>x;
     }
-    vector<bool> visited(n+1,false);
-    visited[2]=true;
-    queue<int> q;
-    q.push(2);
-    int d = 1;
-    vector<int> dis(n+2,0);
-    while(!q.empty())
-    {
-        int num = q.front();
-        visited[num] = true;
-        q.pop();
-        int f=0;
-        for(auto it:graph[num])
-        {
-            if(!visited[it])
-            {
-                f=1;
-                q.push(it);
-                dis[it] = d;
-            }
-        }
-        if(f)
-        d++;
-    }
-    cout<<dis<<endl;
 }
 
 
