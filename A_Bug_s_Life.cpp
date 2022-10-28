@@ -96,9 +96,59 @@ ll lcm(ll a, ll b){return (a/gcd(a,b)*b);}
 ll moduloMultiplication(ll a,ll b,ll mod){ll res = 0;a %= mod;while (b){if (b & 1)res = (res + a) % mod;b >>= 1;}return res;}
 ll powermod(ll x, ll y, ll p){ll res = 1;x = x % p;if (x == 0) return 0;while (y > 0){if (y & 1)res = (res*x) % p;y = y>>1;x = (x*x) % p;}return res;}
 
+vi adj[2001];
+int vis[2001], col[2001];
+
+bool dfs(int n, int c)
+{
+    vis[n]=1;
+    col[n]=c;
+    for(auto it: adj[n])
+    {
+        if(vis[it]==0)
+        {
+            bool res = dfs(it, c^1);
+            if(res==false)
+            return false;
+        }
+        else
+        {
+            if(col[it]==col[n])
+            return false;
+        }
+    }
+    return true;
+}
+
 void solve()
 {
-    
+    int n,m;
+    cin>>n>>m; 
+    rep(i,n)
+    adj[i].clear(),vis[i]=0;
+    rep(i,m)
+    {
+        int a,b;
+        cin>>a>>b;
+        adj[a].pb(b);
+        adj[b].pb(a);
+    }
+    bool flag = true;
+    rep(i,n)
+    {
+        if(vis[i]==0)
+        {
+            bool res = dfs(i, 0);
+            if(res==false)
+            {
+                flag=false;break;
+            }
+        }
+    }
+    if(flag)
+    cout<<"No suspicious bugs found!"<<endl;
+    else
+    cout<<"Suspicious bugs found!"<<endl;
 }
 
 
@@ -112,9 +162,10 @@ int32_t main()
     //Code Karlo, Coz KHNH :)
     int t;
     cin>>t;
-    while(t--)
+    rep(i,t)
     {
-    solve();
+        cout<<"Scenario #"<<i+1<<":"<<endl;
+        solve();
     }
     return 0;
 }
