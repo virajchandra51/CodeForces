@@ -1,4 +1,4 @@
-// 2023-03-23 13:44:27
+// 2023-03-27 12:59:01
 // Viraj Chandra
 // Linkedin: https://www.linkedin.com/in/viraj-chandra-4073a8223/
 // Codeforces: https://codeforces.com/profile/khnhcodingkarlo
@@ -104,120 +104,21 @@ ll lcm(ll a, ll b){return (a/gcd(a,b)*b);}
 ll moduloMultiplication(ll a,ll b,ll mod){ll res = 0;a %= mod;while (b){if (b & 1)res = (res + a) % mod;b >>= 1;}return res;}
 ll powermod(ll x, ll y, ll p){ll res = 1;x = x % p;if (x == 0) return 0;while (y > 0){if (y & 1)res = (res*x) % p;y = y>>1;x = (x*x) % p;}return res;}
 
-bool isConnected(long long int x1, long long int y1, long long int r1, long long int x2, long long int y2, long long int r2)
-{
-  ll x = (x1 - x2), y = (y1 - y2);
-  double dis = sqrtl((x * x) + (y * y));
-  return (double)(r1 + r2) >= dis;
-}
-
-bool dfs(int src, int des, vector<vector<ll>> &adj, vector<bool> &vis)
-{
-    if(src==des) return 0;
-    vis[src]=1;
-    bool res=1;
-    for(auto it:adj[src])
-    {
-        if(vis[it]==0)
-        res&=dfs(it,des,adj,vis);
-    }
-    return res;
-}
-
 void solve()
 {
-    long long int x,y;
-    cin>>x>>y;
-    long long int n;
+    ll n;
     cin>>n;
-    vector<pair<pair<long long int,long long int>,long long int>> v(n);
-    rep(i,n)
+    ll l = -1;
+    ll r = 1e9;
+    while(l<r)
     {
-      long long int xx,yy,r;
-      cin>>xx>>yy>>r;
-      v[i].first.first=xx;
-      v[i].first.second=yy;
-      v[i].second=r;
+        ll mid = (l+r)/2;
+        if(mid*mid>=n)
+        r=mid;
+        else
+        l=mid+1;
     }
-    vector<vector<ll>> adj(n+5,vector<ll>());
-    rep(i,n)
-    {
-      for(int j=i+1;j<n;j++)
-      {
-        if(isConnected(v[i].first.first,v[i].first.second,v[i].second,v[j].first.first,v[j].first.second,v[j].second))
-        {
-          adj[i].push_back(j);
-          adj[j].push_back(i);
-        }
-      }
-    }
-    // for(auto it:adj)
-    // {
-    //   cout<<it.first<<" ";
-    //   for(auto i:it.second)
-    //   cout<<i<<" ";
-    //   cout<<endl;
-    // }
-    // -1 top
-    // -2 left
-    // -3 bottom
-    // -4 right
-    rep(i,n)
-    {
-        ll xc = v[i].first.first;
-        ll yc = v[i].first.second;
-        ll rc = v[i].second;
-        if(abs(y-yc)<=rc)
-        {
-            adj[n+1].push_back(i);
-            adj[i].push_back(n+1);
-        }
-        if(abs(yc)<=rc)
-        {
-            adj[n+3].push_back(i);
-            adj[i].push_back(n+3);
-        }
-        if(abs(x-xc)<=rc)
-        {
-            adj[n+4].push_back(i);
-            adj[i].push_back(n+4);
-        }
-        if(abs(xc)<=rc)
-        {
-            adj[n+2].push_back(i);
-            adj[i].push_back(n+2);
-        }
-    }
-    // top to left
-    // top to bottom
-    // right to left
-    // right to bottom
-    vector<bool> vis(n+5,false);
-    vector<bool> copy(n+5,false);
-    if(!dfs(n+1,n+2,adj,vis))
-    {
-        pn;
-        return;
-    }
-    vis=copy;
-    if(!dfs(n+1,n+3,adj,vis))
-    {
-        pn;
-        return;
-    }
-    vis=copy;
-    if(!dfs(n+4,n+2,adj,vis))
-    {
-        pn;
-        return;
-    }
-    vis=copy;
-    if(!dfs(n+4,n+3,adj,vis))
-    {
-        pn;
-        return;
-    }
-    py;    
+    cout<<l-1<<endl;
 }
 
 
