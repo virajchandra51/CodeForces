@@ -1,4 +1,4 @@
-// 2022-09-28 20:37:25
+// 2023-05-18 11:29:33
 // Viraj Chandra
 // Linkedin: https://www.linkedin.com/in/viraj-chandra-4073a8223/
 // Codeforces: https://codeforces.com/profile/khnhcodingkarlo
@@ -29,6 +29,14 @@ using namespace std;
 #define inll(x) long long int x; cin>>x;
 #define instr(x) string x; cin>>x;
 #define all(x) x.begin(), x.end()
+#define os(x) cout << x << " ";
+#define out(x) cout << x << endl;
+#define MAX(x) *max_element(all(x))
+#define MIN(x) *min_element(all(x))
+#define SUM(x) accumulate(all(x), 0LL)
+#define COUNT(x,u) count(all(x), u)
+#define B break
+#define C continue
 #define py cout<<"YES"<<endl
 #define pn cout<<"NO"<<endl
 #define pm cout<<"-1"<<endl
@@ -95,19 +103,53 @@ ll gcd(ll a, ll b){if (b == 0)return a;return gcd(b, a % b);} //__gcd
 ll lcm(ll a, ll b){return (a/gcd(a,b)*b);}
 ll moduloMultiplication(ll a,ll b,ll mod){ll res = 0;a %= mod;while (b){if (b & 1)res = (res + a) % mod;b >>= 1;}return res;}
 ll powermod(ll x, ll y, ll p){ll res = 1;x = x % p;if (x == 0) return 0;while (y > 0){if (y & 1)res = (res*x) % p;y = y>>1;x = (x*x) % p;}return res;}
+ll modinv(ll p,ll q){ll ex;ex=M-2;while (ex) {if (ex & 1) {p = (p * q) % M;}q = (q * q) % M;ex>>= 1;}return p;}
 
 void solve()
 {
-    inint(n);
-    vi a(n);
-    cin>>a;
-    mii mp;
-    rep(i,n)
-    mp[a[i]]++;
-    int f=-1;
-    for(auto it:mp)
-    f=max(f,it.s);
-    cout<<ceil(log2(f*1.0))<<endl;
+    int n;
+    cin>>n;
+    string s;
+    cin>>s;
+    if(n&1)
+    {
+        int o=0,e=0;
+        map<char,int> m;
+        for(auto it:s)
+        m[it]++;
+        for(auto it:m)
+        {
+            if(it.second&1) o++;
+            else e++;
+        }
+        if(o==1 && e==0)
+        {
+            cout<<2<<endl;
+        }
+        else if(o==1 && e>0)
+        {
+            cout<<1<<endl;
+        }
+        else
+        {
+            cout<<0<<endl;
+        }
+    }
+    else
+    {
+        map<char,int> m;
+        for(auto it:s)
+        m[it]++;
+        int f=1;
+        for(auto it:m)
+        {
+            if(it.second&1) f=0;
+        }
+        if(f)
+        cout<<1<<endl;
+        else
+        cout<<0<<endl;
+    }
 }
 
 
