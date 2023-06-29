@@ -91,7 +91,9 @@
         "algorithm": "cpp",
         "functional": "cpp",
         "iterator": "cpp",
-        "utility": "cpp"
+        "utility": "cpp",
+        "ranges": "cpp",
+        "span": "cpp"
     },
     "cph.general.onceMaintainerMessage": false
 }
