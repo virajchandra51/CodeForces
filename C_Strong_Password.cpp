@@ -91,39 +91,32 @@ void solve()
     cin>>m;
     string l,r;
     cin>>l>>r;
-    if(m==1)
-    {
-        map<char,int> mi;
-        for(auto it:s) mi[it]++;
-        for(char ch=l[0];ch<=r[0];ch++)
-        {
-            if(mi.find(ch)==mi.end())
-            {
-                py;return;
-            }
-        }
-        pn;
-    }
     vector<vector<int>> p(10,vector<int>());
     rep(i,s.size()) p[s[i]-'0'].pb(i);
-    bool ans = false;
-    for(char ch=l[0]; ch<=r[0];ch++)
+    int c = 0;
+    int pos = -1;
+    rep(i,m)
     {
-        if(p[ch-'0'].size()==0)
-        {
-            py;
-            return;
-        }
-        string s = "";
-        s+=ch;
-        int pos = p[ch-'0'][0];
-        int i=1;
+        int mm = INT_MIN;
         for(char ch=l[i]; ch<=r[i];ch++)
         {
-            
+            if(p[ch-'0'].size()==0)
+            {
+                py;
+                return;
+            }
+            auto it = upper_bound(p[ch-'0'].begin(), p[ch-'0'].end(),pos)-p[ch-'0'].begin();
+            if(it==p[ch-'0'].size())
+            {
+                py;
+                return;
+            }
+            mm=max(mm,p[ch-'0'][it]);
         }
+        pos=mm;
+        c++;
     }
-    if(ans) py; else pn;
+    if(c==m) pn; else py;
 }
 
 
