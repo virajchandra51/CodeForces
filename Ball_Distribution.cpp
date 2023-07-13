@@ -111,33 +111,13 @@ void solve()
     cin>>n>>m;
     vi a(m);
     cin>>a;
-    int s = n;
-    int c = 0;
-    sort(all(a));
-    reverse(all(a));
-    rep(i,m)
-    {
-        if(s-a[i]>0)
-        {
-            s-=a[i];
-        }
-        else
-        {
-            c++;
-            s-=a[i];
-            s=n-abs(s);
-        }
-    }
-    if(s<n) c++;
-    if(c==m)
-    {
-        if(n-s != 0)
-        out(n-s)
-        else out(s);
-    }
+    int s = SUM(a);
+    int f = ceil((s*1.0)/n);
+    if(f<m) out(0)
     else
     {
-        out(0);
+        if(s%n==0) cout<<n<<endl;
+        else cout<<s%n<<endl;
     }
 }
 
