@@ -107,36 +107,17 @@ ll modinv(ll p,ll q){ll ex;ex=M-2;while (ex) {if (ex & 1) {p = (p * q) % M;}q = 
 
 void solve()
 {
-    ll n,m;
+    int n,m;
     cin>>n>>m;
-    vl a(n),b(m);
+    vi a(n),b(m);
     cin>>a>>b;
-    ll xorr = 0;
-    for(auto it:a) xorr^=it;
-    ll orr = 0;
-    for(auto it:b) orr|=it;
-
-    ll a1=0,a2=0;
-
-    if(n&1)
-    {
-        a2=xorr;
-        for(int i=0;i<32;i++)
-        {
-            if( xorr&(ll)(pow(2,i)) || orr&(ll)(pow(2,i)) )
-                a1|=((ll)pow(2,i));
-        }
-    }
-    else
-    {
-        a1=xorr;
-        for(int i=0;i<32;i++)
-        {
-            if( (!(orr&(ll)(pow(2,i)))) &&  (xorr&(ll)(pow(2,i))) )
-                a2|=((ll)pow(2,i));
-        }
-    }
-    cout<<a2<<" "<<a1<<endl;
+    int X = 0;
+    for(auto it:b) X|=it;
+    int xorr1 = 0;
+    for(auto it:a) xorr1^=it;
+    int xorr2 = 0;
+    for(auto it:a) xorr2^=it|X;
+    cout<<min(xorr1,xorr2)<<" "<<max(xorr1,xorr2)<<endl;
 }
 
 int32_t main()
