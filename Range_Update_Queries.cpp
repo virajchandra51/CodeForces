@@ -173,11 +173,10 @@ class SegmentTree{
             return n;
         }
         ll query(ll qL,ll qR, Node* node){
+            if(node->startInterval>qR || node->endInterval<qL ) return 0; // node intervals totally outside query
             if(node->startInterval>=qL && node->endInterval<=qR){ 
                 return node->data;
             } // node intervals totally inside query
-            else if(node->startInterval>qR || node->endInterval<qL ) return 0; // node intervals totally outside query
-            else
             return query(qL,qR,node->left)+query(qL,qR,node->right);
         }
         ll querySingle(ll qL, ll qR, Node *node, LazyNode* lazynode) {
