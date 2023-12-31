@@ -19,7 +19,7 @@ long long power(long long x, long long y, long long p)
     return res;
 }
 
-// modulo exponentiation
+// modulo exponentiation calculates (x^y) % p
 // time complexity - O(log y) (y is the power)
 
 int main()
@@ -27,7 +27,7 @@ int main()
     long long n, m;
     cin >> n >> m; // taking input
     long long mod = 1e9+7;
-    long long twoPowerM = power(2, m, mod); // 2^m
+    long long twoPowerM = power(2, m, mod); // 2^m % mod
     twoPowerM--; // (2^m-1)
     long long answer = power(twoPowerM, n, mod); // (2^m-1)^n 
     cout << answer << endl;
