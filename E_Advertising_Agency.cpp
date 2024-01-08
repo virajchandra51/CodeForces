@@ -55,34 +55,28 @@ int main()
 
         // setting array in dec order
 
-        map<long long, long long> freq;
-        map<long long, long long> takenBloggers;
+        long long smallestBlogger = v[k-1]; 
+        // since the smallest blogger's follower count 
+        // is kept at the (k-1)th index of the dec sorted array
+
+        long long y = 0; // y = count of smallest element that you are going to take in your selected bloggers
+        long long x = 0; // x = total count of those bloggers available with that smallest value
 
         for (int i = 0; i < n; i++)
-            freq[v[i]]++;
-        for (int i = 0; i < k; i++)
-            takenBloggers[v[i]]++;
-
-        long long ans = 1;
-
-        // modulo multiplcation technique
-
-        for (auto it : takenBloggers)
         {
-            // it.first = key = follower count
-            // it.second = value = number of wanted bloggers having this follower count
-            long long differentWays = nCrMod(freq[it.first], it.second, mod);
-            ans = ((ans) % mod * (differentWays) % mod) % mod;
+            if(v[i]==smallestBlogger) x++;
         }
 
-        cout << ans << endl;
+        for (int i = 0; i < k; i++)
+        {
+            if(v[i]==smallestBlogger) y++;
+        }
+
+        long long answer = nCrMod(x, y, mod);  // xCy % mod
+        cout << answer << endl;
     }
     return 0;
 }
 
-// let's say k = 1000, n = 1000
-// case1 - all numbers are different - outer loop runs N times, nCrMod runs in O(1)
-// case2 - all numbers are same - outer loop runs 1 time, nCrMod runs in O(n)
-
 // time complexity O(n)
-// space complexity O(n)
+// space complexity O(1)
