@@ -100,66 +100,89 @@ int main()
     long long n;
     cin >> n;
     n *= 2;
+
     vector<long long> v(n);
     for (int i = 0; i < n; i++)
         cin >> v[i];
 
-    vector<long long> a(n, 0);
-    SegmentTree *tree = new SegmentTree(a);
+    // taking input
 
-    vector<pair<long long, long long> > vp(n, {-1, -1});
+    vector<long long> a(n, 0);
+    // array denoting the segment tree array of size n with all values as 0
+
+    SegmentTree *tree = new SegmentTree(a);
+    // segment tree
+
+    vector<pair<long long, long long> > indexes(n, {-1, -1});
+    // storing l and r value for each segment
 
     for (int i = 0; i < n; i++)
     {
-        if (vp[v[i] - 1].first == -1)
-            vp[v[i] - 1].first = i;
+        if (indexes[v[i] - 1].first == -1)
+            indexes[v[i] - 1].first = i;
         else
-            vp[v[i] - 1].second = i;
+            indexes[v[i] - 1].second = i;
     }
 
-    set<long long> s;
-    vector<long long> ans(n / 2, 0);
+    set<long long> s; // set to count for duplicate values
+    vector<long long> answer(n / 2, 0); // storing answer
+
+
+    // first trying to count all such intersecting segments which look like X .. Y ... X ... Y
     for (int i = 0; i < n; i++)
     {
         if (s.find(v[i]) != s.end())
         {
-            tree->update(vp[v[i] - 1].first, 0, tree->root);
-            ans[v[i] - 1] = tree->query(vp[v[i] - 1].first, vp[v[i] - 1].second, tree->root);
+            tree->update(indexes[v[i] - 1].first, 0, tree->root);
+            // encoutering v[i] second time so update the left end of v[i] segment with 0
+
+            answer[v[i] - 1] = tree->query(indexes[v[i] - 1].first, indexes[v[i] - 1].second, tree->root);
+            // find and store the sum between l and r values of v[i] segment denoting number of intersecting segments
         }
         else
         {
-            tree->update(vp[v[i] - 1].first, 1, tree->root);
+            tree->update(indexes[v[i] - 1].first, 1, tree->root);
+            // encoutering v[i] first time so update the left end of v[i] segment with 1
         }
         s.insert(v[i]);
     }
 
+    
+    // reversing the array and updating the l and r values of each segment
     reverse(v.begin(), v.end());
-    for (auto &it : vp)
+    for (auto &it : indexes)
     {
         it.first = n - it.first - 1;
         it.second = n - it.second - 1;
         swap(it.second, it.first);
     }
-    s.clear();
+    s.clear(); // clearing up the set
+
+    
+
+    // second trying to count all such intersecting segments which look like Y .. X ... Y ... X
     for (int i = 0; i < n; i++)
     {
         if (s.find(v[i]) != s.end())
         {
-            tree->update(vp[v[i] - 1].first, 0, tree->root);
-            ans[v[i] - 1] += tree->query(vp[v[i] - 1].first, vp[v[i] - 1].second, tree->root);
+            tree->update(indexes[v[i] - 1].first, 0, tree->root);
+            // encoutering v[i] second time so update the left end of v[i] segment with 0
+
+            answer[v[i] - 1] += tree->query(indexes[v[i] - 1].first, indexes[v[i] - 1].second, tree->root);
+            // find and store the sum between l and r values of v[i] segment denoting number of intersecting segments
         }
         else
         {
-            tree->update(vp[v[i] - 1].first, 1, tree->root);
+            tree->update(indexes[v[i] - 1].first, 1, tree->root);
+            // encoutering v[i] first time so update the left end of v[i] segment with 1
         }
         s.insert(v[i]);
     }
-    for (auto it : ans)
+
+    for (auto it : answer)
         cout << it << " ";
-    cout << endl;
+    cout << endl; // print answer
     return 0;
+    
 }
 
-// x y x y
-// 5 1 2 2 3 1 3 4 5 4
-// 1 1 1 0 0 0 0 0 0 0
