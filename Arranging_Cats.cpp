@@ -1,4 +1,4 @@
-// 2023-07-29 23:22:41
+// 2024-01-15 20:15:16
 // Viraj Chandra
 // Linkedin: https://www.linkedin.com/in/viraj-chandra-4073a8223/
 // Codeforces: https://codeforces.com/profile/khnhcodingkarlo
@@ -107,15 +107,31 @@ ll modinv(ll p,ll q){ll ex;ex=M-2;while (ex) {if (ex & 1) {p = (p * q) % M;}q = 
 
 void solve()
 {
-    ll n;
+    int n;
     cin>>n;
+    string s;
+    cin>>s;
+    string f;
+    cin>>f;
     int c = 0;
-    for(int i=1;i<=50;i++)
+    int c1 = 0;
+    for(int i=0;i<n;i++)
     {
-        if(n%i==0) c++;
-        else break;
+        if(s[i]=='0' && f[i]=='1')
+        {
+            c++;
+        }
+        if(s[i]=='1' && f[i]=='0') c1++;
     }
-    cout<<c<<endl;
+    if(c>c1)
+    {
+        c-=c1;
+        cout<<c+c1<<endl;
+    }
+    else
+    {
+        cout<<c1<<endl;
+    }
 }
 
 

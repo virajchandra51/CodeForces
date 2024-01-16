@@ -1,4 +1,4 @@
-// 2023-07-29 23:22:41
+// 2024-01-15 22:00:29
 // Viraj Chandra
 // Linkedin: https://www.linkedin.com/in/viraj-chandra-4073a8223/
 // Codeforces: https://codeforces.com/profile/khnhcodingkarlo
@@ -107,15 +107,109 @@ ll modinv(ll p,ll q){ll ex;ex=M-2;while (ex) {if (ex & 1) {p = (p * q) % M;}q = 
 
 void solve()
 {
-    ll n;
-    cin>>n;
-    int c = 0;
-    for(int i=1;i<=50;i++)
-    {
-        if(n%i==0) c++;
-        else break;
-    }
-    cout<<c<<endl;
+        int n, m, x1, y1, x2, y2;cin >> n >> m >> x1 >> y1 >> x2 >> y2;
+        int cx1, cy1, cx2, cy2;cx1 = x1;cy1 = y1;cx2 = x2;cy2 = y2;
+        bool answer = true;string s = "Draw";
+        while (x1 <= n && x2 >= 1 && !(x1 == x2 && y1 == y2))
+        {
+            if (answer)
+            {
+                x1++;
+                if (y1 == y2)
+                {
+                }
+                else if (y1 < y2)
+                {
+                    if (y1 + 1 <= m)
+                        y1++;
+                }
+                else
+                {
+                    if (y1 - 1 >= 1)
+                        y1--;
+                }
+            }
+            else
+            {
+                x2--;
+                if (y1 == y2)
+                {
+                    if (y2 - 1 > m - y2)
+                    {
+                        if (y2 - 1 >= 1)
+                            y2--;
+                    }
+                    else
+                    {
+                        if (y2 + 1 <= m)
+                            y2++;
+                    }
+                }
+                else if (y1 < y2)
+                {
+                    if (y2 + 1 <= m)
+                        y2++;
+                }
+                else
+                {
+                    if (y2 - 1 >= 1)
+                        y2--;
+                }
+            }
+            answer = !answer;
+        }
+        if (x1 == x2 && y1 == y2 && answer == false) s = "Alice";
+        x1 = cx1;y1 = cy1;x2 = cx2;y2 = cy2;answer = true;
+        while (x1 <= n && x2 >= 1 && !(x1 == x2 && y1 == y2))
+        {
+            if (answer)
+            {
+                x1++;
+                if (y1 == y2)
+                {
+                    if (y1 - 1 > m - y1)
+                    {
+                        if (y1 - 1 >= 1)
+                            y1--;
+                    }
+                    else
+                    {
+                        if (y1 + 1 <= m)
+                            y1++;
+                    }
+                }
+                else if (y1 < y2)
+                {
+                    if (y1 - 1 >= 1)
+                        y1--;
+                }
+                else
+                {
+                    if (y1 + 1 <= m)
+                        y1++;
+                }
+            }
+            else
+            {
+                x2--;
+                if (y1 == y2)
+                {
+                }
+                else if (y1 < y2)
+                {
+                    if (y2 - 1 >= 1)
+                        y2--;
+                }
+                else
+                {
+                    if (y2 + 1 <= m)
+                        y2++;
+                }
+            }
+            answer = !answer;
+        }
+        if (x1 == x2 && y1 == y2 && answer == true) s = "Bob";
+        cout << s << endl;
 }
 
 

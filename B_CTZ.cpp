@@ -1,4 +1,4 @@
-// 2023-07-29 23:22:41
+// 2024-01-16 10:11:33
 // Viraj Chandra
 // Linkedin: https://www.linkedin.com/in/viraj-chandra-4073a8223/
 // Codeforces: https://codeforces.com/profile/khnhcodingkarlo
@@ -107,15 +107,11 @@ ll modinv(ll p,ll q){ll ex;ex=M-2;while (ex) {if (ex & 1) {p = (p * q) % M;}q = 
 
 void solve()
 {
-    ll n;
+    int n;
     cin>>n;
     int c = 0;
-    for(int i=1;i<=50;i++)
-    {
-        if(n%i==0) c++;
-        else break;
-    }
-    cout<<c<<endl;
+    while(n>0 && !(n&1)){c++;n/=2;};
+    out(c)
 }
 
 
@@ -128,7 +124,7 @@ int32_t main()
     //Rating? Neh. In love with experience.
     //Code Karlo, Coz KHNH :)
     int t;
-    cin>>t;
+    t=1;
     while(t--)
     {
     solve();

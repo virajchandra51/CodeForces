@@ -1,4 +1,4 @@
-// 2023-07-29 23:22:41
+// 2024-01-15 20:11:30
 // Viraj Chandra
 // Linkedin: https://www.linkedin.com/in/viraj-chandra-4073a8223/
 // Codeforces: https://codeforces.com/profile/khnhcodingkarlo
@@ -107,15 +107,32 @@ ll modinv(ll p,ll q){ll ex;ex=M-2;while (ex) {if (ex & 1) {p = (p * q) % M;}q = 
 
 void solve()
 {
-    ll n;
-    cin>>n;
-    int c = 0;
-    for(int i=1;i<=50;i++)
+    long long n,f,a,b;
+    cin>>n>>f>>a>>b;
+    vector<long long> v;
+    v.push_back(0);
+    for(int i=0;i<n;i++)
     {
-        if(n%i==0) c++;
-        else break;
+        long long vv;
+        cin>>vv;
+        v.push_back(vv);
     }
-    cout<<c<<endl;
+    n++;
+    int fa = 1;
+    for(int i=0;i<n-1;i++)
+    {
+        long long d1 = (v[i+1]-v[i])*a;
+        long long d2 = b;
+        f-=min(d1,d2);
+        if(f<=0)
+        {
+            fa=0;
+            break;
+        }
+    }
+    if(fa)
+    cout<<"YES"<<endl;
+    else cout<<"NO"<<endl;
 }
 
 
