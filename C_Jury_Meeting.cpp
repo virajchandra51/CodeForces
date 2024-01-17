@@ -46,9 +46,9 @@ int main()
         }
 
         long long nicePermutations;
-        if (countOfMax > 1)
+        if (countOfMax > 1) // case 1
             nicePermutations = totalPermutations % mod;
-        else
+        else // case 2
             nicePermutations = ((totalPermutations % mod) - (badPermutations % mod) + mod) % mod;
 
         cout << nicePermutations << endl;

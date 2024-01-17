@@ -23,6 +23,7 @@ void Sieve(int n)
 int main()
 {
     Sieve(100100);
+
     int n, m;
     cin >> n >> m;
     int a[n][m];
@@ -41,9 +42,9 @@ int main()
         int count = 0;
         for (int j = 0; j < m; j++)
         {
-            int moreRequired = (*lower_bound(primes.begin(), primes.end(), a[i][j]));
+            int nearestPrime = (*lower_bound(primes.begin(), primes.end(), a[i][j]));
             // required value to become a prime
-            count += moreRequired - a[i][j];
+            count += nearestPrime - a[i][j];
         }
         answer = min(answer, count);
     }
@@ -55,9 +56,9 @@ int main()
         int count = 0;
         for (int j = 0; j < n; j++)
         {
-            int moreRequired = (*lower_bound(primes.begin(), primes.end(), a[j][i]));
+            int nearestPrime = (*lower_bound(primes.begin(), primes.end(), a[j][i]));
             // required value to become a prime
-            count += moreRequired - a[j][i];
+            count += nearestPrime - a[j][i];
         }
         answer = min(answer, count);
     }
