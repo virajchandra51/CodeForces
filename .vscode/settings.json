@@ -93,7 +93,8 @@
         "iterator": "cpp",
         "utility": "cpp",
         "ranges": "cpp",
-        "span": "cpp"
+        "span": "cpp",
+        "filesystem": "cpp"
     },
     "cph.general.onceMaintainerMessage": false
 }

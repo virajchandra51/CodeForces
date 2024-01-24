@@ -108,13 +108,13 @@ ll modinv(ll p,ll q){ll ex;ex=M-2;while (ex) {if (ex & 1) {p = (p * q) % M;}q = 
 struct Node {
     ll val; // may change
     Node() { // Identity element
-        val = 1e5;    // may change
+        val = 1e18;    // may change
     }
     Node(ll p1) {  // Actual Node
         val = p1; // may change
     }
     void merge(Node &l, Node &r) { // Merge two child nodes
-        val = min(l.val*1LL,r.val*1LL);  // may change
+        val = min(l.val,r.val);  // may change
     }
 };
 
@@ -127,7 +127,7 @@ struct Update {
         val = val1;
     }
     void apply(Node &a, int start, int end) { // apply update to given node
-        a.val += (end-start+1)*val; // may change
+        a.val += val; // may change
     }
     void combine(Update& new_update, int start, int end){
         val += new_update.val;
@@ -226,19 +226,19 @@ void solve()
     struct LazySGT tree = LazySGT(n,a);
     rep(i,q)
     {
-        ll t;
-        cin>>t;
-        if(t==1)
+        ll operationType;
+        cin>>operationType;
+        if(operationType==1)
         {
-            ll a,b,u;
-            cin>>a>>b>>u;
-            tree.make_update(a,b-1,u);
+            ll l,r,u;
+            cin>>l>>r>>u;
+            tree.make_update(l,r-1,u);
         }
         else
         {
-            ll a,b;
-            cin>>a>>b;
-            cout<<tree.make_query(a,b-1).val<<endl;
+            ll l,r;
+            cin>>l>>r;
+            cout<<tree.make_query(l,r-1).val<<endl;
         }
     }
 }

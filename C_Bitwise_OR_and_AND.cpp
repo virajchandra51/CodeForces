@@ -108,7 +108,7 @@ ll modinv(ll p,ll q){ll ex;ex=M-2;while (ex) {if (ex & 1) {p = (p * q) % M;}q = 
 struct Node {
     ll val; // may change
     Node() { // Identity element
-        val = pow(2,31)-1;    // may change
+        val = pow(2,32)-1;    // may change
     }
     Node(ll p1) {  // Actual Node
         val = p1; // may change
@@ -224,21 +224,21 @@ void solve()
     cin>>n>>q;
     vl a(n,0);
     struct LazySGT tree = LazySGT(n,a);
-    rep(i,q)
+    for(int i =0;i<q;i++)
     {
-        ll t;
-        cin>>t;
-        if(t==1)
+        ll operationType;
+        cin>>operationType;
+        if(operationType==1)
         {
-            ll a,b,u;
-            cin>>a>>b>>u;
-            tree.make_update(a,b-1,u);
+            ll l,r,u;
+            cin>>l>>r>>u;
+            tree.make_update(l,r-1,u);
         }
         else
         {
-            ll a,b;
-            cin>>a>>b;
-            cout<<tree.make_query(a,b-1).val<<endl;
+            ll l,r;
+            cin>>l>>r;
+            cout<<tree.make_query(l,r-1).val<<endl;
         }
     }
 }

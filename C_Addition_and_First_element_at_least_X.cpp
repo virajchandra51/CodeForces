@@ -1,4 +1,4 @@
-// 2023-11-09 23:06:31
+// 2024-01-21 19:24:05
 // Viraj Chandra
 // Linkedin: https://www.linkedin.com/in/viraj-chandra-4073a8223/
 // Codeforces: https://codeforces.com/profile/khnhcodingkarlo
@@ -105,114 +105,156 @@ ll moduloMultiplication(ll a,ll b,ll mod){ll res = 0;a %= mod;while (b){if (b & 
 ll powermod(ll x, ll y, ll p){ll res = 1;x = x % p;if (x == 0) return 0;while (y > 0){if (y & 1)res = (res*x) % p;y = y>>1;x = (x*x) % p;}return res;}
 ll modinv(ll p,ll q){ll ex;ex=M-2;while (ex) {if (ex & 1) {p = (p * q) % M;}q = (q * q) % M;ex>>= 1;}return p;}
 
-
 struct Node {
-	ll val; // may change
-	Node() { // Identity element
-		val = 1e18;	// may change
-	}
-	Node(ll p1) {  // Actual Node
-		val = p1; // may change
-	}
-	void merge(Node &l, Node &r) { // Merge two child nodes
-		val = min(l.val,r.val);  // may change
-	}
+    ll val; // may change
+    Node() { // Identity element
+        val = INT_MIN;    // may change
+    }
+    Node(ll p1) {  // Actual Node
+        val = p1; // may change
+    }
+    void merge(Node &l, Node &r) { // Merge two child nodes
+        val = max(l.val,r.val);  // may change
+    }
 };
 
 struct Update {
-	ll val; // may change
-	Update(ll p1) { // Actual Update
-		val = p1; // may change
-	}
-	void apply(Node &a) { // apply update to given node
-		a.val = val; // may change
-	}
+    ll val; // may change
+    Update(){ // Identity update
+        val = 0;
+    }
+    Update(ll val1) { // Actual Update
+        val = val1;
+    }
+    void apply(Node &a, int start, int end) { // apply update to given node
+        a.val += val; // may change
+    }
+    void combine(Update& new_update, int start, int end){
+        val += new_update.val;
+    }
 };
 
-struct SegTree {
-	vector<Node> tree;
-	vector<ll> arr; // type may change
-	int n;
-	int s;
-	SegTree(int a_len, vector<ll> &a) { // change if type updated
-		arr = a;
-		n = a_len;
-		s = 1;
-		while(s < 2 * n){
-			s = s << 1;
-		}
-		tree.resize(s); fill(all(tree), Node());
-		build(0, n - 1, 1);
-	}
-	void build(int start, int end, int index)  // Never change this
-	{
-		if (start == end)	{
-			tree[index] = Node(arr[start]);
-			return;
-		}
-		int mid = (start + end) / 2;
-		build(start, mid, 2 * index);
-		build(mid + 1, end, 2 * index + 1);
-		tree[index].merge(tree[2 * index], tree[2 * index + 1]);
-	}
-	void update(int start, int end, int index, int query_index, Update &u)  // Never Change this
-	{
-		if (start == end) {
-			u.apply(tree[index]);
-			return;
-		}
-		int mid = (start + end) / 2;
-		if (mid >= query_index)
-			update(start, mid, 2 * index, query_index, u);
-		else
-			update(mid + 1, end, 2 * index + 1, query_index, u);
-		tree[index].merge(tree[2 * index], tree[2 * index + 1]);
-	}
-	Node query(int start, int end, int index, int left, int right) { // Never change this
-		if (start > right || end < left)
-			return Node();
-		if (start >= left && end <= right)
-			return tree[index];
-		int mid = (start + end) / 2;
-		Node l, r, ans;
-		l = query(start, mid, 2 * index, left, right);
-		r = query(mid + 1, end, 2 * index + 1, left, right);
-		ans.merge(l, r);
-		return ans;
-	}
-	void make_update(int index, ll val) {  // pass in as many parameters as required
-		Update new_update = Update(val); // may change
-		update(0, n - 1, 1, index, new_update);
-	}
-	Node make_query(int left, int right) {
-		return query(0, n - 1, 1, left, right);
-	}
+struct LazySGT {
+    vector<Node> tree;
+    vector<bool> lazy;
+    vector<Update> updates;
+    vector<ll> arr; // type may change
+    int n;
+    int s;
+    LazySGT(int a_len, vector<ll> &a) { // change if type updated
+        arr = a;
+        n = a_len;
+        s = 1;
+        while(s < 2 * n){
+            s = s << 1;
+        }
+        tree.resize(s); fill(all(tree), Node());
+        lazy.resize(s); fill(all(lazy), false);
+        updates.resize(s); fill(all(updates), Update());
+        build(0, n - 1, 1);
+    }
+    void build(int start, int end, int index) { // Never change this
+        if (start == end)   {
+            tree[index] = Node(arr[start]);
+            return;
+        }
+        int mid = (start + end) / 2;
+        build(start, mid, 2 * index);
+        build(mid + 1, end, 2 * index + 1);
+        tree[index].merge(tree[2 * index], tree[2 * index + 1]);
+    }
+    void pushdown(int index, int start, int end){
+        if(lazy[index]){
+            int mid = (start + end) / 2;
+            apply(2 * index, start, mid, updates[index]);
+            apply(2 * index + 1, mid + 1, end, updates[index]);
+            updates[index] = Update();
+            lazy[index] = 0;
+        }
+    }
+    void apply(int index, int start, int end, Update& u){
+        if(start != end){
+            lazy[index] = 1;
+            updates[index].combine(u, start, end);
+        }
+        u.apply(tree[index], start, end);
+    }
+    void update(int start, int end, int index, int left, int right, Update& u) {  // Never Change this
+        if(start > right || end < left)
+            return;
+        if(start >= left && end <= right){
+            apply(index, start, end, u);
+            return;
+        }
+        pushdown(index, start, end);
+        int mid = (start + end) / 2;
+        update(start, mid, 2 * index, left, right, u);
+        update(mid + 1, end, 2 * index + 1, left, right, u);
+        tree[index].merge(tree[2 * index], tree[2 * index + 1]);
+    }
+    Node query(int start, int end, int index, int left, int right) { // Never change this
+        if (start > right || end < left)
+            return Node();
+        if (start >= left && end <= right){
+            pushdown(index, start, end);
+            return tree[index];
+        }
+        pushdown(index, start, end);
+        int mid = (start + end) / 2;
+        Node l, r, ans;
+        l = query(start, mid, 2 * index, left, right);
+        r = query(mid + 1, end, 2 * index + 1, left, right);
+        ans.merge(l, r);
+        return ans;
+    }
+    void make_update(int left, int right, ll val) {  // pass in as many parameters as required
+        Update new_update = Update(val); // may change
+        update(0, n - 1, 1, left, right, new_update);
+    }
+    Node make_query(int left, int right) {
+        return query(0, n - 1, 1, left, right);
+    }
 };
-
 
 void solve()
 {
     ll n,q;
     cin>>n>>q;
-    vl a(n);
-    cin>>a;
-    struct SegTree tree = SegTree(n,a);
+    vl a(n,0);
+    struct LazySGT tree = LazySGT(n,a);
     rep(i,q)
     {
+        // for(auto it: tree.tree) cout<<it.val<<" ";
+        // cout<<endl;
         ll operationType;
         cin>>operationType;
-        if(operationType==2)
+        if(operationType==1)
         {
-            ll a,b;
-            cin>>a>>b;
-            cout<<tree.make_query(a-1,b-1).val<<endl;
+            ll l,r,u;
+            cin>>l>>r>>u;
+            tree.make_update(l,r-1,u);
         }
         else
         {
-            ll k,u;
-            cin>>k>>u;
-            tree.make_update(k-1,u);
+            ll x,l;
+            cin>>x>>l;
+            ll answer = n;
+            ll start = l, end = n-1;
+            while(start<=end)
+            {
+                ll mid = (start+end)/2;
+                ll v = tree.make_query(l,mid).val;
+                if(v>=x)
+                {
+                    answer = min(answer,mid);
+                    end = mid-1;
+                }
+                else start = mid+1;
+            }
+            if(answer==n) pm;
+            else out(answer);
         }
+        
     }
 }
 

@@ -226,19 +226,19 @@ void solve()
     struct LazySGT tree = LazySGT(n,a);
     rep(i,q)
     {
-        ll t;
-        cin>>t;
-        if(t==1)
+        ll operationType;
+        cin>>operationType;
+        if(operationType==1)
         {
-            ll a,b,u;
-            cin>>a>>b>>u;
-            tree.make_update(a,b-1,u);
+            ll l,r,u;
+            cin>>l>>r>>u;
+            tree.make_update(l,r-1,u);
         }
         else
         {
-            ll a,b;
-            cin>>a>>b;
-            cout<<tree.make_query(a,b-1).val<<endl;
+            ll l,r;
+            cin>>l>>r;
+            cout<<tree.make_query(l,r-1).val<<endl;
         }
     }
 }
