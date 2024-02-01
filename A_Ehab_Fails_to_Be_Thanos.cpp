@@ -36,5 +36,5 @@ int main()
     return 0;
 }
 
-// TC - O(nlogn + n/2) ~ O(nlogn)
+// TC - O(nlogn + n) ~ O(nlogn)
 // SC - O(1)

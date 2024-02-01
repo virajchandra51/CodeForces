@@ -1,4 +1,4 @@
-// 2024-01-24 15:28:06
+// 2024-01-21 19:24:05
 // Viraj Chandra
 // Linkedin: https://www.linkedin.com/in/viraj-chandra-4073a8223/
 // Codeforces: https://codeforces.com/profile/khnhcodingkarlo
@@ -106,103 +106,137 @@ ll powermod(ll x, ll y, ll p){ll res = 1;x = x % p;if (x == 0) return 0;while (y
 ll modinv(ll p,ll q){ll ex;ex=M-2;while (ex) {if (ex & 1) {p = (p * q) % M;}q = (q * q) % M;ex>>= 1;}return p;}
 
 struct Node {
-	ll val; // store more info if required
-	Node() { // Identity Element
-		val = 0;
+	ll val; // may change
+	Node() { // Identity element
+		val = 0;	// may change
 	}
-	Node(ll v) {
-		val = v;
+	Node(ll p1) {  // Actual Node
+		val = p1; // may change
 	}
-	void merge(Node &l, Node &r) {
-		val = gcd(l.val,r.val);
+	void merge(Node &l, Node &r) { // Merge two child nodes
+		val = l.val+r.val;  // may change
 	}
 };
 
-struct SparseTable {
-	vector<vector<Node>> table;
-	vector<ll> logValues;
+struct Update {
+	ll val; // may change
+	Update(ll p1) { // Actual Update
+		val = p1; // may change
+	}
+	void apply(Node &a) { // apply update to given node
+		a.val += val; // may change
+	}
+};
+
+struct SegTree {
+	vector<Node> tree;
+	vector<ll> arr; // type may change
 	int n;
-	int maxLog;
-	vector<ll> a;
-	SparseTable(int n1, vector<ll> &arr) {
-		n = n1;
-		a = arr;
-		table.resize(n);
-		logValues.resize(n + 1);
-		maxLog = log2(n);
-		logValues[1] = 0;
-		for (int i = 2; i <= n; i++) {
-			logValues[i] = logValues[i / 2] + 1;
+	int s;
+	SegTree(int a_len, vector<ll> &a) { // change if type updated
+		arr = a;
+		n = a_len;
+		s = 1;
+		while(s < 2 * n){
+			s = s << 1;
 		}
-		for (int i = 0; i < n; i++) {
-			table[i].resize(maxLog + 1);
-			fill(all(table[i]), Node());
-		}
-		build();
+		tree.resize(s); fill(all(tree), Node());
+		build(0, n - 1, 1);
 	}
-	void build() {
-		for (int i = 0; i < n; i++) {
-			table[i][0] = Node(a[i]);
+	void build(int start, int end, int index)  // Never change this
+	{
+		if (start == end)	{
+			tree[index] = Node(arr[start]);
+			return;
 		}
-		for (int i = 1; i <= maxLog; i++) {
-			for (int j = 0; (j + (1 << i)) <= n; j++) {
-				table[j][i].merge(table[j][i - 1], table[j + (1 << (i - 1))][i - 1]);
-			}
-		}
+		int mid = (start + end) / 2;
+		build(start, mid, 2 * index);
+		build(mid + 1, end, 2 * index + 1);
+		tree[index].merge(tree[2 * index], tree[2 * index + 1]);
 	}
-	Node queryNormal(int left, int right) {
-		Node ans = Node();
-		for (int j = logValues[right - left + 1]; j >= 0; j--) {
-			if ((1 << j) <= right - left + 1) {
-				ans.merge(ans, table[left][j]);
-				left += (1 << j);
-			}
+	void update(int start, int end, int index, int query_index, Update &u)  // Never Change this
+	{
+		if (start == end) {
+			u.apply(tree[index]);
+			return;
 		}
+		int mid = (start + end) / 2;
+		if (mid >= query_index)
+			update(start, mid, 2 * index, query_index, u);
+		else
+			update(mid + 1, end, 2 * index + 1, query_index, u);
+		tree[index].merge(tree[2 * index], tree[2 * index + 1]);
+	}
+	Node query(int start, int end, int index, int left, int right) { // Never change this
+		if (start > right || end < left)
+			return Node();
+		if (start >= left && end <= right)
+			return tree[index];
+		int mid = (start + end) / 2;
+		Node l, r, ans;
+		l = query(start, mid, 2 * index, left, right);
+		r = query(mid + 1, end, 2 * index + 1, left, right);
+		ans.merge(l, r);
 		return ans;
 	}
-	Node queryIdempotent(int left, int right) {
-		int j = logValues[right - left + 1];
-		Node ans = Node();
-		ans.merge(table[left][j], table[right - (1 << j) + 1][j]);
-		return ans;
+	void make_update(int index, ll val) {  // pass in as many parameters as required
+		Update new_update = Update(val); // may change
+		update(0, n - 1, 1, index, new_update);
+	}
+	Node make_query(int left, int right) {
+		return query(0, n - 1, 1, left, right);
 	}
 };
 
 void solve()
 {
-    ll n;
-    cin>>n;
+    ll n,k;
+    cin>>n>>k;
     vl a(n);
     cin>>a;
-	vl circularA = a;
-	rep(i,n) circularA.pb(a[i]);
-    struct SparseTable table = SparseTable(n*2,circularA);
-	ll gcdOfArray = table.queryIdempotent(0,n-1).val;
-	ll l = 0; ll r = n-1;
-	ll answer = -1;
-	while(l<=r) // O(logn)
-	{
-		ll mid = (l+r)/2;
-		bool isPossible = true;
-		for(int i=0;i<n;i++) // O(n)
-		{
-			ll range = (i + mid);
-            ll gcdValue = table.queryIdempotent(i , range).val; // O(logn)
-			if(gcdValue!=gcdOfArray)
-			{
-				isPossible = false;
-				break;
-			}
-		}
-		if(isPossible)
-		{
-			answer = mid;
-			r = mid-1;
-		}
-		else l = mid+1;
-	}// O(logn * n * logn) ~ O(n*log2n)
-	out(answer)
-}
+    vl b(n,0);
+    vector<SegTree> segmentTrees(k+2, SegTree(n,b));
+    for(int i=0;i<n;i++) // O(n)
+    {
+        segmentTrees[1].make_update(a[i]-1,1); // O(logn)
+        for(int j=2;j<=k+1;j++) // O(k)
+        {
+            ll val = segmentTrees[j-1].make_query(0,a[i]-2).val; // O(logn)
+            segmentTrees[j].make_update(a[i]-1,val); //O(logn)
+        }
+    } // O(n*k*logn)
+    cout<<segmentTrees[k+1].make_query(0,n-1).val<<endl;
+}class Solution {
+public:
+    string removeDuplicateLetters(string s) {
+        vector<int> lastIndex(26, 0);
+        for (int i = 0; i < s.length(); i++){
+            lastIndex[s[i] - 'a'] = i; // track the lastIndex of character presence
+        }
+        
+        vector<bool> seen(26, false); // keep track seen
+        stack<char> st;
+        
+        for (int i = 0; i < s.size(); i++) {
+            int curr = s[i] - 'a';
+            if (seen[curr]) continue; // if seen continue as we need to pick one char only
+            while(st.size() > 0 && st.top() > s[i] && i < lastIndex[st.top() - 'a']){
+                seen[st.top() - 'a'] = false; // pop out and mark unseen
+                st.pop();
+            }
+            st.push(s[i]); // add into stack
+            seen[curr] = true; // mark seen
+        }
+        
+        string ans = "";
+        while (st.size() > 0){
+            ans += st.top();
+            st.pop();
+        }
+        reverse(ans.begin(), ans.end());
+        return ans;
+    }
+};
 
 
 int32_t main()
@@ -213,11 +247,13 @@ int32_t main()
     #endif
     //Rating? Neh. In love with experience.
     //Code Karlo, Coz KHNH :)
-    ll t;
-    cin>>t;
+    int t;
+    t=1;
     while(t--)
     {
     solve();
     }
     return 0;
 }
+
+

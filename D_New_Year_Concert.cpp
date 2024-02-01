@@ -174,34 +174,43 @@ void solve()
     cin>>n;
     vl a(n);
     cin>>a;
-	vl circularA = a;
-	rep(i,n) circularA.pb(a[i]);
-    struct SparseTable table = SparseTable(n*2,circularA);
-	ll gcdOfArray = table.queryIdempotent(0,n-1).val;
-	ll l = 0; ll r = n-1;
-	ll answer = -1;
-	while(l<=r) // O(logn)
+    struct SparseTable table = SparseTable(n,a);
+    vector<ll> ans(n);
+    ll j = -1;
+	rep(i,n) // O(n)
 	{
-		ll mid = (l+r)/2;
-		bool isPossible = true;
-		for(int i=0;i<n;i++) // O(n)
-		{
-			ll range = (i + mid);
-            ll gcdValue = table.queryIdempotent(i , range).val; // O(logn)
-			if(gcdValue!=gcdOfArray)
-			{
-				isPossible = false;
-				break;
-			}
-		}
-		if(isPossible)
-		{
-			answer = mid;
-			r = mid-1;
-		}
-		else l = mid+1;
-	}// O(logn * n * logn) ~ O(n*log2n)
-	out(answer)
+        if(a[i]==1)
+        {
+            ans[i] = 1;
+            j=i;
+        }
+        else
+        {
+            ll l = j+1;
+            ll r = i;
+            while(l<=r) // O(logn)
+            {
+                ll mid = (l+r)/2;
+                ll gcdValue = table.queryIdempotent(mid , i).val; // ~ O(logn)
+                if(gcdValue==(i-mid+1))
+                {
+                    ans[i] = 1;
+                    j=i;
+                    break;
+                }
+                if(gcdValue>(i-mid+1))
+                    r = mid-1;
+                else l = mid+1;
+            }
+        }
+	} // O(n*logn *logn) ~ O(nlog2n)
+    ll res = 0;
+    for(auto it:ans)
+    {
+        res+=it;
+        cout<<res<<" ";
+    }
+	cout<<endl;
 }
 
 
@@ -214,7 +223,7 @@ int32_t main()
     //Rating? Neh. In love with experience.
     //Code Karlo, Coz KHNH :)
     ll t;
-    cin>>t;
+    t=1;
     while(t--)
     {
     solve();

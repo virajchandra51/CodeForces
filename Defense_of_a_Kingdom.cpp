@@ -23,7 +23,7 @@ int main()
         horizontal.push_back(0);
         vertical.push_back(0);
 
-        for (int i = 0; i < n; i++)
+        for (int i = 0; i < n; i++) // O(n)
         {
             ll x, y;
             cin >> x >> y;
@@ -32,16 +32,16 @@ int main()
         }
         // pushing last+1 so that I can get the difference for last tower 
         horizontal.push_back(w + 1);
-        horizontal.push_back(h + 1);
+        vertical.push_back(h + 1);
 
-        sort(horizontal.begin(), horizontal.end());
-        sort(vertical.begin(), vertical.end());
+        sort(horizontal.begin(), horizontal.end()); // O(nlogn)
+        sort(vertical.begin(), vertical.end()); // o(nlogn)
         // sort all
 
         ll maximumDiffHorizontal = 0;
         ll maximumDiffVertical = 0;
 
-        for (int i = 0; i < n - 1; i++)
+        for (int i = 0; i < n - 1; i++) //O(n)
         {
             maximumDiffHorizontal = max(maximumDiffHorizontal, horizontal[i + 1] - horizontal[i] - 1);
             // find max diff horizontally
@@ -56,3 +56,6 @@ int main()
     }
     return 0;
 }
+
+// TC - O(nlogn)
+// SC - O(n)

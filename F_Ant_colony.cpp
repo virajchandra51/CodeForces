@@ -106,15 +106,56 @@ ll powermod(ll x, ll y, ll p){ll res = 1;x = x % p;if (x == 0) return 0;while (y
 ll modinv(ll p,ll q){ll ex;ex=M-2;while (ex) {if (ex & 1) {p = (p * q) % M;}q = (q * q) % M;ex>>= 1;}return p;}
 
 struct Node {
-	ll val; // store more info if required
+	ll gcdVal; // store more info if required
+    ll minVal;
+    ll minCount;
 	Node() { // Identity Element
-		val = 0;
+		gcdVal = 0;
+        minVal = INT_MAX;
+        minCount = 0;
 	}
 	Node(ll v) {
-		val = v;
+		gcdVal = v;
+        minVal = v;
+        minCount = 1;
+	}
+	void mergeGCD(Node &l, Node &r) {
+		gcdVal = gcd(l.gcdVal,r.gcdVal);
+	}
+	void mergeMin(Node &l, Node &r) {
+        if(l.minVal == r.minVal)
+        {
+            minCount = l.minCount + r.minCount;
+            minVal = l.minVal;
+        }
+        else if(l.minVal<r.minVal)
+        {
+            minVal = l.minVal;
+            minCount = l.minCount;
+        }
+        else
+        {
+            minVal = r.minVal;
+            minCount = r.minCount;
+        }
 	}
 	void merge(Node &l, Node &r) {
-		val = gcd(l.val,r.val);
+		gcdVal = gcd(l.gcdVal,r.gcdVal);
+        if(l.minVal == r.minVal)
+        {
+            minCount = l.minCount + r.minCount;
+            minVal = l.minVal;
+        }
+        else if(l.minVal<r.minVal)
+        {
+            minVal = l.minVal;
+            minCount = l.minCount;
+        }
+        else
+        {
+            minVal = r.minVal;
+            minCount = r.minCount;
+        }
 	}
 };
 
@@ -154,7 +195,7 @@ struct SparseTable {
 		Node ans = Node();
 		for (int j = logValues[right - left + 1]; j >= 0; j--) {
 			if ((1 << j) <= right - left + 1) {
-				ans.merge(ans, table[left][j]);
+				ans.mergeMin(ans, table[left][j]);
 				left += (1 << j);
 			}
 		}
@@ -163,45 +204,31 @@ struct SparseTable {
 	Node queryIdempotent(int left, int right) {
 		int j = logValues[right - left + 1];
 		Node ans = Node();
-		ans.merge(table[left][j], table[right - (1 << j) + 1][j]);
+		ans.mergeGCD(table[left][j], table[right - (1 << j) + 1][j]);
 		return ans;
 	}
 };
 
 void solve()
 {
-    ll n;
+    ll n,q;
     cin>>n;
     vl a(n);
     cin>>a;
-	vl circularA = a;
-	rep(i,n) circularA.pb(a[i]);
-    struct SparseTable table = SparseTable(n*2,circularA);
-	ll gcdOfArray = table.queryIdempotent(0,n-1).val;
-	ll l = 0; ll r = n-1;
-	ll answer = -1;
-	while(l<=r) // O(logn)
-	{
-		ll mid = (l+r)/2;
-		bool isPossible = true;
-		for(int i=0;i<n;i++) // O(n)
-		{
-			ll range = (i + mid);
-            ll gcdValue = table.queryIdempotent(i , range).val; // O(logn)
-			if(gcdValue!=gcdOfArray)
-			{
-				isPossible = false;
-				break;
-			}
-		}
-		if(isPossible)
-		{
-			answer = mid;
-			r = mid-1;
-		}
-		else l = mid+1;
-	}// O(logn * n * logn) ~ O(n*log2n)
-	out(answer)
+    struct SparseTable table = SparseTable(n,a);
+    cin>>q;
+    rep(i,q)
+    {
+        ll l,r;
+        cin>>l>>r;
+        Node it = table.queryNormal(l-1,r-1);
+        Node itt = table.queryIdempotent(l-1,r-1);
+        if(itt.gcdVal == it.minVal)
+        {
+            cout<<(r-l+1)-it.minCount<<endl;
+        }
+        else cout<<(r-l+1)<<endl;
+    }
 }
 
 
@@ -214,7 +241,7 @@ int32_t main()
     //Rating? Neh. In love with experience.
     //Code Karlo, Coz KHNH :)
     ll t;
-    cin>>t;
+    t=1;
     while(t--)
     {
     solve();

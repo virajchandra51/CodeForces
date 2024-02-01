@@ -1,4 +1,4 @@
-// 2024-01-24 15:28:06
+// 2024-01-30 21:13:03
 // Viraj Chandra
 // Linkedin: https://www.linkedin.com/in/viraj-chandra-4073a8223/
 // Codeforces: https://codeforces.com/profile/khnhcodingkarlo
@@ -105,68 +105,59 @@ ll moduloMultiplication(ll a,ll b,ll mod){ll res = 0;a %= mod;while (b){if (b & 
 ll powermod(ll x, ll y, ll p){ll res = 1;x = x % p;if (x == 0) return 0;while (y > 0){if (y & 1)res = (res*x) % p;y = y>>1;x = (x*x) % p;}return res;}
 ll modinv(ll p,ll q){ll ex;ex=M-2;while (ex) {if (ex & 1) {p = (p * q) % M;}q = (q * q) % M;ex>>= 1;}return p;}
 
-struct Node {
-	ll val; // store more info if required
-	Node() { // Identity Element
-		val = 0;
-	}
-	Node(ll v) {
-		val = v;
-	}
-	void merge(Node &l, Node &r) {
-		val = gcd(l.val,r.val);
-	}
-};
+bool check(ll n, vl &a, ll mid)
+{
+    ll sum = 0;
+    ll block = 0;
+    rep(i,n)
+    {
+        sum+=a[i];
+        if(sum>mid)
+        {
+            sum=0;
+            block+=a[i];
+        }
+    }
+    if(block<=mid) return true;
+    sum = 0;
+    block = 0;
+    rrep(i,n-1)
+    {
+        sum+=a[i];
+        if(sum>mid)
+        {
+            sum=0;
+            block+=a[i];
+        }
+    }
+    if(block<=mid) return true;
+    sum = 0;
+    block = a[0];
+    for(int i=1; i<n;i++)
+    {
+        sum+=a[i];
+        if(sum>mid)
+        {
+            sum=0;
+            block+=a[i];
+        }
+    }
+    if(block<=mid) return true;
+    sum = 0;
+    block = a[n-1];
+    for(int i=n-2; i>=0;i--)
+    {
+        sum+=a[i];
+        if(sum>mid)
+        {
+            sum=0;
+            block+=a[i];
+        }
+    }
+    if(block<=mid) return true;
 
-struct SparseTable {
-	vector<vector<Node>> table;
-	vector<ll> logValues;
-	int n;
-	int maxLog;
-	vector<ll> a;
-	SparseTable(int n1, vector<ll> &arr) {
-		n = n1;
-		a = arr;
-		table.resize(n);
-		logValues.resize(n + 1);
-		maxLog = log2(n);
-		logValues[1] = 0;
-		for (int i = 2; i <= n; i++) {
-			logValues[i] = logValues[i / 2] + 1;
-		}
-		for (int i = 0; i < n; i++) {
-			table[i].resize(maxLog + 1);
-			fill(all(table[i]), Node());
-		}
-		build();
-	}
-	void build() {
-		for (int i = 0; i < n; i++) {
-			table[i][0] = Node(a[i]);
-		}
-		for (int i = 1; i <= maxLog; i++) {
-			for (int j = 0; (j + (1 << i)) <= n; j++) {
-				table[j][i].merge(table[j][i - 1], table[j + (1 << (i - 1))][i - 1]);
-			}
-		}
-	}
-	Node queryNormal(int left, int right) {
-		Node ans = Node();
-		for (int j = logValues[right - left + 1]; j >= 0; j--) {
-			if ((1 << j) <= right - left + 1) {
-				ans.merge(ans, table[left][j]);
-				left += (1 << j);
-			}
-		}
-		return ans;
-	}
-	Node queryIdempotent(int left, int right) {
-		int j = logValues[right - left + 1];
-		Node ans = Node();
-		ans.merge(table[left][j], table[right - (1 << j) + 1][j]);
-		return ans;
-	}
-};
+    return false;
+}
 
 void solve()
 {
@@ -174,34 +165,23 @@ void solve()
     cin>>n;
     vl a(n);
     cin>>a;
-	vl circularA = a;
-	rep(i,n) circularA.pb(a[i]);
-    struct SparseTable table = SparseTable(n*2,circularA);
-	ll gcdOfArray = table.queryIdempotent(0,n-1).val;
-	ll l = 0; ll r = n-1;
-	ll answer = -1;
-	while(l<=r) // O(logn)
-	{
-		ll mid = (l+r)/2;
-		bool isPossible = true;
-		for(int i=0;i<n;i++) // O(n)
-		{
-			ll range = (i + mid);
-            ll gcdValue = table.queryIdempotent(i , range).val; // O(logn)
-			if(gcdValue!=gcdOfArray)
-			{
-				isPossible = false;
-				break;
-			}
-		}
-		if(isPossible)
-		{
-			answer = mid;
-			r = mid-1;
-		}
-		else l = mid+1;
-	}// O(logn * n * logn) ~ O(n*log2n)
-	out(answer)
+    ll r = SUM(a);
+    ll l = *min_element(all(a));
+    ll ans;
+    while(l<=r)
+    {
+        ll mid = (l+r)>>1;
+        if(check(n,a,mid))
+        {
+            ans = mid;
+            r = mid-1;
+        }
+        else
+        {
+            l = mid+1;
+        }
+    }
+    cout<<ans<<endl;
 }
 
 
@@ -213,7 +193,7 @@ int32_t main()
     #endif
     //Rating? Neh. In love with experience.
     //Code Karlo, Coz KHNH :)
-    ll t;
+    int t;
     cin>>t;
     while(t--)
     {
