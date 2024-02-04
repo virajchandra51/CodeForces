@@ -17,3 +17,6 @@ int main()
     cout << max(maxValue * 2, sum) << endl;
     return 0;
 }
+
+//Tc - O(n)
+//Sc - O(1)

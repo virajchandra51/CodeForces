@@ -50,22 +50,34 @@ int main()
 
     vector<ll> dist(n + 1, 0);
     vector<ll> vis(n + 1, 0);
+    // running bfs from arbitary node 1 to find some potential ends of diameter
     bfs(1,vis,dist,adj);
-    ll m = max_element(dist.begin(), dist.end()) - dist.begin();
+
+    // taking any one node from the highest distance from node 1 as farthest node
+    ll farthestNode = max_element(dist.begin(), dist.end()) - dist.begin();
+
+    // mark all the nodes as ends of diameter which have greates distance
     for(int i=1;i<=n;i++)
-        if(dist[i]==dist[m]) marker[i]=1;
+        if(dist[i]==dist[farthestNode]) marker[i]=1;
 
     dist = vector<ll>(n + 1, 0);
     vis = vector<ll>(n + 1, 0);
-    bfs(m,vis,dist,adj);
-    m = max_element(dist.begin(), dist.end()) - dist.begin();
-    for(int i=1;i<=n;i++)
-        if(dist[i]==dist[m]) marker[i]=1;
+    // running bfs again from farthest node to find the other left over potential ends of diameter
+    bfs(farthestNode,vis,dist,adj);
 
+    // taking the first node having the highest distance from vector as farthest node
+    farthestNode = max_element(dist.begin(), dist.end()) - dist.begin();
+
+    // mark all nodes as ends of diameter again
+    for(int i=1;i<=n;i++)
+        if(dist[i]==dist[farthestNode]) marker[i]=1;
+
+    // for all the nodes which are ends of diameter answer = diameter + 1
+    // else answer = diameter
     for (int i=1;i<=n;i++)
     {
-        if(marker[i]==1) cout<<dist[m]+1<<endl;
-        else cout<<dist[m]<<endl;
+        if(marker[i]==1) cout<<dist[farthestNode]+1<<endl;
+        else cout<<dist[farthestNode]<<endl;
     }
     return 0;
 }
