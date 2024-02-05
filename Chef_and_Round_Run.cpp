@@ -15,7 +15,7 @@ void dfs(int node, vector<vector<int> > &adj, vector<int> &vis, int initialNode,
             flag = 1;
         }
     }
-    if(flag != )
+    if(flag)
     if (flag == 0)
         vis[node] = 0;
 }

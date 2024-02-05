@@ -60,7 +60,7 @@ int main()
                 previousStep[x][y] = k;
             }
         }
-    }
+    } //O(n*m)
     if (vis[dx][dy] == 1)
     {
         cout << "YES" << endl;
@@ -81,5 +81,5 @@ int main()
     return 0;
 }
 
-// TC - O(n)
-// SC - O(n)
+// TC - O(n*m)
+// SC - O(n*m)
