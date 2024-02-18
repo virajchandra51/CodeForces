@@ -14,19 +14,20 @@ void Sieve(int n)
         if (is_prime[i])
             for (long long j = i * i; j <= n; j += i)
                 is_prime[j] = false;
-}
+} // O(nloglogn)
 
 void get_primes(int n)
 {
     for (int i = 2; i <= n; i++)
         if (is_prime[i])
             primes.push_back(i);
-}
+} // O(n)
 
 int main()
 {
-    Sieve(55556);
-    get_primes(55556);
+    // x = 55556
+    Sieve(55556); // O(xloglogx)
+    get_primes(55556); // O(x)
     int n;
     cin >> n;
     // taking input
@@ -37,7 +38,7 @@ int main()
     // for(auto it:primes) if(it%5==2) count++;
     // cout<<count<<endl;
 
-    for(auto it:primes) // O(55555)
+    for(auto it:primes) // O(55)
     {
         if(c==n) break;
         if(it%5==1) cout<<it<<" ", c++;
@@ -47,5 +48,5 @@ int main()
     return 0;
 }
 
-// TC - O(n*log(logn)) ~ 10^5 10^4
-// SC - O(10^3-10^4)
+// TC - O(xloglogx + x + 55) ~ O(xloglogx) ~ 10^4 - 10^5
+// SC - O(x + y) ~ O(x) ~ 10^4-10^5
