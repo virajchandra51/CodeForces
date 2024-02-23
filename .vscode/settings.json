@@ -94,7 +94,8 @@
         "utility": "cpp",
         "ranges": "cpp",
         "span": "cpp",
-        "filesystem": "cpp"
+        "filesystem": "cpp",
+        "thread": "cpp"
     },
     "cph.general.onceMaintainerMessage": false
 }

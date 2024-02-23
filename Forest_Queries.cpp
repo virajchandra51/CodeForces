@@ -5,12 +5,15 @@ int main()
 {
     int n, q;
     cin >> n >> q;
+
     vector<vector<int> > a(n, vector<int>(n, 0));
+
     for (int i = 0; i < n; i++)
     {
         for (int j = 0; j < n; j++)
             a[i][j] = 0;
     }
+
     for (int i = 0; i < n; i++)
     {
         string s;
@@ -21,7 +24,8 @@ int main()
             if (s[j] != '.')
                 a[i][j] = 1;
         }
-    }
+    } // n^2
+
     for (int i = 0; i < n; i++)
     {
         for (int j = 0; j < n; j++)
@@ -33,7 +37,14 @@ int main()
             else
                 a[i][j] += (a[i][j - 1] + a[i - 1][j] - a[i - 1][j - 1]);
         }
-    }
+    } // n^2
+
+    // for(auto it:a)
+    // {
+    //     for(auto i:it) cout<<i<<" ";
+    //     cout<<endl;
+    // }
+
     for (int i = 0; i < q; i++)
     {
         int y1, x1, y2, x2;
@@ -42,20 +53,21 @@ int main()
         x2--;
         y1--;
         y2--;
-        int dx = x2 - x1 + 1;
-        int dy = y2 - y1 + 1;
-        int s = a[x2][y2];
-        if (x2 - dx >= 0)
+        int countOfTrees = a[x2][y2];
+        if (x1 - 1 >= 0)
         {
-            s -= a[x2 - dx][y2];
+            countOfTrees -= a[x1 - 1][y2];
         }
-        if (y2 - dy >= 0)
+        if (y1 - 1 >= 0)
         {
-            s -= a[x2][y2 - dy];
+            countOfTrees -= a[x2][y1 - 1];
         }
-        if (x2 - dx >= 0 && y2 - dy >= 0)
-            s += a[x2 - dx][y2 - dy];
-        cout << s << endl;
-    }
+        if (x1 - 1 >= 0 && y1 - 1 >= 0)
+            countOfTrees += a[x1 - 1][y1 - 1];
+        cout << countOfTrees << endl;
+    } // q
     return 0;
 }
+
+// tc - O(n^2+q) ~ 10^5 - 10^6
+// sc - O(n^2) or O(1)

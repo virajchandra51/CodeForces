@@ -1,10 +1,15 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+// globals
+
 int dx[] = {1, -1, 0, 0};
 int dy[] = {0, 0, 1, -1};
 
-void dfs(int n, int m, int x, int y, int fromX, int fromY, vector<string> &board, char needColor, bool &findCycle, vector<vector<int> > &visited)
+bool findCycle = false;
+
+void dfs(int n, int m, int x, int y, int fromX, int fromY, vector<string> &board, 
+char needColor, vector<vector<int> > &visited)
 {
     if (x < 0 || x >= n || y < 0 || y >= m)
         return;
@@ -15,6 +20,7 @@ void dfs(int n, int m, int x, int y, int fromX, int fromY, vector<string> &board
         findCycle = true;
         return;
     }
+
     visited[x][y] = true;
     for (int f = 0; f < 4; f++)
     {
@@ -22,7 +28,7 @@ void dfs(int n, int m, int x, int y, int fromX, int fromY, vector<string> &board
         int nextY = y + dy[f];
         if (nextX == fromX && nextY == fromY)
             continue;
-        dfs(n, m, nextX, nextY, x, y, board, needColor, findCycle, visited);
+        dfs(n, m, nextX, nextY, x, y, board, needColor, visited);
     }
 }
 
@@ -36,13 +42,15 @@ int main()
     // taking input
 
     vector<vector<int> > vis(n, vector<int>(m, 0));
-    bool findCycle = false;
 
     for (int i = 0; i < n; i++)
         for (int j = 0; j < m; j++)
             if (!vis[i][j])
-                dfs(n, m, i, j, -1, -1, board, board[i][j], findCycle, vis);
+                dfs(n, m, i, j, -1, -1, board, board[i][j], vis);
 
     cout << (findCycle ? "Yes" : "No") << endl;
     return 0;
 }
+
+// tc - O(n*m) 2500 ~ 10^3
+// sc - O(n*m)

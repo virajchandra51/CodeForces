@@ -12,13 +12,13 @@ int main()
         int n = s.size();
         // taking input
 
-        sort(s.begin(), s.end());
+        sort(s.begin(), s.end()); // O(nlogn)
 
         vector<char> answerCharacters(n);
         int left = 0;
         int right = n - 1;
 
-        for (int i = 0; i < n; i += 2)
+        for (int i = 0; i < n; i += 2) // ~ O(n)
         {
             if (i == n - 1)
             {
@@ -70,3 +70,6 @@ int main()
     }
     return 0;
 }
+
+// TC - O(nlogn+n) ~ O(nlogn)
+// SC - O(n)
