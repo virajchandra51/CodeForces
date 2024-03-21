@@ -1,23 +1,33 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-void dfs(int node, vector<vector<int> > &adj, vector<int> &vis, int initialNode, int &flag)
+void dfs(int node, vector<vector<int> > &adj, vector<int> &vis, unordered_set<int> &ans)
 {
-    vis[node] = 1;
-    for (auto child : adj[node])
+    vis[node] = 1; // this node was just encountered and i have marked it visited
+
+    int child = adj[node][0];
+
+    if (vis[child] == 2)
     {
-        if (vis[child] == 0)
-        {
-            dfs(child, adj, vis, initialNode, flag);
-        }
-        else if(vis[child] == 1)
-        {
-            flag = 1;
-        }
+        // do nothing
     }
-    if(flag)
-    if (flag == 0)
-        vis[node] = 0;
+    else if (vis[child] == 1)
+    {
+        int curNode = child;
+        do
+        {
+            ans.insert(curNode);
+            curNode = adj[curNode][0];
+        } while (curNode != child);
+    }
+    else
+    {
+        dfs(child, adj, vis, ans);
+    }
+    
+    vis[node] = 2; // if i have explored the component totally then i need to backtrack 
+    // i will mark that node as value 2, because this will now denote that this cyclic compnent ahas been
+    // fully traversed
 }
 
 int main()
@@ -38,20 +48,18 @@ int main()
         }
 
         vector<int> vis(n, 0);
-        int ans = 0;
+        unordered_set<int> ans; // O(1)
+
         for (int i = 0; i < n; i++)
         {
             if (vis[i] == 0)
-            {
-                int flag = 0;
-                dfs(i, adj, vis, i, flag);
-            }
-        }
-        for(auto it:vis) ans+=it;
-        cout <<ans<< endl;
+                dfs(i, adj, vis, ans);
+        } // V+E - O(N)
+
+        cout << ans.size() << endl;
     }
     return 0;
 }
 
-// TC - O(n)
-// SC - O(n)
+// tc - O(n) ~ 10^6
+// sc - O(n*1 + n) - O(n)
