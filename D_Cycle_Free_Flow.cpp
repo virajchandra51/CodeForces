@@ -74,7 +74,7 @@ int main()
     int n, m;
     cin >> n >> m;
     vector<pair<int, int> > *edges = new vector<pair<int, int> >[n];
-    for (int i = 0; i < m; i++)
+    for (int i = 0; i < m; i++) //m 
     {
         int a, b;
         int weight;
@@ -88,17 +88,17 @@ int main()
     int limit = log2(n) + 2;
     int **parent = new int *[n];
     int **minimum = new int *[n];
-    for (int i = 0; i < n; i++)
+    for (int i = 0; i < n; i++) // n
     {
         parent[i] = new int[limit];
         minimum[i] = new int[limit];
-        for (int j = 0; j < limit; j++)
+        for (int j = 0; j < limit; j++) // logn
         {
             minimum[i][j] = INT_MAX;
             parent[i][j] = -1;
         }
-    }
-    dfs(0, edges, -1, level, parent, minimum);
+    } // nlogn
+    dfs(0, edges, -1, level, parent, minimum); //n+m
     for (int j = 1; j < limit; j++)
     {
         for (int i = 0; i < n; i++)
@@ -110,21 +110,23 @@ int main()
                 minimum[i][j] = min(minimum[i][j - 1], minimum[x][j - 1]);
             }
         }
-    }
+    } // nlogn
     int q;
     cin >> q;
-    while (q--)
+    while (q--) // q
     {
         int a, b;
         cin >> a >> b;
         a--;
         b--;
-        int x = find_lca(a, b, level, limit, parent);
+        int x = find_lca(a, b, level, limit, parent); // logn
         int d1 = level[a] - level[x];
         int d2 = level[b] - level[x];
-        int min1 = find_minimum(a, parent, minimum, d1);
-        int min2 = find_minimum(b, parent, minimum, d2);
+        int min1 = find_minimum(a, parent, minimum, d1); //logn
+        int min2 = find_minimum(b, parent, minimum, d2); //logn
         cout << min(min1, min2) << endl;
-    }
+    } // qlogn
     return 0;
+    // tc - O(m + nlogn + qlogn)
+    // sc - O(nlogn)
 }

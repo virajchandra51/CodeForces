@@ -95,7 +95,9 @@
         "ranges": "cpp",
         "span": "cpp",
         "filesystem": "cpp",
-        "thread": "cpp"
+        "thread": "cpp",
+        "cassert": "cpp",
+        "__assert": "cpp"
     },
     "cph.general.onceMaintainerMessage": false
 }
