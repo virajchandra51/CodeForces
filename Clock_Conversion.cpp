@@ -1,4 +1,4 @@
-// 2024-03-28 21:43:12
+// 2024-03-28 20:20:18
 // Viraj Chandra
 // Linkedin: https://www.linkedin.com/in/viraj-chandra-4073a8223/
 // Codeforces: https://codeforces.com/profile/khnhcodingkarlo
@@ -115,32 +115,28 @@ ll modinv(ll p,ll q){ll ex;ex=M-2;while (ex) {if (ex & 1) {p = (p * q) % M;}q = 
 
 void solve()
 {
-    ll n;
-    cin>>n;
-    vl a(n);
-    cin>>a;
-    sort(a.begin(), a.end());
-    int l = 0;
-    int r = n-2-1;
-    int s = 0;
-    for(int i=l+1;i<=r;i++)
+    string s;
+    cin>>s;
+    ll hr = stoi(s.substr(0,2));
+    ll min = stoi(s.substr(3));
+    string t = "AM";
+    if(hr==0) hr=12;
+    else if(hr>=12)
     {
-        s+=(a[i]-a[i-1]);
+        t="PM";
+        if(hr>12) hr-=12;
     }
-    int ans = s;
-    while(r<n)
+    string sss = to_string(hr);
+    string ss = to_string(min);
+    if(sss.size()==1)
     {
-        if(r+1<n)
-        {
-            r++;
-            l++;
-            s+=(a[r]-a[r-1]);
-            s-=(a[l]-a[l-1]);
-            ans=min(ans,s);
-        }
-        else break;
+        sss = "0"+sss;
     }
-    return ans;
+    if(ss.size()==1)
+    {
+        ss = "0"+ss;
+    }
+    cout<<sss<<":"<<ss<<" "<<t<<endl;
 }
 
 

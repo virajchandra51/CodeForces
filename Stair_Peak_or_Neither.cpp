@@ -1,4 +1,4 @@
-// 2024-03-28 21:43:12
+// 2024-03-28 20:15:15
 // Viraj Chandra
 // Linkedin: https://www.linkedin.com/in/viraj-chandra-4073a8223/
 // Codeforces: https://codeforces.com/profile/khnhcodingkarlo
@@ -115,32 +115,11 @@ ll modinv(ll p,ll q){ll ex;ex=M-2;while (ex) {if (ex & 1) {p = (p * q) % M;}q = 
 
 void solve()
 {
-    ll n;
-    cin>>n;
-    vl a(n);
-    cin>>a;
-    sort(a.begin(), a.end());
-    int l = 0;
-    int r = n-2-1;
-    int s = 0;
-    for(int i=l+1;i<=r;i++)
-    {
-        s+=(a[i]-a[i-1]);
-    }
-    int ans = s;
-    while(r<n)
-    {
-        if(r+1<n)
-        {
-            r++;
-            l++;
-            s+=(a[r]-a[r-1]);
-            s-=(a[l]-a[l-1]);
-            ans=min(ans,s);
-        }
-        else break;
-    }
-    return ans;
+    ll a,b,c;
+    cin>>a>>b>>c;
+    if(a<b && b<c) cout<<"STAIR"<<endl;
+    else if(a<b && b>c) cout<<"PEAK"<<endl;
+    else cout<<"NONE"<<endl;
 }
 
 

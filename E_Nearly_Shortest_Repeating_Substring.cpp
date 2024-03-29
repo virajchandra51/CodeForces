@@ -1,4 +1,4 @@
-// 2024-03-28 21:43:12
+// 2024-03-28 20:32:13
 // Viraj Chandra
 // Linkedin: https://www.linkedin.com/in/viraj-chandra-4073a8223/
 // Codeforces: https://codeforces.com/profile/khnhcodingkarlo
@@ -103,44 +103,65 @@ vector <ll> primes;
 vector <bool> is_prime;
 
 // Mathematical functions
-void Sieve(int n){ is_prime.assign(n + 1, true); is_prime[0] = is_prime[1] = false; for(ll i = 2; i * i <= n; i++) if(is_prime[i]) for(ll j = i * i; j <= n; j += i) is_prime[j] = false;}
-void get_primes(int n){ for(int i = 2; i <= n; i++)  if(is_prime[i])  primes.push_back(i); }
+ll expo(ll a, ll b, ll mod) {ll res = 1; while (b > 0) {if (b & 1)res = (res * a) % mod; a = (a * a) % mod; b = b >> 1;} return res;}
+void extendgcd(ll a, ll b, ll*v) {if (b == 0) {v[0] = 1; v[1] = 0; v[2] = a; return ;} extendgcd(b, a % b, v); ll x = v[1]; v[1] = v[0] - v[1] * (a / b); v[0] = x; return;} //pass an arry of size1 3
+ll mminv(ll a, ll b) {ll arr[3]; extendgcd(a, b, arr); return arr[0];} //for non prime b
+ll mminvprime(ll a, ll b) {return expo(a, b - 2, b);}
 ll mod_add(ll a, ll b, ll m) {a = a % m; b = b % m; return (((a + b) % m) + m) % m;}
+ll mod_mul(ll a, ll b, ll m) {a = a % m; b = b % m; return (((a * b) % m) + m) % m;}
 ll mod_sub(ll a, ll b, ll m) {a = a % m; b = b % m; return (((a - b) % m) + m) % m;}
-ll gcd(ll a, ll b){if (b == 0)return a;return gcd(b, a % b);} //__gcd 
-ll lcm(ll a, ll b){return (a/gcd(a,b)*b);}
-ll moduloMultiplication(ll a,ll b,ll mod){ll res = 0;a %= mod;while (b){if (b & 1)res = (res + a) % mod;b >>= 1;}return res;}
-ll powermod(ll x, ll y, ll p){ll res = 1;x = x % p;if (x == 0) return 0;while (y > 0){if (y & 1)res = (res*x) % p;y = y>>1;x = (x*x) % p;}return res;}
-ll modinv(ll p,ll q){ll ex;ex=M-2;while (ex) {if (ex & 1) {p = (p * q) % M;}q = (q * q) % M;ex>>= 1;}return p;}
+ll mod_div(ll a, ll b, ll m) {a = a % m; b = b % m; return (mod_mul(a, mminvprime(b, m), m) + m) % m;}  //only for prime m
 
 void solve()
 {
     ll n;
     cin>>n;
-    vl a(n);
-    cin>>a;
-    sort(a.begin(), a.end());
-    int l = 0;
-    int r = n-2-1;
-    int s = 0;
-    for(int i=l+1;i<=r;i++)
-    {
-        s+=(a[i]-a[i-1]);
+    string s;
+    cin>>s;
+    vl f;
+    for (int i=1; i*i<=n; i++) 
+    { 
+        if (n%i == 0) 
+        { 
+            if (n/i == i) 
+                f.pb(i); 
+            else
+                {
+                    f.pb(i);
+                    f.pb(n/i);
+                } 
+        } 
     }
-    int ans = s;
-    while(r<n)
+    sort(all(f));
+    reverse(all(f));
+    rep(i,f.size())
     {
-        if(r+1<n)
+        ll fac = f[i];
+        ll diffFac = n/fac;
+        vector<vector<char>> v(fac,vector<char>(diffFac));
+        int k = 0;
+        rep(l,fac)
+            rep(o,diffFac)
+                v[l][o]=s[k++];
+        int countOf1 = 0;
+        int countOf2 = 0;
+        for(int o=0;o<diffFac;o++)
         {
-            r++;
-            l++;
-            s+=(a[r]-a[r-1]);
-            s-=(a[l]-a[l-1]);
-            ans=min(ans,s);
+            unordered_map<char,int> m;
+            for(int l=0;l<fac;l++)
+                m[v[l][o]]++;
+            if(m.size()==1)
+            countOf1++;
+            else if(m.size()==2)
+                for(auto it:m)
+                    if(it.second==1) countOf2++;
         }
-        else break;
+        if((fac==2 && (countOf1==(diffFac-1) && countOf2==2)) || (countOf1==diffFac) || (countOf1==(diffFac-1) && countOf2==1)) 
+        {
+            cout<<diffFac<<endl;
+            return;
+        }
     }
-    return ans;
 }
 
 

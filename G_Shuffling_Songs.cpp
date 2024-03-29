@@ -1,4 +1,4 @@
-// 2024-03-28 21:43:12
+// 2024-03-29 12:24:39
 // Viraj Chandra
 // Linkedin: https://www.linkedin.com/in/viraj-chandra-4073a8223/
 // Codeforces: https://codeforces.com/profile/khnhcodingkarlo
@@ -117,30 +117,37 @@ void solve()
 {
     ll n;
     cin>>n;
-    vl a(n);
-    cin>>a;
-    sort(a.begin(), a.end());
-    int l = 0;
-    int r = n-2-1;
-    int s = 0;
-    for(int i=l+1;i<=r;i++)
+    vector<string> G(n);
+    vector<string> W(n);
+    rep(i,n) cin>>G[i]>>W[i];
+    vector<vector<ll>> adj(n+1,vector<ll>(n+1,0));
+    rep(i,n)
     {
-        s+=(a[i]-a[i-1]);
-    }
-    int ans = s;
-    while(r<n)
-    {
-        if(r+1<n)
+        rep(j,n)
         {
-            r++;
-            l++;
-            s+=(a[r]-a[r-1]);
-            s-=(a[l]-a[l-1]);
-            ans=min(ans,s);
+            if(G[i]==G[j] || W[i]==W[j])
+            adj[i][j]=1;
         }
-        else break;
     }
-    return ans;
+    vector<vector<ll>> dp((1<<n)+1,vector<ll>(n+1,0));
+    rep(i,n)
+    dp[(1<<i)][i] = 1;
+    int ans = 0;
+    rep(i,(1<<n))
+    {
+        rep(j,n)
+        {
+            if(dp[i][j])
+            {
+                ans=max(ans,set_bits(i));
+                rep(k,n)
+                {
+                    if(!(i>>k & 1) && adj[j][k]==1) dp[i|1<<k][k] = 1;
+                }
+            }
+        }
+    }
+    out(n-ans)
 }
 
 

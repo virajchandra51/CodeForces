@@ -1,4 +1,4 @@
-// 2024-03-28 21:43:12
+// 2024-03-28 13:31:52
 // Viraj Chandra
 // Linkedin: https://www.linkedin.com/in/viraj-chandra-4073a8223/
 // Codeforces: https://codeforces.com/profile/khnhcodingkarlo
@@ -115,32 +115,25 @@ ll modinv(ll p,ll q){ll ex;ex=M-2;while (ex) {if (ex & 1) {p = (p * q) % M;}q = 
 
 void solve()
 {
-    ll n;
-    cin>>n;
+    ll n,s;
+    cin>>n>>s;
     vl a(n);
     cin>>a;
-    sort(a.begin(), a.end());
-    int l = 0;
-    int r = n-2-1;
-    int s = 0;
-    for(int i=l+1;i<=r;i++)
-    {
-        s+=(a[i]-a[i-1]);
-    }
-    int ans = s;
-    while(r<n)
-    {
-        if(r+1<n)
+    ll sum = 0;
+    ll l = 0;
+    ll r = 0;
+    ll ans = 0;
+    while(r<n) {
+        sum += a[r];
+        while(sum>s)
         {
-            r++;
+            sum-=a[l];
             l++;
-            s+=(a[r]-a[r-1]);
-            s-=(a[l]-a[l-1]);
-            ans=min(ans,s);
         }
-        else break;
+        ans=max(ans,r-l+1);
+        r++;
     }
-    return ans;
+    out(ans)
 }
 
 
@@ -153,7 +146,7 @@ int32_t main()
     //Rating? Neh. In love with experience.
     //Code Karlo, Coz KHNH :)
     int t;
-    cin>>t;
+    t=1;
     while(t--)
     {
     solve();

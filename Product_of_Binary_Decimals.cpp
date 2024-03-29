@@ -1,4 +1,4 @@
-// 2024-03-28 21:43:12
+// 2024-03-28 20:26:07
 // Viraj Chandra
 // Linkedin: https://www.linkedin.com/in/viraj-chandra-4073a8223/
 // Codeforces: https://codeforces.com/profile/khnhcodingkarlo
@@ -113,34 +113,24 @@ ll moduloMultiplication(ll a,ll b,ll mod){ll res = 0;a %= mod;while (b){if (b & 
 ll powermod(ll x, ll y, ll p){ll res = 1;x = x % p;if (x == 0) return 0;while (y > 0){if (y & 1)res = (res*x) % p;y = y>>1;x = (x*x) % p;}return res;}
 ll modinv(ll p,ll q){ll ex;ex=M-2;while (ex) {if (ex & 1) {p = (p * q) % M;}q = (q * q) % M;ex>>= 1;}return p;}
 
+vector<ll> v;
+
 void solve()
 {
     ll n;
     cin>>n;
-    vl a(n);
-    cin>>a;
-    sort(a.begin(), a.end());
-    int l = 0;
-    int r = n-2-1;
-    int s = 0;
-    for(int i=l+1;i<=r;i++)
+    vector<int> dp(1e5+1,0);
+    dp[1]=1;
+    for(int i=1;i<=n;i++)
     {
-        s+=(a[i]-a[i-1]);
-    }
-    int ans = s;
-    while(r<n)
-    {
-        if(r+1<n)
+        if(dp[i] == 0) continue;
+        for(auto it:v)
         {
-            r++;
-            l++;
-            s+=(a[r]-a[r-1]);
-            s-=(a[l]-a[l-1]);
-            ans=min(ans,s);
+            if(it*i>1e5) continue;
+            dp[it*i]=1;
         }
-        else break;
     }
-    return ans;
+    if(dp[n]) py; else pn;
 }
 
 
@@ -152,11 +142,42 @@ int32_t main()
     #endif
     //Rating? Neh. In love with experience.
     //Code Karlo, Coz KHNH :)
+    v.pb(1);
+    v.pb(10);
+    v.pb(11);
+    v.pb(100);
+    v.pb(101);
+    v.pb(110);
+    v.pb(111);
+    v.pb(1000);
+    v.pb(1001);
+    v.pb(1010);
+    v.pb(1011);
+    v.pb(1100);
+    v.pb(1101);
+    v.pb(1110);
+    v.pb(1111);
+    v.pb(10000);
+    v.pb(10001);
+    v.pb(10010);
+    v.pb(10011);
+    v.pb(10100);
+    v.pb(10101);
+    v.pb(10110);
+    v.pb(10111);
+    v.pb(11000);
+    v.pb(11001);
+    v.pb(11010);
+    v.pb(11011);
+    v.pb(11100);
+    v.pb(11101);
+    v.pb(11110);
+    v.pb(11111);
     int t;
     cin>>t;
     while(t--)
     {
-    solve();
+        solve();
     }
     return 0;
 }

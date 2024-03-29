@@ -1,4 +1,4 @@
-// 2024-03-28 21:43:12
+// 2024-03-28 20:16:40
 // Viraj Chandra
 // Linkedin: https://www.linkedin.com/in/viraj-chandra-4073a8223/
 // Codeforces: https://codeforces.com/profile/khnhcodingkarlo
@@ -117,30 +117,26 @@ void solve()
 {
     ll n;
     cin>>n;
-    vl a(n);
-    cin>>a;
-    sort(a.begin(), a.end());
-    int l = 0;
-    int r = n-2-1;
-    int s = 0;
-    for(int i=l+1;i<=r;i++)
+    string a = "";
+    string b = "";
+    rep(i,n)
     {
-        s+=(a[i]-a[i-1]);
+        a += (i%2) ? "##" : "..";
+        b += (i%2) ? ".." : "##";
     }
-    int ans = s;
-    while(r<n)
+    rep(i,n)
     {
-        if(r+1<n)
+        if(i&1)
         {
-            r++;
-            l++;
-            s+=(a[r]-a[r-1]);
-            s-=(a[l]-a[l-1]);
-            ans=min(ans,s);
+            cout<<a<<endl;
+            cout<<a<<endl;
         }
-        else break;
+        else
+        {
+            cout<<b<<endl;
+            cout<<b<<endl;
+        }
     }
-    return ans;
 }
 
 

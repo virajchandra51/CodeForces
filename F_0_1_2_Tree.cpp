@@ -1,4 +1,4 @@
-// 2024-03-28 21:43:12
+// 2024-03-28 23:13:30
 // Viraj Chandra
 // Linkedin: https://www.linkedin.com/in/viraj-chandra-4073a8223/
 // Codeforces: https://codeforces.com/profile/khnhcodingkarlo
@@ -115,32 +115,61 @@ ll modinv(ll p,ll q){ll ex;ex=M-2;while (ex) {if (ex & 1) {p = (p * q) % M;}q = 
 
 void solve()
 {
-    ll n;
-    cin>>n;
-    vl a(n);
-    cin>>a;
-    sort(a.begin(), a.end());
-    int l = 0;
-    int r = n-2-1;
-    int s = 0;
-    for(int i=l+1;i<=r;i++)
+    ll a,b,c;
+    cin>>a>>b>>c;
+    queue<ll> q;
+    rep(i,a) q.push(2);
+    rep(i,b) q.push(1);
+    rep(i,c) q.push(0);
+    int h = 0;
+    queue<ll> qq;
+    if(q.front()!=0)
+    qq.push(q.front());
+    q.pop();
+    while(!qq.empty())
     {
-        s+=(a[i]-a[i-1]);
-    }
-    int ans = s;
-    while(r<n)
-    {
-        if(r+1<n)
+        ll k = qq.size();
+        while(k--)
         {
-            r++;
-            l++;
-            s+=(a[r]-a[r-1]);
-            s-=(a[l]-a[l-1]);
-            ans=min(ans,s);
+            auto node = qq.front();
+            qq.pop();
+            if(node==2)
+            {
+                if(q.size()>=2)
+                {
+                    if(q.front()!=0)
+                    qq.push(q.front());
+                    q.pop();
+                    if(q.front()!=0)
+                    qq.push(q.front());
+                    q.pop();
+                }
+                else
+                {
+                    pm;
+                    return;
+                }
+            }
+            else if(node==1)
+            {
+                if(q.size()>=1)
+                {
+                    if(q.front()!=0)
+                    qq.push(q.front());
+                    q.pop();
+                }
+                else
+                {
+                    pm;
+                    return;
+                }
+            }
         }
-        else break;
+        h++;
     }
-    return ans;
+    if(q.size()==0)
+    out(h)
+    else pm;
 }
 
 
