@@ -1,4 +1,4 @@
-// 2024-03-28 21:43:12
+// 2024-04-04 02:23:52
 // Viraj Chandra
 // Linkedin: https://www.linkedin.com/in/viraj-chandra-4073a8223/
 // Codeforces: https://codeforces.com/profile/khnhcodingkarlo
@@ -42,8 +42,6 @@ typedef tree<int, null_type, less<int>, rb_tree_tag, tree_order_statistics_node_
 #define MIN(x) *min_element(all(x))
 #define SUM(x) accumulate(all(x), 0LL)
 #define COUNT(x,u) count(all(x), u)
-#define B break
-#define C continue
 #define py cout<<"YES"<<endl
 #define pn cout<<"NO"<<endl
 #define pm cout<<"-1"<<endl
@@ -82,8 +80,10 @@ template<typename T> // cin >> vector<T>
 istream& operator>>(istream &istream, vector<T> &v){for (auto &it : v)cin >> it;return istream;}
 template<typename T> // cout << vector<T>
 ostream& operator<<(ostream &ostream, const vector<T> &c) { for (auto &it : c) cout << it << " "; return ostream; }
-template<typename T, typename V> // cout << map<T,T>
+template<typename T, typename V> // cout << map<T,V>
 ostream& operator<<(ostream &ostream, const map<T,V> &c) { for (auto &it : c) cout << it.first << " " << it.second<<endl; return ostream; }
+template<typename T, typename V> // cout << vector<pair<T,V>>
+ostream& operator<<(ostream &ostream, const vector<pair<T,V>> &c) { for (auto &it : c) cout << it.first << " " << it.second<<endl; return ostream; }
 
 //Sorting
 bool sorta(const pair<int,int> &a,const pair<int,int> &b){return (a.second < b.second);}
@@ -115,32 +115,20 @@ ll modinv(ll p,ll q){ll ex;ex=M-2;while (ex) {if (ex & 1) {p = (p * q) % M;}q = 
 
 void solve()
 {
-    ll n;
-    cin>>n;
-    vl a(n);
-    cin>>a;
-    sort(a.begin(), a.end());
-    int l = 0;
-    int r = n-2-1;
-    int s = 0;
-    for(int i=l+1;i<=r;i++)
+    ll m = 0;
+    ll in = -1;
+    rep(i,22)
     {
-        s+=(a[i]-a[i-1]);
-    }
-    int ans = s;
-    while(r<n)
-    {
-        if(r+1<n)
+        ll a,b;
+        cin>>a>>b;
+        if(a+b*20>m)
         {
-            r++;
-            l++;
-            s+=(a[r]-a[r-1]);
-            s-=(a[l]-a[l-1]);
-            ans=min(ans,s);
+            m = a+b*20;
+            in=i+1;
         }
-        else break;
     }
-    return ans;
+    out(in)
+
 }
 
 
@@ -156,7 +144,7 @@ int32_t main()
     cin>>t;
     while(t--)
     {
-    solve();
+        solve();
     }
     return 0;
 }
