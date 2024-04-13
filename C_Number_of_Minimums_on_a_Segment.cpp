@@ -1,4 +1,4 @@
-// 2024-04-02 08:41:38
+// 2024-04-12 03:25:50
 // Viraj Chandra
 // Linkedin: https://www.linkedin.com/in/viraj-chandra-4073a8223/
 // Codeforces: https://codeforces.com/profile/khnhcodingkarlo
@@ -60,6 +60,7 @@ typedef vector<pl> vpl;
 typedef vector<vi> vvi;
 typedef vector<vl> vvl;
 typedef map<int,int> mii;
+typedef map<ll,ll> mll;
 typedef map<char,int> mci;
 typedef set<int> st;
 
@@ -113,67 +114,131 @@ ll moduloMultiplication(ll a,ll b,ll mod){ll res = 0;a %= mod;while (b){if (b & 
 ll powermod(ll x, ll y, ll p){ll res = 1;x = x % p;if (x == 0) return 0;while (y > 0){if (y & 1)res = (res*x) % p;y = y>>1;x = (x*x) % p;}return res;}
 ll modinv(ll p,ll q){ll ex;ex=M-2;while (ex) {if (ex & 1) {p = (p * q) % M;}q = (q * q) % M;ex>>= 1;}return p;}
 
-int helper(int N, int K)
-{
-    vector<vector<int> > arr;
-    int root = sqrt(N);
-    int row = 0, col = 0, count = 0;
-    vector<int> vec;
-    for (int i = 1; i <= N; i++) {
-        if (count > root) {
-            count = 0;
-            arr.push_back(vec);
-            vec.clear();
+
+struct Node {
+	ll val; // may change
+    ll c;
+	Node() { // Identity element
+		val = 1e18;	// may change
+        c = 0;
+	}
+	Node(ll p1) {  // Actual Node
+		val = p1; // may change
+        c = 1;
+	}
+	void merge(Node &l, Node &r) { // Merge two child nodes
+        if(l.val<r.val)
+		{
+            val = l.val;  // may change
+            c = l.c;
         }
-        vec.push_back(i);
-        count++;
-    }
-    if (!vec.empty())
-        arr.push_back(vec);
-    vector<int> b;
-    for (int i = 0; i < N; i++) {
-        int j = K % (N - i);
-        while (j) {
-            if (col + j < arr[row].size()) {
-                col += j;
-                j = 0;
-            }
-            else {
-                j -= arr[row].size() - col;
-                col = 0;
-                row++;
-            }
-            if (row >= arr.size())
-                row = 0;
+        else if(l.val>r.val)
+        {
+            val = r.val;  // may change
+            c = r.c;
         }
-        while (arr[row].size() <= col) {
-            col = 0;
-            row++;
-            if (row >= arr.size())
-                row = 0;
+        else
+        { 
+            val = r.val;  // may change
+            c = r.c+l.c;
         }
-        b.push_back(arr[row][col]);
-        if (i != N - 1) {
-            arr[row].erase(arr[row].begin() + col);
-            while (arr[row].size() <= col) {
-                col = 0;
-                row++;
-                if (row >= arr.size())
-                    row = 0;
-            }
-        }
-    }
-    return b[b.size()-1];
-}
+	}
+};
+
+struct Update {
+	ll val; // may change
+	Update(ll p1) { // Actual Update
+		val = p1; // may change
+	}
+	void apply(Node &a) { // apply update to given node
+		a.val = val; // may change
+	}
+};
+
+struct SegTree {
+	vector<Node> tree;
+	vector<ll> arr; // type may change
+	int n;
+	int s;
+	SegTree(int a_len, vector<ll> &a) { // change if type updated
+		arr = a;
+		n = a_len;
+		s = 1;
+		while(s < 2 * n){
+			s = s << 1;
+		}
+		tree.resize(s); fill(all(tree), Node());
+		build(0, n - 1, 1);
+	}
+	void build(int start, int end, int index)  // Never change this
+	{
+		if (start == end)	{
+			tree[index] = Node(arr[start]);
+			return;
+		}
+		int mid = (start + end) / 2;
+		build(start, mid, 2 * index);
+		build(mid + 1, end, 2 * index + 1);
+		tree[index].merge(tree[2 * index], tree[2 * index + 1]);
+	}
+	void update(int start, int end, int index, int query_index, Update &u)  // Never Change this
+	{
+		if (start == end) {
+			u.apply(tree[index]);
+			return;
+		}
+		int mid = (start + end) / 2;
+		if (mid >= query_index)
+			update(start, mid, 2 * index, query_index, u);
+		else
+			update(mid + 1, end, 2 * index + 1, query_index, u);
+		tree[index].merge(tree[2 * index], tree[2 * index + 1]);
+	}
+	Node query(int start, int end, int index, int left, int right) { // Never change this
+		if (start > right || end < left)
+			return Node();
+		if (start >= left && end <= right)
+			return tree[index];
+		int mid = (start + end) / 2;
+		Node l, r, ans;
+		l = query(start, mid, 2 * index, left, right);
+		r = query(mid + 1, end, 2 * index + 1, left, right);
+		ans.merge(l, r);
+		return ans;
+	}
+	void make_update(int index, ll val) {  // pass in as many parameters as required
+		Update new_update = Update(val); // may change
+		update(0, n - 1, 1, index, new_update);
+	}
+	Node make_query(int left, int right) {
+		return query(0, n - 1, 1, left, right);
+	}
+};
 
 void solve()
 {
-    int n,k; cin>>n>>k;
-    vi q(n);
-    cin>>q;
-    map<int,int> m;
-    for(int i=1;i<=n;i++) m[i] = q[i];
-    return m[helper(n,k-1)-1];
+    ll n,q;
+    cin>>n>>q;
+    vl a(n);
+    cin>>a;
+    struct SegTree tree = SegTree(n,a);
+    rep(i,q)
+    {
+        ll operationType;
+        cin>>operationType;
+        if(operationType==2)
+        {
+            ll a,b;
+            cin>>a>>b;
+            cout<<tree.make_query(a,b-1).val<<" "<<tree.make_query(a,b-1).c<<endl;
+        }
+        else
+        {
+            ll k,u;
+            cin>>k>>u;
+            tree.make_update(k,u);
+        }
+    }
 }
 
 

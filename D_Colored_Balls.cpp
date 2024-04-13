@@ -1,4 +1,4 @@
-// 2024-04-02 08:41:38
+// 2024-04-12 22:30:26
 // Viraj Chandra
 // Linkedin: https://www.linkedin.com/in/viraj-chandra-4073a8223/
 // Codeforces: https://codeforces.com/profile/khnhcodingkarlo
@@ -30,18 +30,12 @@ typedef tree<int, null_type, less<int>, rb_tree_tag, tree_order_statistics_node_
 #define rrep(i,j) rforeach(i,j,0,1)
 #define set_bits(x) __builtin_popcountll(x)
 #define zero_bits(x) __builtin_ctzll(x)
-#define sz(s) (int)(s.size())
 #define Num_of_Digits(n) ((int)log10(n) + 1)
 #define inint(x) int x; cin>>x;
 #define inll(x) long long int x; cin>>x;
 #define instr(x) string x; cin>>x;
 #define all(x) x.begin(), x.end()
-#define os(x) cout << x << " ";
 #define out(x) cout << x << endl;
-#define MAX(x) *max_element(all(x))
-#define MIN(x) *min_element(all(x))
-#define SUM(x) accumulate(all(x), 0LL)
-#define COUNT(x,u) count(all(x), u)
 #define py cout<<"YES"<<endl
 #define pn cout<<"NO"<<endl
 #define pm cout<<"-1"<<endl
@@ -49,8 +43,6 @@ typedef tree<int, null_type, less<int>, rb_tree_tag, tree_order_statistics_node_
 
 //Typedef
 typedef long long ll;
-typedef unsigned long long ull;
-typedef long double lld;
 typedef pair<int, int> pi;
 typedef pair<ll, ll> pl;
 typedef vector<int> vi;
@@ -60,20 +52,9 @@ typedef vector<pl> vpl;
 typedef vector<vi> vvi;
 typedef vector<vl> vvl;
 typedef map<int,int> mii;
+typedef map<ll,ll> mll;
 typedef map<char,int> mci;
 typedef set<int> st;
-
-#ifndef ONLINE_JUDGE
-#define debug(x) cerr<<#x<<" ";_print(x); cerr<<endl;
-#else
-#define debug(x)
-#endif
-
-void _print(ll t) {cerr << t;}
-void _print(int t) {cerr << t;}
-void _print(string t) {cerr << t;}
-void _print(char t) {cerr << t;}
-void _print(double t) {cerr << t;}
 
 // Operator overloads
 template<typename T> // cin >> vector<T>
@@ -113,78 +94,36 @@ ll moduloMultiplication(ll a,ll b,ll mod){ll res = 0;a %= mod;while (b){if (b & 
 ll powermod(ll x, ll y, ll p){ll res = 1;x = x % p;if (x == 0) return 0;while (y > 0){if (y & 1)res = (res*x) % p;y = y>>1;x = (x*x) % p;}return res;}
 ll modinv(ll p,ll q){ll ex;ex=M-2;while (ex) {if (ex & 1) {p = (p * q) % M;}q = (q * q) % M;ex>>= 1;}return p;}
 
-int helper(int N, int K)
-{
-    vector<vector<int> > arr;
-    int root = sqrt(N);
-    int row = 0, col = 0, count = 0;
-    vector<int> vec;
-    for (int i = 1; i <= N; i++) {
-        if (count > root) {
-            count = 0;
-            arr.push_back(vec);
-            vec.clear();
-        }
-        vec.push_back(i);
-        count++;
-    }
-    if (!vec.empty())
-        arr.push_back(vec);
-    vector<int> b;
-    for (int i = 0; i < N; i++) {
-        int j = K % (N - i);
-        while (j) {
-            if (col + j < arr[row].size()) {
-                col += j;
-                j = 0;
-            }
-            else {
-                j -= arr[row].size() - col;
-                col = 0;
-                row++;
-            }
-            if (row >= arr.size())
-                row = 0;
-        }
-        while (arr[row].size() <= col) {
-            col = 0;
-            row++;
-            if (row >= arr.size())
-                row = 0;
-        }
-        b.push_back(arr[row][col]);
-        if (i != N - 1) {
-            arr[row].erase(arr[row].begin() + col);
-            while (arr[row].size() <= col) {
-                col = 0;
-                row++;
-                if (row >= arr.size())
-                    row = 0;
-            }
-        }
-    }
-    return b[b.size()-1];
+vvl dp;
+ll calc(int arr[], int n, int ind, int currsum) {
+    if (ind == n)
+        return 0;
+    if (dp[ind][currsum] != -1)
+        return dp[ind][currsum];
+    long long res = max((arr[ind] + currsum + 1) / 2, arr[ind]);
+    return dp[ind][currsum] = (res + calc(arr, n, ind + 1, currsum + arr[ind]) + calc(arr, n, ind + 1, currsum)) % 998244353;
 }
-
 void solve()
 {
-    int n,k; cin>>n>>k;
-    vi q(n);
-    cin>>q;
-    map<int,int> m;
-    for(int i=1;i<=n;i++) m[i] = q[i];
-    return m[helper(n,k-1)-1];
+    int n;
+    cin >> n;
+    int arr[n];
+    for (int i = 0; i < n; i++)
+        cin >> arr[i];
+    sort(arr, arr + n);
+    dp.resize(5001,vl(5001,-1));
+    cout << calc(arr, n, 0, 0) << endl;
 }
-
 
 int32_t main()
 {
     fastio()
-    #ifndef ONLINE_JUDGE
-        freopen("Error.txt","w",stderr);
-    #endif
     //Rating? Neh. In love with experience.
     //Code Karlo, Coz KHNH :)
+    // auto solve = [&] () {
+        
+    // }
+
     int t;
     t=1;
     while(t--)

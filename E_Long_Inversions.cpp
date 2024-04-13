@@ -1,4 +1,4 @@
-// 2024-04-02 08:41:38
+// 2024-04-09 03:23:00
 // Viraj Chandra
 // Linkedin: https://www.linkedin.com/in/viraj-chandra-4073a8223/
 // Codeforces: https://codeforces.com/profile/khnhcodingkarlo
@@ -60,6 +60,7 @@ typedef vector<pl> vpl;
 typedef vector<vi> vvi;
 typedef vector<vl> vvl;
 typedef map<int,int> mii;
+typedef map<ll,ll> mll;
 typedef map<char,int> mci;
 typedef set<int> st;
 
@@ -113,67 +114,42 @@ ll moduloMultiplication(ll a,ll b,ll mod){ll res = 0;a %= mod;while (b){if (b & 
 ll powermod(ll x, ll y, ll p){ll res = 1;x = x % p;if (x == 0) return 0;while (y > 0){if (y & 1)res = (res*x) % p;y = y>>1;x = (x*x) % p;}return res;}
 ll modinv(ll p,ll q){ll ex;ex=M-2;while (ex) {if (ex & 1) {p = (p * q) % M;}q = (q * q) % M;ex>>= 1;}return p;}
 
-int helper(int N, int K)
-{
-    vector<vector<int> > arr;
-    int root = sqrt(N);
-    int row = 0, col = 0, count = 0;
-    vector<int> vec;
-    for (int i = 1; i <= N; i++) {
-        if (count > root) {
-            count = 0;
-            arr.push_back(vec);
-            vec.clear();
-        }
-        vec.push_back(i);
-        count++;
-    }
-    if (!vec.empty())
-        arr.push_back(vec);
-    vector<int> b;
-    for (int i = 0; i < N; i++) {
-        int j = K % (N - i);
-        while (j) {
-            if (col + j < arr[row].size()) {
-                col += j;
-                j = 0;
-            }
-            else {
-                j -= arr[row].size() - col;
-                col = 0;
-                row++;
-            }
-            if (row >= arr.size())
-                row = 0;
-        }
-        while (arr[row].size() <= col) {
-            col = 0;
-            row++;
-            if (row >= arr.size())
-                row = 0;
-        }
-        b.push_back(arr[row][col]);
-        if (i != N - 1) {
-            arr[row].erase(arr[row].begin() + col);
-            while (arr[row].size() <= col) {
-                col = 0;
-                row++;
-                if (row >= arr.size())
-                    row = 0;
-            }
-        }
-    }
-    return b[b.size()-1];
-}
-
 void solve()
 {
-    int n,k; cin>>n>>k;
-    vi q(n);
-    cin>>q;
-    map<int,int> m;
-    for(int i=1;i<=n;i++) m[i] = q[i];
-    return m[helper(n,k-1)-1];
+    int n;
+    cin>>n;
+    string s;
+    cin>>s;
+    string t = s;
+    for(int k=n;k>=1;k--)
+    {
+        bool check = true;
+        int c = 0;
+        vi a(n+1);
+        rep(i,n)
+        {
+            c^=a[i];
+            if(c)
+            {
+                if(s[i]=='0') s[i] = '1'; else s[i] = '0';
+            }
+            if(s[i]=='0')
+            {
+                c^=1;
+                if(i+k>n)
+                {
+                    check = false;
+                    break;
+                }
+                a[i+k]^=1;
+            }
+        }
+        if(check)
+        {
+            out(k) return;
+        }
+        s=t;
+    }
 }
 
 
@@ -186,7 +162,7 @@ int32_t main()
     //Rating? Neh. In love with experience.
     //Code Karlo, Coz KHNH :)
     int t;
-    t=1;
+    cin>>t;
     while(t--)
     {
         solve();
