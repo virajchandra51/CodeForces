@@ -1,4 +1,4 @@
-// 2024-04-12 22:30:26
+// 2024-04-17 20:36:39
 // Viraj Chandra
 // Linkedin: https://www.linkedin.com/in/viraj-chandra-4073a8223/
 // Codeforces: https://codeforces.com/profile/khnhcodingkarlo
@@ -94,40 +94,108 @@ ll moduloMultiplication(ll a,ll b,ll mod){ll res = 0;a %= mod;while (b){if (b & 
 ll powermod(ll x, ll y, ll p){ll res = 1;x = x % p;if (x == 0) return 0;while (y > 0){if (y & 1)res = (res*x) % p;y = y>>1;x = (x*x) % p;}return res;}
 ll modinv(ll p,ll q){ll ex;ex=M-2;while (ex) {if (ex & 1) {p = (p * q) % M;}q = (q * q) % M;ex>>= 1;}return p;}
 
-vvl dp;
-ll calc(int arr[], int n, int ind, int currsum) {
-    if (ind == n)
-        return 0;
-    if (dp[ind][currsum] != -1)
-        return dp[ind][currsum];
-    long long take = max((arr[ind] + currsum + 1) / 2, arr[ind]) + calc(arr, n, ind+1, currsum + arr[ind]);
-    long long notTake = calc(arr, n, ind+1, currsum);
-    return dp[ind][currsum] = (take + notTake) % 998244353;
-}
-
-void solve()
-{
-    int n;
-    cin >> n;
-    int arr[n];
-    for (int i = 0; i < n; i++)
-        cin >> arr[i];
-    sort(arr, arr + n);
-    dp.resize(5001,vl(5001,-1));
-    cout << calc(arr, n, 0, 0) << endl;
-}
-
 int32_t main()
 {
     fastio()
     //Rating? Neh. In love with experience.
     //Code Karlo, Coz KHNH :)
-    // auto solve = [&] () {
-        
-    // }
+    auto solve = [&] () {
+        ll n;
+        cin>>n;
+        vl a(n);
+        cin>>a;
+        if(n==1)
+        {
+            out(a[0]);
+            return;
+        }
+        int sum = 0;
+        int m = INT_MAX;
+        int c = 0;
+        int f = 0;
+        rep(i,n)
+        {
+            sum+=a[i];
+            c++;
+            if(sum>0)
+            {
+                sum=0;
+                c=0;
+            }
+            else
+            {
+                if(sum<m && c>1)
+                {
+                    f=1;
+                    m=sum;
+                }
+            }
+        }
+        int sum1 = 0;
+        int m1 = INT_MAX;
+        c = 0;
+        int f1 = 0;
+        rrep(i,n-1)
+        {
+            sum1+=a[i];
+            c++;
+            if(sum1>0)
+            {
+                sum1=0;
+                c=0;
+            }
+            else
+            {
+                if(sum1<m1 && c>1)
+                {
+                    f1=1;
+                    m1=sum1;
+                }
+            }
+        }
+        // cout<<m<<" "<<f<<endl;
+        // cout<<m1<<" "<<f1<<endl;
+        // ll ssum = 0;
+        // for(auto it:a) ssum+=it;
+        // ll ans = INT_MIN;
+        // if(f==1)
+        // {
+        //     ans=max(ans,ssum-2*m);
+        // }
+        // if(f1==1)
+        // {
+        //     ans=max(ans,ssum-2*m1);
+        // }
+        // out(ans)
+        multiset<ll> mm;
+        ll preS=0;
+        rep(j,n)
+        {
+            preS+=a[j];
+            mm.insert(preS);
+        }
+        ll ans2=1e18;
+        preS=0;
+        rep(j,n-1)
+        {
+            preS+=a[j];
+            mm.erase(mm.find(preS));
+            ll val = *(mm.begin());
+            if(j!=0)
+            {
+                val-=preS;
+                val+=a[j];
+            }
+            ans2=min(ans2,val);
+        }
+        preS+=a[n-1];
+        ll res = preS-ans2;
+        res+=abs(ans2);
+        out(res);
+    };
 
-    int t;
-    t=1;
+    ll t;
+    cin>>t;
     while(t--)
     {
         solve();

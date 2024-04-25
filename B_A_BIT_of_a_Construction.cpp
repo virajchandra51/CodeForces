@@ -1,4 +1,4 @@
-// 2024-04-12 22:30:26
+// 2024-04-22 01:19:26
 // Viraj Chandra
 // Linkedin: https://www.linkedin.com/in/viraj-chandra-4073a8223/
 // Codeforces: https://codeforces.com/profile/khnhcodingkarlo
@@ -94,40 +94,29 @@ ll moduloMultiplication(ll a,ll b,ll mod){ll res = 0;a %= mod;while (b){if (b & 
 ll powermod(ll x, ll y, ll p){ll res = 1;x = x % p;if (x == 0) return 0;while (y > 0){if (y & 1)res = (res*x) % p;y = y>>1;x = (x*x) % p;}return res;}
 ll modinv(ll p,ll q){ll ex;ex=M-2;while (ex) {if (ex & 1) {p = (p * q) % M;}q = (q * q) % M;ex>>= 1;}return p;}
 
-vvl dp;
-ll calc(int arr[], int n, int ind, int currsum) {
-    if (ind == n)
-        return 0;
-    if (dp[ind][currsum] != -1)
-        return dp[ind][currsum];
-    long long take = max((arr[ind] + currsum + 1) / 2, arr[ind]) + calc(arr, n, ind+1, currsum + arr[ind]);
-    long long notTake = calc(arr, n, ind+1, currsum);
-    return dp[ind][currsum] = (take + notTake) % 998244353;
-}
-
-void solve()
-{
-    int n;
-    cin >> n;
-    int arr[n];
-    for (int i = 0; i < n; i++)
-        cin >> arr[i];
-    sort(arr, arr + n);
-    dp.resize(5001,vl(5001,-1));
-    cout << calc(arr, n, 0, 0) << endl;
-}
-
 int32_t main()
 {
     fastio()
     //Rating? Neh. In love with experience.
     //Code Karlo, Coz KHNH :)
-    // auto solve = [&] () {
-        
-    // }
+    auto solve = [&] () {
+        ll n,k;
+        cin>>n>>k;
+        if(n==1)
+        {
+            out(k);
+            return;
+        }
+        ll setBit = log2(k);
+        ll ans1 = pow(2,setBit)-1;
+        ll ans2 = k-(ans1);
+        cout<<ans1<<" "<<ans2<<" ";
+        rep(i,n-2) cout<<0<<" ";
+        cout<<endl;
+    };
 
     int t;
-    t=1;
+    cin>>t;
     while(t--)
     {
         solve();

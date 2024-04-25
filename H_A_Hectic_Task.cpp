@@ -1,4 +1,4 @@
-// 2024-04-12 22:30:26
+// 2024-04-23 00:22:40
 // Viraj Chandra
 // Linkedin: https://www.linkedin.com/in/viraj-chandra-4073a8223/
 // Codeforces: https://codeforces.com/profile/khnhcodingkarlo
@@ -92,42 +92,42 @@ ll gcd(ll a, ll b){if (b == 0)return a;return gcd(b, a % b);} //__gcd
 ll lcm(ll a, ll b){return (a/gcd(a,b)*b);}
 ll moduloMultiplication(ll a,ll b,ll mod){ll res = 0;a %= mod;while (b){if (b & 1)res = (res + a) % mod;b >>= 1;}return res;}
 ll powermod(ll x, ll y, ll p){ll res = 1;x = x % p;if (x == 0) return 0;while (y > 0){if (y & 1)res = (res*x) % p;y = y>>1;x = (x*x) % p;}return res;}
-ll modinv(ll p,ll q){ll ex;ex=M-2;while (ex) {if (ex & 1) {p = (p * q) % M;}q = (q * q) % M;ex>>= 1;}return p;}
+//To find modulo inverse, call powermod(A,M-2,M)
 
-vvl dp;
-ll calc(int arr[], int n, int ind, int currsum) {
-    if (ind == n)
-        return 0;
-    if (dp[ind][currsum] != -1)
-        return dp[ind][currsum];
-    long long take = max((arr[ind] + currsum + 1) / 2, arr[ind]) + calc(arr, n, ind+1, currsum + arr[ind]);
-    long long notTake = calc(arr, n, ind+1, currsum);
-    return dp[ind][currsum] = (take + notTake) % 998244353;
-}
-
-void solve()
-{
-    int n;
-    cin >> n;
-    int arr[n];
-    for (int i = 0; i < n; i++)
-        cin >> arr[i];
-    sort(arr, arr + n);
-    dp.resize(5001,vl(5001,-1));
-    cout << calc(arr, n, 0, 0) << endl;
-}
+vector<ll> fac(1e5+1,1);
 
 int32_t main()
 {
     fastio()
     //Rating? Neh. In love with experience.
     //Code Karlo, Coz KHNH :)
-    // auto solve = [&] () {
-        
-    // }
-
+    auto solve = [&] () {
+        ll n; string s;
+        cin>>n>>s;
+        map<char,ll> m;
+        for(char ch='a';ch<='z';ch++)
+            m[ch]=0;
+        for(auto it:s) m[it]++;
+        ll ans = 0;
+        for(char ch='a';ch<='z';ch++)
+        {
+            ll c = n-m[ch];
+            ll res = fac[c];
+            for(auto it:m)
+            {
+                if(it.first!=ch)
+                {
+                    res = (res%M * powermod(fac[it.second],M-2,M));
+                }
+            }
+            ans = (ans%M+res%M)%M;
+        }
+        out(ans)
+    };
+    for(ll i=2;i<=1e5;i++)
+    fac[i] = (fac[i-1]%M*i%M)%M;
     int t;
-    t=1;
+    cin>>t;
     while(t--)
     {
         solve();

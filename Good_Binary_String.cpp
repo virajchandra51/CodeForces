@@ -1,4 +1,4 @@
-// 2024-04-12 22:30:26
+// 2024-04-17 21:25:57
 // Viraj Chandra
 // Linkedin: https://www.linkedin.com/in/viraj-chandra-4073a8223/
 // Codeforces: https://codeforces.com/profile/khnhcodingkarlo
@@ -94,40 +94,71 @@ ll moduloMultiplication(ll a,ll b,ll mod){ll res = 0;a %= mod;while (b){if (b & 
 ll powermod(ll x, ll y, ll p){ll res = 1;x = x % p;if (x == 0) return 0;while (y > 0){if (y & 1)res = (res*x) % p;y = y>>1;x = (x*x) % p;}return res;}
 ll modinv(ll p,ll q){ll ex;ex=M-2;while (ex) {if (ex & 1) {p = (p * q) % M;}q = (q * q) % M;ex>>= 1;}return p;}
 
-vvl dp;
-ll calc(int arr[], int n, int ind, int currsum) {
-    if (ind == n)
-        return 0;
-    if (dp[ind][currsum] != -1)
-        return dp[ind][currsum];
-    long long take = max((arr[ind] + currsum + 1) / 2, arr[ind]) + calc(arr, n, ind+1, currsum + arr[ind]);
-    long long notTake = calc(arr, n, ind+1, currsum);
-    return dp[ind][currsum] = (take + notTake) % 998244353;
-}
-
-void solve()
-{
-    int n;
-    cin >> n;
-    int arr[n];
-    for (int i = 0; i < n; i++)
-        cin >> arr[i];
-    sort(arr, arr + n);
-    dp.resize(5001,vl(5001,-1));
-    cout << calc(arr, n, 0, 0) << endl;
-}
-
 int32_t main()
 {
     fastio()
     //Rating? Neh. In love with experience.
     //Code Karlo, Coz KHNH :)
-    // auto solve = [&] () {
-        
-    // }
+    Sieve(10000);
+    auto solve = [&] () {
+        inint(n);
+        instr(s);
+        ll lengthOfS = 1;
+        bool flag = true;
+        vector<ll> ans;
+        int i = 1;
+        while(i<n)
+        {
+            if(s[i]!=s[i - 1])
+            {
+                if (lengthOfS&1)
+                {
+                    if (!(flag&1))
+                    {
+                        if (s[i] == '1')
+                        {
+                            lengthOfS = 1;
+                            ans.pb(i + 1);
+                            s[i] = '0';
+                            i++;
+                        }
+                        else
+                        {
+                            s[i-1]='0';
+                            lengthOfS = 2;
+                            ans.pb(i);
+                        }
+                    }
+                    else
+                    {
+                        if (s[i] == '0')
+                        {
+                            s[i] = '1';
+                            ans.pb(i + 1);
+                            lengthOfS = 1;
+                            i++;
+                        }
+                        else
+                        {
+                            s[i-1]='1';
+                            lengthOfS = 2;
+                            ans.pb(i);
+                        }
+                    }
+                    flag = !flag;
+                }
+                else
+                lengthOfS = 1;
+            }
+            else lengthOfS++;
+            i++;
+        }
+        out(ans.size());
+        out(ans);
+    };
 
-    int t;
-    t=1;
+    ll t;
+    cin>>t;
     while(t--)
     {
         solve();

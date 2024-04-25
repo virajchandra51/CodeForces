@@ -97,7 +97,8 @@
         "filesystem": "cpp",
         "thread": "cpp",
         "cassert": "cpp",
-        "__assert": "cpp"
+        "__assert": "cpp",
+        "ciso646": "cpp"
     },
     "cph.general.onceMaintainerMessage": false
 }

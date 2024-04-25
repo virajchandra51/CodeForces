@@ -1,48 +1,36 @@
-#include <bits/stdc++.h>
+#include<bits/stdc++.h>
 using namespace std;
-
-bool checker(double time, vector<pair<double, double> > &people)
+bool checker(double &mid,pair<double,double> *arr,int &n)
 {
-    pair<double, double> curr = {-1e18, 1e18};
-    for (auto i : people)
+    double left = -1e18,right = 1e18;
+    for(int i=0; i<n; i++)
     {
-        double position = i.first;
-        double speed = i.second;
-        pair<double, double> range = {position - (speed * time), position + (speed * time)};
-        curr = {max(curr.first, range.first), min(curr.second, range.second)};
-        if (curr.first > curr.second)
+        left = max(left,arr[i].first - (arr[i].second*mid));
+        right = min(right,arr[i].first + (arr[i].second*mid));
+        if(left>right)
             return false;
     }
     return true;
 }
-
 int main()
 {
     int n;
-    cin >> n;
-    vector<pair<double, double> > people(n);
-    for (int i = 0; i < n; i++)
+    cin>>n;
+    pair<double,double> arr[n];
+    for(int i=0; i<n; i++)
+        cin>>arr[i].first>>arr[i].second;
+    double pres = 1e-7;
+    double low = 0, high = 1e9;
+    for(int i=0; i<=70; i++)
     {
-        cin >> people[i].first >> people[i].second;
-    }
-
-    long double error = 1e-7;
-    long double left = 0, right = 1e9;
-    // log2(10^16) - 60
-    long double ans;
-    for (int i = 0; i < 70; i++)
-    {
-        double mid = (left + right) / 2;
-        if (checker(mid, people))
+        double mid = low + (high - low)/2;
+        if(checker(mid,arr,n))
         {
-            ans = mid;
-            right = mid - error;
-        }
-        else
-        {
-            left = mid + error;
+            //cout<<mid<<endl;
+            high = mid - pres;
+        }else{
+            low = mid + pres;
         }
     }
-    cout << setprecision(7) << ans << endl;
-    return 0;
+    cout<<setprecision(7)<<fixed<<high<<endl;
 }

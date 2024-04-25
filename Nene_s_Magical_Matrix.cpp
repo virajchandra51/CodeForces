@@ -1,4 +1,4 @@
-// 2024-04-12 22:30:26
+// 2024-04-13 21:06:42
 // Viraj Chandra
 // Linkedin: https://www.linkedin.com/in/viraj-chandra-4073a8223/
 // Codeforces: https://codeforces.com/profile/khnhcodingkarlo
@@ -94,40 +94,57 @@ ll moduloMultiplication(ll a,ll b,ll mod){ll res = 0;a %= mod;while (b){if (b & 
 ll powermod(ll x, ll y, ll p){ll res = 1;x = x % p;if (x == 0) return 0;while (y > 0){if (y & 1)res = (res*x) % p;y = y>>1;x = (x*x) % p;}return res;}
 ll modinv(ll p,ll q){ll ex;ex=M-2;while (ex) {if (ex & 1) {p = (p * q) % M;}q = (q * q) % M;ex>>= 1;}return p;}
 
-vvl dp;
-ll calc(int arr[], int n, int ind, int currsum) {
-    if (ind == n)
-        return 0;
-    if (dp[ind][currsum] != -1)
-        return dp[ind][currsum];
-    long long take = max((arr[ind] + currsum + 1) / 2, arr[ind]) + calc(arr, n, ind+1, currsum + arr[ind]);
-    long long notTake = calc(arr, n, ind+1, currsum);
-    return dp[ind][currsum] = (take + notTake) % 998244353;
-}
-
-void solve()
-{
-    int n;
-    cin >> n;
-    int arr[n];
-    for (int i = 0; i < n; i++)
-        cin >> arr[i];
-    sort(arr, arr + n);
-    dp.resize(5001,vl(5001,-1));
-    cout << calc(arr, n, 0, 0) << endl;
-}
-
 int32_t main()
 {
     fastio()
     //Rating? Neh. In love with experience.
     //Code Karlo, Coz KHNH :)
-    // auto solve = [&] () {
+    auto solve = [&] () {
+        ll n;
+        cin>>n;
+        vector<vector<ll>> a(n,vector<ll> (n));
+        int row = n-1;
+        int col = n-1;
+        ll s = 0;
+        // cout<<s<<endl;
+        // vector<vector<ll>> ans;
+        int f = 1;
+        // while(row>0 || col>0)
+        // {
+        //     if(f)
+        //     {
+        //         rep(i,n) a[row][i] = i+1;
+        //         row--;
+        //     }
+        //     else
+        //     {
+        //         rep(i,n) a[i][col] = i+1;
+        //         col--;
+        //     }
+        //     f!=f;
+        // }
+        // for(auto it:a) cout<<it<<endl;
+        ll sum = 0;
+        ll c = 0;
+        vector<pair<int,int>> ans;
+        // int n1 = n;
+        rep(i,n){
+            ans.push_back({1, n-i});
+            ans.push_back({2, n-i});
+            c+=2;
+            sum += (i+1) * ((i+1)*2-1);
+        }
+        cout<<sum<<" "<<c<<endl;;
+        for(auto it: ans){
+            cout<<it.first<<" "<<it.second<<" ";
+            rep(i,n) cout<<i+1<<" ";
+            cout<<endl;
+        }
         
-    // }
+    };
 
     int t;
-    t=1;
+    cin>>t;
     while(t--)
     {
         solve();
