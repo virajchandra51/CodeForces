@@ -146,28 +146,18 @@ int32_t main()
                     countof2+=other;
                     k-=other;
                     diff-=other;
-                    if(k>0)
-                    {
-                        countof1 -= min(diff/2,k);
-                        countof2 += min(diff/2,k);
-                    }
+                    countof1 -= min(diff/2,k);
+                    countof2 += min(diff/2,k);
                 }
                 else
                 {
-                    if(other>=diff)
+                    countof2 += min(k,other);
+                    k-=other;
+                    diff-=other;
+                    if(k>0 && diff>0)
                     {
-                        countof2 += k;
-                    }
-                    else
-                    {
-                        countof2 += min(k,other);
-                        k-=other;
-                        diff-=other;
-                        if(k>0 && diff>0)
-                        {
-                            countof1 -= min(diff/2,k);
-                            countof2 += min(diff/2,k);
-                        }
+                        countof1 -= min(diff/2,k);
+                        countof2 += min(diff/2,k);
                     }
                 }
             }
