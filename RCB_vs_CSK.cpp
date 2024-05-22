@@ -1,4 +1,4 @@
-// 2024-05-22 13:20:17
+// 2024-05-22 21:18:59
 
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
@@ -96,11 +96,14 @@ int32_t main()
     //Rating? Neh. In love with experience.
     //Code Karlo, Coz KHNH :)
     auto solve = [&] () {
-        
+        ll a,b;
+        cin>>a>>b;
+        if(a-b>=18) cout<<"RCB"<<endl;
+        else cout<<"CSK"<<endl;
     };
 
     int t;
-    cin>>t;
+    t=1;
     while(t--)
     {
         solve();
