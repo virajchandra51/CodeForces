@@ -101,17 +101,21 @@ int32_t main()
         vector<vector<pair<ll,ll>>> adj(n+1);
         rep(i,m)
         {
-            ll a,b,k;
-            cin>>a>>b>>k;
-            adj[a].pb({k,b});
-            adj[b].pb({k,a});
+            ll a,b,weight;
+            cin>>a>>b>>weight;
+            adj[a].pb({weight,b});
+            adj[b].pb({weight,a});
         }
+
         priority_queue<pair<ll,ll>,vector<pair<ll,ll>>,greater<pair<ll,ll>>> pq;
         pq.push({0,1});
+
         vector<ll> dist(n+1,LLONG_MAX);
         vector<ll> par(n+1,0);
+
         dist[1]=0;
         par[1]=-1;
+
         while(!pq.empty())
         {
             ll u=pq.top().second;
@@ -129,11 +133,13 @@ int32_t main()
                 }
             }
         }
+
         if(dist[n]==LLONG_MAX)
         {
             out(-1)
             return;
         }
+
         vector<ll> path;
         path.pb(n);
         ll curr = n;
@@ -144,6 +150,7 @@ int32_t main()
         }
         reverse(all(path));
         out(path)
+        
     };
 
     int t;
