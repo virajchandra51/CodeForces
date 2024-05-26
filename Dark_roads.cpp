@@ -158,18 +158,18 @@ int32_t main()
         }
         sort(all(edges));
         DSU dsu(n);
-        ll ans = 0;
-        ll t = 0;
+        ll minimumMoney = 0;
+        ll totalMoney = 0;
         for(auto it:edges)
         {
-            t += it[0];
+            totalMoney += it[0];
             if (dsu.findUpar(it[1]) == dsu.findUpar(it[2])) {
                 continue;
             }
             dsu.unionbySize(it[1], it[2]);
-            ans += it[0];
+            minimumMoney += it[0];
         }
-        cout << t - ans << endl;
+        cout << totalMoney - minimumMoney << endl;
     }
     return 0;
 }

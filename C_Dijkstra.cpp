@@ -1,163 +1,71 @@
-// 2024-05-08 13:03:06
-
 #include <bits/stdc++.h>
-#include <ext/pb_ds/assoc_container.hpp>
-#include <ext/pb_ds/tree_policy.hpp>
-
 using namespace std;
-using namespace __gnu_pbds;
 
-//PBDS
-typedef tree<int, null_type, less<int>, rb_tree_tag, tree_order_statistics_node_update> pbds; // find_by_order, order_of_key
-
-//Speed
-#define fastio() ios_base::sync_with_stdio(false), cin.tie(nullptr), cout.tie(nullptr);
-
-//Macros
-#define IOtext freopen("input.txt","r",stdin); freopen("output.txt","w",stdout);
-#define PI (3.141592653589)
-#define M 1000000007
-#define pb push_back
-#define f first
-#define s second
-#define foreach(i, j, k, in) for(int i=j;i<k;i+=in)
-#define rforeach(i, j, k, in) for(int i=j;i>=k;i-=in)
-#define rep(i,j) foreach(i,0,j,1)
-#define rrep(i,j) rforeach(i,j,0,1)
-#define set_bits(x) __builtin_popcountll(x)
-#define zero_bits(x) __builtin_ctzll(x)
-#define Num_of_Digits(n) ((int)log10(n) + 1)
-#define inint(x) int x; cin>>x;
-#define inll(x) long long int x; cin>>x;
-#define instr(x) string x; cin>>x;
-#define all(x) x.begin(), x.end()
-#define out(x) cout << x << endl;
-#define py cout<<"YES"<<endl
-#define pn cout<<"NO"<<endl
-#define pm cout<<"-1"<<endl
-#define ps(x,y) fixed<<setprecision(y)<<x
-
-//Typedef
-typedef long long ll;
-typedef pair<int, int> pi;
-typedef pair<ll, ll> pl;
-typedef vector<int> vi;
-typedef vector<ll> vl;
-typedef vector<pi> vpi;
-typedef vector<pl> vpl;
-typedef vector<vi> vvi;
-typedef vector<vl> vvl;
-typedef map<int,int> mii;
-typedef map<ll,ll> mll;
-typedef map<char,int> mci;
-typedef set<int> st;
-
-// Operator overloads
-template<typename T> // cin >> vector<T>
-istream& operator>>(istream &istream, vector<T> &v){for (auto &it : v)cin >> it;return istream;}
-template<typename T> // cout << vector<T>
-ostream& operator<<(ostream &ostream, const vector<T> &c) { for (auto &it : c) cout << it << " "; return ostream; }
-template<typename T, typename V> // cout << map<T,V>
-ostream& operator<<(ostream &ostream, const map<T,V> &c) { for (auto &it : c) cout << it.first << " " << it.second<<endl; return ostream; }
-template<typename T, typename V> // cout << vector<pair<T,V>>
-ostream& operator<<(ostream &ostream, const vector<pair<T,V>> &c) { for (auto &it : c) cout << it.first << " " << it.second<<endl; return ostream; }
-
-//Sorting
-bool sorta(const pair<int,int> &a,const pair<int,int> &b){return (a.second < b.second);}
-bool sortd(const pair<int,int> &a,const pair<int,int> &b){return (a.second > b.second);}
-
-//Bits
-string decToBinary(int n){string s="";int i = 0;while (n > 0) {s =to_string(n % 2)+s;n = n / 2;i++;}return s;}
-ll binaryToDecimal(string n){string num = n;ll dec_value = 0;int base = 1;int len = num.length();for(int i = len - 1; i >= 0; i--){if (num[i] == '1')dec_value += base;base = base * 2;}return dec_value;}
-
-//Check
-bool isPrime(ll n){if(n<=1)return false;if(n<=3)return true;if(n%2==0||n%3==0)return false;for(int i=5;i*i<=n;i=i+6)if(n%i==0||n%(i+2)==0)return false;return true;}
-bool isPowerOfTwo(int n){if(n==0)return false;return (ceil(log2(n)) == floor(log2(n)));}
-bool isPerfectSquare(ll x){if (x >= 0) {ll sr = sqrt(x);return (sr * sr == x);}return false;}
-
-//Constants
-vector <ll> primes;
-vector <bool> is_prime;
-
-// Mathematical functions
-void Sieve(int n){ is_prime.assign(n + 1, true); is_prime[0] = is_prime[1] = false; for(ll i = 2; i * i <= n; i++) if(is_prime[i]) for(ll j = i * i; j <= n; j += i) is_prime[j] = false;}
-void get_primes(int n){ for(int i = 2; i <= n; i++)  if(is_prime[i])  primes.push_back(i); }
-ll mod_add(ll a, ll b, ll m) {a = a % m; b = b % m; return (((a + b) % m) + m) % m;}
-ll mod_sub(ll a, ll b, ll m) {a = a % m; b = b % m; return (((a - b) % m) + m) % m;}
-ll gcd(ll a, ll b){if (b == 0)return a;return gcd(b, a % b);} //__gcd 
-ll lcm(ll a, ll b){return (a/gcd(a,b)*b);}
-ll moduloMultiplication(ll a,ll b,ll mod){ll res = 0;a %= mod;while (b){if (b & 1)res = (res + a) % mod;b >>= 1;}return res;}
-ll powermod(ll x, ll y, ll p){ll res = 1;x = x % p;if (x == 0) return 0;while (y > 0){if (y & 1)res = (res*x) % p;y = y>>1;x = (x*x) % p;}return res;}
-//To find modulo inverse, call powermod(A,M-2,M)
-
-int32_t main()
+void Dijkstra(vector<vector<pair<long long, long long> > > &adj, long long n, vector<long long> &dist, vector<long long> &parent)
 {
-    fastio()
-    //Rating? Neh. In love with experience.
-    //Code Karlo, Coz KHNH :)
-    auto solve = [&] () {
-        ll n,m;
-        cin>>n>>m;
-        vector<vector<pair<ll,ll>>> adj(n+1);
-        rep(i,m)
+    priority_queue<pair<long long, long long>, vector<pair<long long, long long> >, greater<pair<long long, long long> > > unvisitedNodes;
+    unvisitedNodes.push({0, 1});
+    dist[1] = 0;
+    parent[1] = -1;
+    while (!unvisitedNodes.empty())
+    {
+        long long minDistNode = unvisitedNodes.top().second;
+        long long shortestDistToNode = unvisitedNodes.top().first;
+        unvisitedNodes.pop();
+        for (auto neighbour : adj[minDistNode])
         {
-            ll a,b,weight;
-            cin>>a>>b>>weight;
-            adj[a].pb({weight,b});
-            adj[b].pb({weight,a});
-        }
-
-        priority_queue<pair<ll,ll>,vector<pair<ll,ll>>,greater<pair<ll,ll>>> pq;
-        pq.push({0,1});
-
-        vector<ll> dist(n+1,LLONG_MAX);
-        vector<ll> par(n+1,0);
-
-        dist[1]=0;
-        par[1]=-1;
-
-        while(!pq.empty())
-        {
-            ll u=pq.top().second;
-            ll d=pq.top().first;
-            pq.pop();
-            for(auto x:adj[u])
+            long long oldDist = dist[neighbour.second];
+            long long newDist = shortestDistToNode + neighbour.first;
+            if (oldDist > newDist)
             {
-                ll v=x.second;
-                ll w=x.first;
-                if(dist[v]>dist[u]+w)
-                {
-                    par[v]=u;
-                    dist[v]=dist[u]+w;
-                    pq.push({dist[v],v});
-                }
+                dist[neighbour.second] = newDist;
+                unvisitedNodes.push({newDist, neighbour.second});
+                parent[neighbour.second] = minDistNode;
             }
         }
+    } // O((n+m)*logn)
+}
 
-        if(dist[n]==LLONG_MAX)
-        {
-            out(-1)
-            return;
-        }
-
-        vector<ll> path;
-        path.pb(n);
-        ll curr = n;
-        while(par[curr]!=-1)
-        {
-            path.pb(par[curr]);
-            curr=par[curr];
-        }
-        reverse(all(path));
-        out(path)
-        
-    };
-
-    int t;
-    t=1;
-    while(t--)
+int main()
+{
+    long long n, m;
+    cin >> n >> m;
+    vector<vector<pair<long long, long long> > > adj(n + 1);
+    for (int i = 0; i < m; i++) // O(m)
     {
-        solve();
+        long long u, v, weight;
+        cin >> u >> v >> weight;
+        adj[u].push_back({weight, v});
+        adj[v].push_back({weight, u});
     }
+
+    vector<long long> dist(n + 1, LLONG_MAX);
+    vector<long long> parent(n + 1, 0);
+
+    Dijkstra(adj, n, dist, parent);
+
+    if (dist[n] == LLONG_MAX)
+    {
+        cout << -1 << endl;
+    }
+    else
+    {
+        vector<long long> path;
+        path.push_back(n);
+        long long curr = n;
+        while (parent[curr] != -1)
+        {
+            path.push_back(parent[curr]);
+            curr = parent[curr];
+        } // O(m)
+        reverse(path.begin(), path.end()); // O(m)
+        for (auto it : path)
+            cout << it << " ";
+        cout << endl;
+    }
+    
     return 0;
 }
+
+// tc - O((n+m)*logn) - O(10^5*17) - O(10^6)
+// sc - O(n)
