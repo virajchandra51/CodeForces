@@ -1,8 +1,4 @@
-// 2024-05-04 23:35:24
-// Viraj Chandra
-// Linkedin: https://www.linkedin.com/in/viraj-chandra-4073a8223/
-// Codeforces: https://codeforces.com/profile/khnhcodingkarlo
-// Codechef: https://www.codechef.com/users/codecozkhnhs
+// 2024-05-26 23:05:08
 
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
@@ -94,85 +90,47 @@ ll moduloMultiplication(ll a,ll b,ll mod){ll res = 0;a %= mod;while (b){if (b & 
 ll powermod(ll x, ll y, ll p){ll res = 1;x = x % p;if (x == 0) return 0;while (y > 0){if (y & 1)res = (res*x) % p;y = y>>1;x = (x*x) % p;}return res;}
 //To find modulo inverse, call powermod(A,M-2,M)
 
-class DSU {
-private:
-public:
-    vector<int> rank, par, size;
-
-    DSU(int n = 0) {
-        rank.resize(n + 1);
-        par.resize(n + 1);
-        size.resize(n + 1, 1);
-        for (int i = 0; i <= n; i++)
-            par[i] = i;
-    }
-
-    int findUpar(int node) {
-        if (node == par[node])
-            return node;
-        return par[node] = findUpar(par[node]);//path comp
-    }
-
-    void unionbyRank(int u, int v) {
-        int UparU = findUpar(u);
-        int UparV = findUpar(v);
-        if (UparU == UparV)
-            return;
-        if (rank[UparU] < rank[UparV]) {
-            par[UparU] = UparV;
-        } else {
-            par[UparV] = UparU;
-            rank[UparU] += (rank[UparU] == rank[UparV]);
-        }
-    }
-
-    void unionbySize(int u, int v) {
-        int UparU = findUpar(u);
-        int UparV = findUpar(v);
-        if (UparU == UparV)
-            return;
-        if (size[UparU] < size[UparV]) {
-            par[UparU] = UparV;
-            size[UparV] += size[UparU];
-        } else {
-            par[UparV] = UparU;
-            size[UparU] += size[UparV];
-        }
-    }
-};
-
 int32_t main()
 {
     fastio()
-    while(true)
-    {
-        ll n,m;
-        cin>>n>>m;
-        if(n==0 && m==0) break;
-        vvl edges;
-        rep(i,m) // m
+    //Rating? Neh. In love with experience.
+    //Code Karlo, Coz KHNH :)
+    auto solve = [&] () {
+        ll n;
+        cin>>n;
+        vl a(n);
+        cin>>a;
+        sort(all(a));
+        vl b(n);
+        int i=0;
+        int j=n/2;
+        int k=0;
+        while(j<n)
         {
-            ll u,v,w;
-            cin>>u>>v>>w;
-            edges.pb({w,u,v});
+            b[k]=a[j];
+            j++;
+            k++;
+            b[k]=a[i];
+            i++;
+            k++;
         }
-        sort(all(edges)); // mlogm
-        DSU dsu(n); // n
-        ll minimumMoney = 0;
-        ll totalMoney = 0;
-        for(auto it:edges) // m
+        ll c = 0;
+        rep(i,n)
         {
-            totalMoney += it[0];
-            if (dsu.findUpar(it[1]) == dsu.findUpar(it[2])) { // 1
-                continue;
+            if(i>0 && i<n-1 && b[i]<b[i+1] && b[i]<b[i-1])
+            {
+                c++;
             }
-            dsu.unionbySize(it[1], it[2]); // 1
-            minimumMoney += it[0];
         }
-        cout << totalMoney - minimumMoney << endl;
+        out(c);
+        out(b)
+    };
+
+    int t;
+    t=1;
+    while(t--)
+    {
+        solve();
     }
     return 0;
 }
-
-// tc - O(mlogm) ~ 10^6
-// sc - O(m+n) ~ 2*10^5
