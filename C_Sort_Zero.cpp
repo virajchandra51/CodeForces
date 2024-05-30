@@ -100,21 +100,24 @@ void solve()
     cin>>n;
     vi a(n);
     cin>>a;
-    int c=0;
-    while(!is_sorted(all(a)))
+    set<int> s;
+    for(int i=0;i<n-1;i++)
     {
-        int badnumber=-1;
-        for(int i=0;i<n-1;i++)
+        if(s.find(a[i+1])!=s.end())
         {
-            if(a[i]>a[i+1])
-            {
-                badnumber=a[i];break;
-            }
+            a[i+1]=0;
         }
-        replace(all(a), badnumber,0);
-        c++;
+        if(s.find(a[i])!=s.end())
+        {
+            a[i]=0;
+        }
+        if(a[i]>a[i+1])
+        {
+            s.insert(a[i]);
+            a[i]=0;
+        }
     }
-    cout<<c<<endl;
+    cout<<a<<endl;
 }
 
 

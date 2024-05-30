@@ -20,7 +20,7 @@ void Dijkstra(vector<vector<pair<long long, long long> > > &adj, long long n, ve
             {
                 dist[neighbour.second] = newDist;
                 unvisitedNodes.push({newDist, neighbour.second});
-                parent[neighbour.second] = minDistNode;
+                parent[neighbour.second] = minDistNode; //
             }
         }
     } // O((n+m)*logn)
