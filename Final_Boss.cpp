@@ -26,18 +26,21 @@ int main()
         }
 
         long long l = 0;
-        long long r = 1e18;
+        long long r = 1e12;
         long long ans;
 
-        while (l <= r) // log2(1e18) = 60
+        while (l <= r) // O(log2(1e12)) = O(40)
         {
             long long mid = (l + r) >> 1;
 
             long long s = 0;
 
             for (int i = 0; i < n; i++) // O(n)
+            {
                 s += (mid / c[i]) * p[i];
-
+                if (s >= h)
+                    break;
+            }
             if (h - s <= 0)
             {
                 ans = mid;
@@ -52,6 +55,5 @@ int main()
     return 0;
 }
 
-// TC - O(n * log2(1e18))
+// TC - O(n * (log2(1e12))) = O(n * 40)
 // SC - O(n)
-
