@@ -12,30 +12,37 @@ int main()
         vector<long long> a(n);
         for (int i = 0; i < n; i++)
             cin >> a[i];
-        long long c = 0;
+
+        long long countOfNeg = 0;
         for (auto it : a)
         {
             if (it < 0)
-                c++;
+                countOfNeg++;
         }
-        if (c & 1)
+
+        if (countOfNeg % 2 == 1)
         {
-            long long s = 0;
+            long long sum = 0;
             for (auto it : a)
-                s += (abs(it));
+                sum += (abs(it));
+
             long long m = INT_MAX;
             for (auto it : a)
                 m = min(m, abs(it));
-            s -= (2 * m);
-            cout << s << endl;
-        }
+
+            sum -= (2 * m);
+            cout << sum << endl;
+        } // odd
         else
         {
-            long long s = 0;
+            long long sum = 0;
             for (auto it : a)
-                s += (abs(it));
-            cout << s << endl;
-        }
+                sum += (abs(it));
+            cout << sum << endl;
+        } // even
     }
     return 0;
 }
+
+// TC - O(n)
+// SC - O(n)

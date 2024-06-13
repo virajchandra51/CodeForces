@@ -10,40 +10,51 @@ int main()
         long long n, p;
         cin >> n >> p;
         vector<pair<long long, long long> > v(n);
+
         for (int i = 0; i < n; i++)
         {
-            long long a;
-            cin >> a;
-            v[i] = {0, a};
+            long long x;
+            cin >> x;
+            v[i] = {0, x};
         }
+
         for (int i = 0; i < n; i++)
         {
-            long long b;
-            cin >> b;
-            v[i].first = b;
+            long long x;
+            cin >> x;
+            v[i].first = x;
         }
-        sort(v.begin(), v.end());
+
+        // {2,4},{3,3},{2,2},{1,6}...
+
+        sort(v.begin(), v.end()); // O(nlogn)
+
         long long cost = p;
         long long people = 1;
         for (auto it : v)
         {
-            long long b = it.second;
-            long long a = it.first;
-            if (a >= p)
+            long long numberOfPeopleShared = it.second;
+            long long sharingCost = it.first;
+            if (sharingCost >= p)
                 break;
-            if (people + b > n)
+            if (people + numberOfPeopleShared > n)
             {
-                cost += (n - people) * a;
+                cost += (n - people) * sharingCost;
                 people = n;
+                break;
             }
             else
             {
-                cost += b * a;
-                people += b;
+                cost += numberOfPeopleShared * sharingCost;
+                people += numberOfPeopleShared;
             }
         }
-        cost += (n - people) * p;
+
+        cost += (n - people) * p; // chief sharing
         cout << cost << endl;
     }
     return 0;
 }
+
+// TC - O(nlogn)
+// SC - O(n)
