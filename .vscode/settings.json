@@ -98,7 +98,10 @@
         "thread": "cpp",
         "cassert": "cpp",
         "__assert": "cpp",
-        "ciso646": "cpp"
+        "ciso646": "cpp",
+        "__verbose_abort": "cpp",
+        "charconv": "cpp",
+        "execution": "cpp"
     },
     "cph.general.onceMaintainerMessage": false
 }
