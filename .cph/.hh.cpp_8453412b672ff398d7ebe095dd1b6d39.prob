@@ -1,1 +1,0 @@
-{"name":"Local: hh","url":"/Users/virajchandra/Developer/CodeForces/hh.cpp","tests":[{"id":1692955330040,"input":"2\n3\n7 4 14\n23\n4\n15 7 3 10\n27","output":"19\n20"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/Users/virajchandra/Developer/CodeForces/hh.cpp","group":"local","local":true}

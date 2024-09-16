@@ -1,1 +1,0 @@
-{"name":"Local: Lara_And_Tiles","url":"/Users/virajchandra/Developer/CodeForces/Lara_And_Tiles.cpp","tests":[{"id":1689861752361,"input":"2\n2 2\n1 0\n0 1\n4 4\n1 1 1 1\n1 1 1 1\n1 1 1 1\n1 1 0 1","output":"1\n5"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/Users/virajchandra/Developer/CodeForces/Lara_And_Tiles.cpp","group":"local","local":true}

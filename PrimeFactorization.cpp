@@ -1,6 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+// trial division method
 int main()
 {
     long long n;
@@ -18,5 +19,8 @@ int main()
     cout << endl;
     return 0;
 }
+// lowerbound - TC - log2(n) - when number is composite
+// upperbound - TC - sqrt(n) - when number is prime
 
-// tc - O(sqrt(n)+log2(n)) - O(sqrt(n))
+// TC - O(sqrt(n))
+

@@ -1,1 +1,0 @@
-{"name":"Local: Tries3","url":"/Users/virajchandra/Developer/CodeForces/Tries3.cpp","tests":[{"id":1719926925938,"input":"4\nabcd\nabc\nabdc\nadcb\nabc","output":""}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/Users/virajchandra/Developer/CodeForces/Tries3.cpp","group":"local","local":true}

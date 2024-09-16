@@ -10,7 +10,7 @@ int main()
         if (n % i == 0)
         {
             cout << i << " ";
-            if (n / i != i)
+            if (n / i != i) //  perfect squares
                 cout << n / i << " ";
         }
     }
