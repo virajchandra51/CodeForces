@@ -225,18 +225,26 @@ int32_t main()
     fastio()
     //Rating? Neh. In love with experience.
     //Code Karlo, Coz KHNH :)
+    freopen("input.txt", "r", stdin);
+    freopen("output.txt", "w", stdout);
     auto solve = [&] () {
         ll n,g;
         cin>>n>>g;
         vl e(n);
         cin>>e;
-        vl a(n,1e18);
-        a[0]=e[0];
-        struct LazySGT tree = LazySGT(n,a);
-        for(int i=1;i<n;i++)
+        sort(all(e));
+        ll dis = INT_MAX;
+        ll ind = -1;
+        rep(i,n)
         {
-            ll start = 1;
+            if(abs(g-e[i])<=dis)
+            {
+                dis=abs(g-e[i]);
+                ind = n-i;
+            }
         }
+        vector<ll> ans = {ind,dis};
+        return ans;
     };
 
     int t;

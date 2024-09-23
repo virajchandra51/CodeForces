@@ -114,16 +114,21 @@ int32_t main()
     fastio()
     //Rating? Neh. In love with experience.
     //Code Karlo, Coz KHNH :)
+    freopen("input.txt", "r", stdin);
+    freopen("output.txt", "w", stdout);
+    srand(time(0));
     auto solve = [&] () {
         ll n;
         cin>>n;
         vector<pair<ll, ll>> points(n);
         rep(i,n) cin>>points[i].first>>points[i].second;
         ll result = 0;
-        for(ll i = 0; i < min((int)points.size(),2000); i++){
+        for(ll samples = 0; samples < 8; samples++){
             ll samePoint = 1;
+            ll i = rand() % n;
             unordered_map<double, ll> map;
-            for(ll j = i + 1; j < min((int)points.size(),2000); j++){
+            for(ll j = 0; j < n; j++){
+                if(i==j) continue;
                 if(points[i].first == points[j].first && points[i].second == points[j].second){
                     samePoint++;
                 }
