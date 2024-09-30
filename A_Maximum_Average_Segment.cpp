@@ -119,7 +119,7 @@ int32_t main()
         inint(d);
         vi a(n);
         cin>>a;
-        ll l = 1 , r = 10;
+        ll l = 1 , r = n;
         ll i1,i2;
         while(l<=r)
         {
@@ -148,10 +148,9 @@ int32_t main()
             else
             {
                 r = mid-1;
-            
             }
         }
-        cout<<i1<<" "<<i2<<endl;
+        cout<<i1+1<<" "<<i2+1<<endl;
     };
 
     int t;

@@ -1,6 +1,19 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+const int score[10][10] = {
+	{1,1,1,1,1,1,1,1,1,1},
+	{1,2,2,2,2,2,2,2,2,1},
+	{1,2,3,3,3,3,3,3,2,1},
+	{1,2,3,4,4,4,4,3,2,1},
+	{1,2,3,4,5,5,4,3,2,1},
+	{1,2,3,4,5,5,4,3,2,1},
+	{1,2,3,4,4,4,4,3,2,1},
+	{1,2,3,3,3,3,3,3,2,1},
+	{1,2,2,2,2,2,2,2,2,1},
+	{1,1,1,1,1,1,1,1,1,1}
+};
+
 int main()
 {
     int t;
@@ -8,46 +21,32 @@ int main()
     while (t--)
     {
         char a[10][10];
-        for (int i = 0; i < 10; i++)
+        for (int i = 0; i < 10; i++) // 10
         {
             string s;
             cin >> s;
-            for (int j = 0; j < 10; j++)
+            for (int j = 0; j < 10; j++) // 10
             {
                 a[i][j] = s[j];
             }
         }
-        int score = 0;
-        for (int i = 0; i < 10; i++)
+        // input
+
+        int total_score = 0;
+        for (int i = 0; i < 10; i++) // 10
         {
-            for (int j = 0; j < 10; j++)
+            for (int j = 0; j < 10; j++) // 10
             {
                 if (a[i][j] == 'X')
                 {
-                    if ((i == 0 || i == 9) && (j == 0 || j == 9))
-                    {
-                        score += 1;
-                    }
-                    else if ((i == 1 || i == 8) && (j == 1 || j == 8))
-                    {
-                        score += 2;
-                    }
-                    else if ((i == 2 || i == 7) && (j == 2 || j == 7))
-                    {
-                        score += 3;
-                    }
-                    else if ((i == 3 || i == 6) && (j == 3 || j == 6))
-                    {
-                        score += 4;
-                    }
-                    else if ((i == 4 || i == 5) && (j == 4 || j == 5))
-                    {
-                        score += 5;
-                    }
+                    total_score += score[i][j];
                 }
             }
         }
-        cout << score << endl;
+        cout << total_score << endl;
     }
     return 0;
 }
+
+// tc - O(n^2) = O(100)
+// sc - O(10*10) = O(100)
