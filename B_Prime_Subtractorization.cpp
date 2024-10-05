@@ -147,7 +147,6 @@ int32_t main()
         }
     };
 
-    // 2 3 5 7
     Sieve(10000000);
     get_primes(10000000);
     int t;
