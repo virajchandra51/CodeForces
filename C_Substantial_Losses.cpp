@@ -1,4 +1,4 @@
-// 2024-09-20 22:51:54
+// 2024-10-06 01:15:42
 
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
@@ -117,38 +117,15 @@ int32_t main()
     //Rating? Neh. In love with experience.
     //Code Karlo, Coz KHNH :)
     auto solve = [&] () {
-        ll n;
-        cin>>n;
-        vector<ll> prm;
-        for(auto it:primes)
-        {
-            if(it<=n)
-            {
-                prm.pb(it);
-            }
-            else
-            {
-                break;
-            }
-        }
-        if(n<=4) return 0;
-        else if(n<=6) return 2;
-        else
-        {
-            int ans = 2;
-            for(int i=3;i<prm.size();i++)
-            {
-                if(prm[i]-prm[i-1]==2)
-                {
-                    ans++;
-                }
-            }
-            return ans;
-        }
+        ll w,g,l;
+        cin>>w>>g>>l;
+        ll modd = 998244353;
+        ll ranger = ((2%modd*l%modd)%modd+1%modd)%modd;
+        ll diff = ((w%modd-g%modd)%modd+modd)%modd;
+        ll ans = ((ranger%modd*diff%modd)%modd);
+        return ans;
     };
 
-    Sieve(10000000);
-    get_primes(10000000);
     int t;
     cin>>t;
     rep(i,t)
@@ -157,34 +134,3 @@ int32_t main()
     }
     return 0;
 }
-
-// 185 182 2
-// 1/4 in 2 days
-// 1/16 in 4 days
-// 1/64 in 6 days
-// 1/128 in 8 days
-// 1/1024 in 10 days
-
-// 2/4 + 4/16 + 6/64 + 8/128 + 10/1024 ... 
-//     + 2/16 + 4/64 + 6/128 + 8/1024 ...
-// 2/4 + 2/16 + 2/64 + 2/128 + 2/1024 ...
-// 2/4 + 2*(1/16)/(3/4)
-
-// 1/2 in 1 day
-// 1/8 in 3 days
-// 1/32 in 5 days
-// 1/128 in 7 days
-
-// 1/2 + 3/8 + 5/32 + 7/128 ... 
-//     + 1/8 + 3/32 + 5/128 ...
-// 1/2 + 2/8 + 2/32 + 2/128 ...
-// 1/2 + 2*
-
-// 185 to 183
-// range 185 to 187
-// 
-
-// 1/2 + 3/4 + 5/8 + 7/16 ..
-//    + 1/4 + 3/8 + 5/16 ..
-// 1/2 + 2/4 + 2/8 + 2/16 ..
-// 1/2 + 2*(1/4/1/2) = 
