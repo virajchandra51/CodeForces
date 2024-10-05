@@ -1,11 +1,100 @@
-Case #1: 1 2
-Case #2: 3 4
-Case #3: 3 0
-Case #4: 1 5
-Case #5: 6 0
-Case #6: 3 5
-Case #7: 2 5
-Case #8: 1 5
-Case #9: 1 150
-Case #10: 5 9
-Case #11: 56345 1
+Case #1: 10029
+Case #2: 58981
+Case #3: 58980
+Case #4: 4
+Case #5: 49917
+Case #6: 27593
+Case #7: 58925
+Case #8: 17124
+Case #9: 41648
+Case #10: 1617
+Case #11: 26031
+Case #12: 34981
+Case #13: 20181
+Case #14: 55434
+Case #15: 58981
+Case #16: 58981
+Case #17: 57376
+Case #18: 55391
+Case #19: 22082
+Case #20: 51020
+Case #21: 10982
+Case #22: 29491
+Case #23: 58979
+Case #24: 31094
+Case #25: 3728
+Case #26: 58981
+Case #27: 1080
+Case #28: 14002
+Case #29: 26471
+Case #30: 41845
+Case #31: 58980
+Case #32: 0
+Case #33: 3
+Case #34: 40835
+Case #35: 58981
+Case #36: 25139
+Case #37: 46201
+Case #38: 52309
+Case #39: 41
+Case #40: 27862
+Case #41: 43191
+Case #42: 58978
+Case #43: 23403
+Case #44: 47348
+Case #45: 58840
+Case #46: 50154
+Case #47: 2
+Case #48: 3
+Case #49: 29492
+Case #50: 51794
+Case #51: 29491
+Case #52: 0
+Case #53: 22880
+Case #54: 5273
+Case #55: 58981
+Case #56: 32994
+Case #57: 34543
+Case #58: 40701
+Case #59: 44334
+Case #60: 21738
+Case #61: 58980
+Case #62: 49855
+Case #63: 58979
+Case #64: 3
+Case #65: 5017
+Case #66: 7673
+Case #67: 3
+Case #68: 20313
+Case #69: 55524
+Case #70: 8062
+Case #71: 15164
+Case #72: 42522
+Case #73: 2
+Case #74: 30089
+Case #75: 3
+Case #76: 16728
+Case #77: 34243
+Case #78: 3
+Case #79: 9721
+Case #80: 53194
+Case #81: 58981
+Case #82: 16106
+Case #83: 5448
+Case #84: 47470
+Case #85: 47229
+Case #86: 11653
+Case #87: 27151
+Case #88: 58981
+Case #89: 21067
+Case #90: 58979
+Case #91: 0
+Case #92: 18611
+Case #93: 32119
+Case #94: 53907
+Case #95: 0
+Case #96: 52628
+Case #97: 13276
+Case #98: 11476
+Case #99: 58978
+Case #100: 10132
