@@ -11,10 +11,11 @@ int main()
         cin >> n;
         string s;
         cin >> s;
+        // input
 
         long long ans = n;
         long long left = 0, right = n - 1;
-        while (left <= right)
+        while (left <= right) // n
         {
             if (s[left] != s[right])
                 ans -= 2;
@@ -27,3 +28,6 @@ int main()
     }
     return 0;
 }
+
+// tc - O(n) = O(2000)
+// sc - O(n) = O(2000)
