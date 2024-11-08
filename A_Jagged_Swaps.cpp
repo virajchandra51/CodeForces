@@ -22,5 +22,5 @@ int main()
     return 0;
 }
 
-// tc - O(n) = O(10) 
-// sc - O(n)
+// tc - O(n) = O(10)
+// sc - O(n) = O(10)

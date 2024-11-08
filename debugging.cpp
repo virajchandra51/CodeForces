@@ -8,6 +8,3 @@ int main() {
   }
   return 0;
 }
-
-// v.size() - unsigned long long
-// long long - 2^64 - 1 to -2^64

@@ -35,7 +35,7 @@ int main()
         {
             long long numberOfPeopleShared = it.second;
             long long sharingCost = it.first;
-            if (sharingCost >= p)
+            if (sharingCost >= p)  
                 break;
             if (people + numberOfPeopleShared > n)
             {

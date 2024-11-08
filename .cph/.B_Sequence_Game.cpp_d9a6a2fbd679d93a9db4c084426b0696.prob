@@ -1,0 +1,1 @@
+{"name":"Local: B_Sequence_Game","url":"/Users/virajchandra/Developer/CodeForces/B_Sequence_Game.cpp","tests":[{"id":1730400936473,"input":"6\n3\n4 6 3\n3\n1 2 3\n5\n1 7 9 5 7\n1\n144\n2\n1 1\n5\n1 2 2 1 1\n","output":""}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/Users/virajchandra/Developer/CodeForces/B_Sequence_Game.cpp","group":"local","local":true}
