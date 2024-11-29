@@ -8,11 +8,11 @@ int main()
     {
         long long n;
         cin >> n;
-        if (n < 4 || n % 2 == 1)
+        if (n < 4 || n % 2 == 1) // 1
             cout << -1 << '\n';
         else
         {
-            long long min_buses = ceil(n * 1.0 / 6);
+            long long min_buses = ceil(n * 1.0 / 6); // 1
             long long max_buses = n / 4;
             cout << min_buses << " " << max_buses << '\n';
         }
