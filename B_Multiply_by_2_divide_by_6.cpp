@@ -12,13 +12,13 @@ int main()
         long long count_of_3 = 0;
         long long count_of_2 = 0;
 
-        while (n > 0 && n % 3 == 0)
+        while (n > 0 && n % 3 == 0) // log3(n)
         {
             count_of_3++;
             n /= 3;
         }
 
-        while (n > 0 && n % 2 == 0)
+        while (n > 0 && n % 2 == 0) // log2(n)
         {
             count_of_2++;
             n /= 2;
@@ -31,3 +31,6 @@ int main()
     }
     return 0;
 }
+
+// tc - O(log2(n)) = O(30)
+// sc - O(1)

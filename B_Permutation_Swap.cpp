@@ -12,12 +12,13 @@ int main()
         vector<int> a(n);
         for (int i = 0; i < n; i++)
             cin >> a[i];
-        int g = abs(a[0] - 1);
+        
+        int k = abs(a[0] - 1);
         for (int i = 1; i < n; i++)
         {
-            g = gcd(g, abs(a[i] - (i + 1)));
+            k = gcd(k, abs(a[i] - (i + 1)));
         }
-        cout << g << endl;
+        cout << k << endl;
     }
     return 0;
 }
