@@ -1,0 +1,67 @@
+
+
+c[i] = a[i]-X
+
+I have an array d of size n
+
+where I define the following,
+
+
+d[i] = maximum sum of elements from 0 to ith index
+if I have always chosen c[i] / always picked up ith index
+
+c = {2, -1, 4, -5}
+
+d[0] = 2
+d[1] = -1 + max(d[0],0) = 1
+d[2] = 4 + max(d[1],d[0]) = 6
+d[3] = -5 + max(d[2],d[1]) = 1
+
+d[i] = c[i] + max(d[i-1],d[i-2])
+
+ans = max(d[n-1],d[n-2]) = maximum sum possible by choosing elemnents in such a way
+such that no two chosen elements have a gap > 1
+
+d[n-1] = maximum sum of elements from 0 to (n-1)th index
+if I have always chosen c[n-1]
+
+d[n-2] = maximum sum of elements from 0 to (n-2)th index
+if I have always chosen c[n-2]
+
+ans>=0 can you say, you have some avg >= x - TRUE
+else FALSE
+
+
+for some number to be a median? what has to satisfy???
+
+let's say I have a array of size n
+
+arr = {arr1, arr2, arr3, arr4, arr5}
+
+median - m
+
+the number of elements that are >=m should be greater 
+than the number of elements that are less than m???
+
+We want to binary search on the median.
+
+Assuming we have a median - m
+
+if I don't find a median >= m, then I cannot find a median >= m+1, m+2, m+3, .....
+
+TTTTTTTTTTTTT....FFFFFFFF
+
+I want a checker fn - 
+
+which tells me whether a median >= m is possible or not - TRUE/FALSE
+
+Let's say that I created a new modified array c
+
+where c[i] = 1 if a[i]>=m
+else c[i] = -1 if a[i]<m
+
+If I run my previous logic of finding the maximum sum thing (d array) on this new array c
+Can I say I want now the same thing, that is the maximum sum > 0
+
+why? because I have greater number of 1s comapred to -1s
+so my sum of the chosen elements from array c should give me a sum> 0

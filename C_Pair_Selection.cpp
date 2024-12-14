@@ -1,13 +1,13 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-bool checker(vector<double> &c, int k, int n)
+bool checker(vector<double> &transformed_arr, int k, int n)
 {
     double sum = 0;
-    sort(c.begin(), c.end());
+    sort(transformed_arr.begin(), transformed_arr.end());
     for (int i = 0; i < k; i++)
-        sum += c[n - i - 1];
-    return sum>=0;
+        sum += transformed_arr[n - i - 1];
+    return sum >= 0;
 }
 
 int main()
@@ -27,19 +27,18 @@ int main()
     for (int iterations = 0; iterations < 60; iterations++)
     {
         double mid = (left + right) / 2;
-        vector<double> c(n);
+        vector<double> transformed_arr(n);
         for (int i = 0; i < n; i++)
-        {
-            c[i] = arr[i].first - mid * arr[i].second;
-        }
-        if (checker(c, k, n))
+            transformed_arr[i] = arr[i].first - mid * arr[i].second;
+
+        if (checker(transformed_arr, k, n))
         {
             ans = mid;
-            left = mid + error;
+            left = mid;
         }
         else
         {
-            right = mid - error;
+            right = mid;
         }
     }
     cout << setprecision(7) << fixed << ans << endl;

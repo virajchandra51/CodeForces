@@ -11,20 +11,20 @@ int main()
         cin >> n >> x;
         vector<long long> a(n);
         long long min = 0, max = 0;
-        // ceil is an STL function
-        // that return greater integer
-        for (int i = 0; i < n; i++)
-        {
+        for (int i = 0; i < n; i++) // n
             cin >> a[i];
-            max += ceil(a[i] * 1.0 / x * 1.0);
-            // long long / long long = long long
+        
+        for (int i = 0; i < n; i++) // n
+        {
+            max += ceil(a[i] * 1.0 / x);
             min += a[i];
         }
-        min = ceil(min * 1.0 / x * 1.0);
+
+        min = ceil(min * 1.0 / x);
         cout << min << " " << max << endl;
     }
     return 0;
 }
 
-// TC - O(n)
-// SC - O(n)
+// tc - O(n) = O(10^5)
+// sc - O(n) = O(10^5)

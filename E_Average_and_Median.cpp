@@ -3,14 +3,14 @@ using namespace std;
 
 double maxSumChecker(vector<double> &arr, int n)
 {
-    vector<double> prefix(n);
-    prefix[0] = arr[0];
-    prefix[1] = arr[1] + max(prefix[0], double(0));
+    vector<double> d(n);
+    d[0] = arr[0];
+    d[1] = arr[1] + max(d[0], double(0));
     for (int i = 2; i < n; i++)
     {
-        prefix[i] = arr[i] + max(prefix[i - 1], prefix[i - 2]);
+        d[i] = arr[i] + max(d[i - 1], d[i - 2]);
     }
-    return max(prefix[n - 1], prefix[n - 2]);
+    return max(d[n - 1], d[n - 2]);
 }
 
 double bestAverage(vector<long long> arr, int n)
@@ -22,12 +22,11 @@ double bestAverage(vector<long long> arr, int n)
     for (int iterations = 0; iterations <= 100; iterations++)
     {
         double mid = (left + right) / 2;
-        vector<double> temp(n);
+        vector<double> transformed_array(n);
         for (int i = 0; i < n; i++)
-        {
-            temp[i] = arr[i] - mid;
-        }
-        if (maxSumChecker(temp, n) >= 0)
+            transformed_array[i] = arr[i] - mid;
+        
+        if (maxSumChecker(transformed_array, n) >= 0)
         {
             avg = mid;
             left = mid + error;
