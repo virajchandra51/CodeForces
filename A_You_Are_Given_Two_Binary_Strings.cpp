@@ -7,14 +7,13 @@ int main()
     cin >> t;
     while (t--)
     {
-
         string x, y;
         cin >> x >> y;
         int pos_y = 0;
         int pos_x = 0;
-        reverse(x.begin(), x.end());
-        reverse(y.begin(), y.end());
-        for (int i = 0; i < y.size(); i++)
+        reverse(x.begin(), x.end()); // 10^5
+        reverse(y.begin(), y.end()); // 10^5
+        for (int i = 0; i < y.size(); i++) // 10^5
         {
             if (y[i] == '1')
             {
@@ -22,7 +21,7 @@ int main()
                 break;
             }
         }
-        for (int i = pos_y; i < x.size(); i++)
+        for (int i = pos_y; i < x.size(); i++) // 10^5
         {
             if (x[i] == '1')
             {
@@ -34,3 +33,6 @@ int main()
     }
     return 0;
 }
+
+// tc - O(10^5)
+// sc - O(10^5)
