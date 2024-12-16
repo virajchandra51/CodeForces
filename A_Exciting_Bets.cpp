@@ -10,19 +10,19 @@ int main()
         long long a, b;
         cin >> a >> b;
         if (b > a)
-            swap(a, b);
+            swap(a, b); // 1
 
         if (a == b)
-        {
-            cout << 0 << " " << 0 << endl;
-            continue;
-        }
+            cout << 0 << " " << 0 << endl; // 1
         else
         {
-            long long gcd = abs(a - b);
-            long long answer = min(b % gcd, gcd - b % gcd);
-            cout << gcd << " " << answer << endl;
+            long long gcd = a - b;
+            long long moves = min(b % gcd, gcd - b % gcd); // 1
+            cout << gcd << " " << moves << endl;
         }
     }
     return 0;
 }
+
+// tc - O(1)
+// sc - O(1)
