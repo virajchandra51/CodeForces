@@ -1,21 +1,24 @@
 #include <bits/stdc++.h>
 using namespace std;
+using namespace std::chrono;
 
 int main()
 {
-    int x, y, z;
-    cin >> x >> y >> z;
-    if (x > y && x > z)
+    // Get starting timepoint
+    auto start = high_resolution_clock::now();
+
+    for(int i=0; i<1000; i++)
     {
-        cout << x << " is the largest number" << endl;
+        cout << "" << '\n';
     }
-    else if (y > x && y > z)
-    {
-        cout << y << " is the largest number" << endl;
-    }
-    else
-    {
-        cout << z << " is the largest number" << endl;
-    }
+
+    // Get ending timepoint
+    auto stop = high_resolution_clock::now();
+
+    auto duration = duration_cast<microseconds>(stop - start);
+
+    cout << "Time taken by function: "
+         << duration.count() << " microseconds" << endl;
+
     return 0;
 }

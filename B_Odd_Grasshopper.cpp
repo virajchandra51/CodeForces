@@ -10,21 +10,22 @@ int main()
         long long start, jumps;
         cin >> start >> jumps;
 
+        long long final_pos;
         if (jumps % 4 == 1)
-            jumps = -jumps;
+            final_pos = -jumps;
         else if (jumps % 4 == 2)
-            jumps = 1;
+            final_pos = 1;
         else if (jumps % 4 == 3)
-            jumps = jumps + 1;
+            final_pos = jumps + 1;
         else if (jumps % 4 == 0)
-            jumps = 0;
+            final_pos = 0;
 
         if (start % 2 == 0)
-            start = start + jumps;
+            final_pos = start + final_pos;
         else
-            start = start - jumps;
+            final_pos = start - final_pos;
 
-        cout << start << endl;
+        cout << final_pos << endl;
     }
     return 0;
 }

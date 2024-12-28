@@ -1,27 +1,24 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-typedef long long ll;
-
 int main()
 {
-    ll n;
+    long long n;
     cin >> n;
 
-    vector<ll> a(n);
+    vector<long long> a(n);
     for (int i = 0; i < n; i++)
         cin >> a[i];
-    // taking input
 
-    sort(a.begin(), a.end()); // o(nlogn)
+    sort(a.begin(), a.end());
 
     double median;
 
-    if(n&1)
+    if (n & 1)
         median = (a[n / 2]);
     else
         median = (a[n / 2 - 1] + a[n / 2]) / 2;
-    ll answer = 0;
+    long long answer = 0;
 
     for (int i = 0; i < n; i++)
         answer += abs((a[i] - median));
@@ -30,6 +27,3 @@ int main()
 
     return 0;
 }
-
-// TC - O(nlogn)
-// SC - O(1)
