@@ -7,10 +7,10 @@ int main()
     cin >> n;
 
     vector<long long> a(n);
-    for (int i = 0; i < n; i++)
+    for (int i = 0; i < n; i++) // n
         cin >> a[i];
 
-    sort(a.begin(), a.end());
+    sort(a.begin(), a.end()); // nlogn
 
     double median;
 
@@ -20,10 +20,13 @@ int main()
         median = (a[n / 2 - 1] + a[n / 2]) / 2;
     long long answer = 0;
 
-    for (int i = 0; i < n; i++)
+    for (int i = 0; i < n; i++) // n
         answer += abs((a[i] - median));
 
     cout << answer << endl;
 
     return 0;
 }
+
+// tc = O(nlogn)
+// sc = o(n)

@@ -8,6 +8,7 @@ int main()
     vector<long long> a(n);
     for (int i = 0; i < n; i++)
         cin >> a[i];
+    
     long long maxi = 32;
     while (q--)
     {
@@ -22,8 +23,12 @@ int main()
                 a[i] += ((1 << x) - 1);
         }
     }
+    //  31 * n
     for (auto it : a)
         cout << it << " ";
     cout << endl;
     return 0;
 }
+
+// tc - O(31*n)
+// sc - O(n)
