@@ -10,13 +10,13 @@ int main()
         long long n;
         cin >> n;
         vector<long long> a(n);
-        for (int i = 0; i < n; i++)
+        for (int i = 0; i < n; i++) // n
             cin >> a[i];
 
         long long ans = 0;
-        for (int i = n - 2; i >= 0; i--)
+        for (int i = n - 2; i >= 0; i--) // n
         {
-            while (a[i] >= a[i + 1])
+            while (a[i] >= a[i + 1]) // 31
             {
                 ans++;
                 a[i] /= 2;
@@ -33,3 +33,6 @@ int main()
     }
     return 0;
 }
+
+// tc - O(nlog2(2*10^9)) = O(30*31) = O(930) ~ 10^3 
+// sc - O(n) = O(30)

@@ -9,27 +9,27 @@ int main()
     for (int i = 0; i < n; i++)
         cin >> v[i];
 
-    sort(v.begin(), v.end()); //nlogn
+    sort(v.begin(), v.end()); // nlogn
 
-    if(v[0]!=1)
+    if (v[0] != 1)
     {
-        cout<<1<<endl; // base case
+        cout << 1 << endl; // base case
     }
     else
     {
         long long minCoinSum = 0;
         long long maxCoinSum = 1;
-        for(int i=1;i<v.size();i++) //n
+        for (int i = 1; i < v.size(); i++) // n
         {
-            long long newMinCoinSum = minCoinSum+v[i];
-            long long newMaxCoinSum = maxCoinSum+v[i];
-            if(newMinCoinSum-maxCoinSum>1)
+            long long newMinCoinSum = minCoinSum + v[i]; 
+            long long newMaxCoinSum = maxCoinSum + v[i];
+            if (newMinCoinSum - maxCoinSum > 1)
             {
                 break;
             }
-            maxCoinSum = max(maxCoinSum,newMaxCoinSum);
+            maxCoinSum = max(maxCoinSum, newMaxCoinSum);
         }
-        cout<<maxCoinSum+1<<endl;
+        cout << maxCoinSum + 1 << endl;
     }
     return 0;
 }
