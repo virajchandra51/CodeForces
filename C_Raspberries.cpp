@@ -13,30 +13,26 @@ int main()
         for (long long i = 0; i < n; i++) // n
             cin >> a[i];
 
+        long long ans = INT_MAX;
+        long long even_count = 0;
+        for (long long i = 0; i < n; i++)
+        {
+            if (a[i] % 2 == 0)
+                even_count++;
+            if (a[i] % k == 0)
+                ans = 0;
+            ans = min(ans, (k - a[i] % k));
+        }
         if (k == 4)
         {
-            int even_count = 0;
-            for (int i = 0; i < n; i++)
-            {
-                if (a[i] % 2 == 0)
-                    even_count++;
-            }
-
-            int ans = min(0, 2 - even_count);
-
-            cout << ans << endl;
+            if (even_count >= 2)
+                ans = min(ans, 0LL);
+            else if (even_count == 1)
+                ans = min(ans, 1LL);
+            else if (even_count == 0)
+                ans = min(ans, 2LL);
         }
-        else
-        {
-            int flag = 0;
-            for (int i = 0; i < n; i++)
-            {
-                if (a[i] % k == 0)
-                    flag = 1;
-            }
-            if(flag)
-        }
-
-        return 0;
+        cout << ans << endl;
     }
+    return 0;
 }
