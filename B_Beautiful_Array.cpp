@@ -3,7 +3,6 @@ using namespace std;
 
 int main()
 {
-
     int t;
     cin >> t;
     while (t--)
@@ -15,36 +14,25 @@ int main()
             cout << "-1" << endl;
         else
         {
-            long long rem = s - (y);
-            long long z = (k - 1) * (n - 1);
-            if (z >= rem)
+            vector<long long> ans(n, 0);
+            ans[0] = y;
+            s -= y;
+            for (int i = 0; i < n; i++)
             {
-                vector<long long> arr(n, 0);
-                arr[n - 1] = y;
-                long long i = n - 2;
-                while (rem > 0 && i >= 0)
-                {
-                    if (rem >= k - 1)
-                    {
-                        arr[i] = k - 1;
-                        rem -= (k - 1);
-                    }
-                    else
-                    {
-                        arr[i] = rem;
-                        rem = 0;
-                    }
-                    i--;
-                }
-
-                for (long long i = 0; i < n; i++)
-                {
-                    cout << arr[i] << " ";
-                }
-                cout << endl;
+                long long add = min(k - 1, s);
+                ans[i] += add;
+                s -= add;
+            }
+            if (s > 0)
+            {
+                cout << "-1" << endl;
             }
             else
-                cout << "-1" << endl;
+            {
+                for (long long i = 0; i < n; i++)
+                    cout << ans[i] << " ";
+                cout << endl;
+            }
         }
     }
 }
