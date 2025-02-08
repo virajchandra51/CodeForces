@@ -16,7 +16,7 @@ int main()
             cout << "-1" << endl;
             continue;
         }
-        vector<int> arr(n);
+        vector<int> ans(n);
         int cnt = 0;
         int pos, neg;
         pos = 1, neg = 2;
@@ -28,33 +28,36 @@ int main()
             {
                 cnt++;
                 if (cnt > 0)
-                    arr[i] = pos;
+                    ans[i] = pos;
                 else
-                    arr[i] = neg;
+                    ans[i] = neg;
             }
             else
             {
                 cnt--;
                 if (cnt < 0)
-                    arr[i] = neg;
+                    ans[i] = neg;
                 else
-                    arr[i] = pos;
+                    ans[i] = pos;
             }
         }
-        if (*max_element(arr.begin(), arr.end()) == *min_element(arr.begin(), arr.end()))
+        if (*max_element(ans.begin(), ans.end()) == *min_element(ans.begin(), ans.end()))
         {
             cout << "1" << endl;
-            for (auto &it : arr)
+            for (auto &it : ans)
                 cout << it << ' ';
             cout << endl;
         }
         else
         {
             cout << "2" << endl;
-            for (auto &it : arr)
+            for (auto &it : ans)
                 cout << it << ' ';
             cout << endl;
         }
     }
     return 0;
 }
+
+// tc = O(n)
+// sc = O(n)
