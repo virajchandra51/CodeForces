@@ -16,11 +16,11 @@ int main()
         for (long long i = 0; i < n; i++) // n
             cin >> b[i];
 
-        unordered_map<long long, long long> longest_subarray_a;
-        unordered_map<long long, long long> longest_subarray_b;
+        vector<long long> longest_subarray_a(2 * n + 1, 0);
+        vector<long long> longest_subarray_b(2 * n + 1, 0);
 
         long long counter = 1;
-        for (int i = 1; i < n; i++)
+        for (int i = 1; i < n; i++) // n
         {
             if (a[i] == a[i - 1])
                 counter++;
@@ -34,7 +34,7 @@ int main()
 
         counter = 1;
 
-        for (int i = 1; i < n; i++)
+        for (int i = 1; i < n; i++) // n
         {
             if (b[i] == b[i - 1])
                 counter++;
@@ -47,13 +47,13 @@ int main()
         longest_subarray_b[b[n - 1]] = max(longest_subarray_b[b[n - 1]], counter);
 
         long long max_freq = -1;
-        for (auto i : longest_subarray_a)
-            max_freq = max(max_freq, i.second + longest_subarray_b[i.first]);
-
-        for (auto i : longest_subarray_b)
-            max_freq = max(max_freq, i.second + longest_subarray_a[i.first]);
+        for (int i = 1; i <= 2 * n; i++) // 2*n  = n
+            max_freq = max(max_freq, longest_subarray_a[i] + longest_subarray_b[i]);
 
         cout << max_freq << endl;
     }
     return 0;
 }
+
+// tc = O(n) ~ O(2*10^5)
+// sc = O(n) ~ O(2*10^5)
