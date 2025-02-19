@@ -8,26 +8,30 @@ int main()
     while (t--)
     {
         string A, B;
-        cin >> A >> B;
-        int n = A.size(), m = B.size();
-        int ans = 0;
-        for (int len = 1; len <= min(n, m); len++) // min(n,m)
+        cin >> A >> B; // 20
+        long long n = A.size(), m = B.size();
+        long long lcs = 0;
+
+        for (long long len = 1; len <= min(n, m); len++) // 20
         {
-            for (int i = 0; i + len <= n; i++) // n
+            for (long long i = 0; i + len <= n; i++) // 20
             {
-                for (int j = 0; j + len <= m; j++) // m
+                for (long long j = 0; j + len <= m; j++) // 20
                 {
-                    if (A.substr(i, len) == B.substr(j, len)) // len
-                    {
-                        ans = max(ans, len);
-                    }
+                    string extract_A = A.substr(i, len); // 20
+                    string extract_B = B.substr(j, len); // 20
+                    
+                    if (extract_A == extract_B) // 20
+                        lcs = max(lcs, len);
                 }
             }
         }
-        cout << A.size() + B.size() - 2 * ans << endl;
+
+        long long operations = n + m - 2 * lcs;
+        cout << operations << endl;
     }
     return 0;
 }
 
-// Time Complexity: O(n*m*min(n,m)*len) - (20*20*20*20) -  160000 - 10^5
-// Space Complexity: O(1)
+// tc = O(20^4) = O(160000) ~ O(10^5)
+// sc = O(2*20)
