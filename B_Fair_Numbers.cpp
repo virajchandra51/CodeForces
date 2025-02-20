@@ -14,7 +14,7 @@ bool isFair(long long n)
         num /= 10;
     }
     return true;
-}
+} // 18
 
 int main()
 {
@@ -24,8 +24,11 @@ int main()
     {
         long long n;
         cin >> n;
-        while (!isFair(n))
+        while (!isFair(n)) // 2520 * 18 = 45360
             n += 1;
         cout << n << endl;
     }
 }
+
+// tc = O(45360)
+// sc = O(1)

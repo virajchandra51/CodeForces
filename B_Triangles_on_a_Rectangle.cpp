@@ -10,12 +10,12 @@ int main()
         long long w, h;
         cin >> w >> h;
         long long area = INT_MIN;
-        for (int i = 0; i < 4; i++)
+        for (int i = 0; i < 4; i++) // 4
         {
             long long k;
             cin >> k;
             long long first, last;
-            for (int j = 0; j < k; j++)
+            for (int j = 0; j < k; j++) // 10^5
             {
                 long long x;
                 cin >> x;
@@ -30,3 +30,6 @@ int main()
     }
     return 0;
 }
+
+// tc = O(2*10^5)
+// sc = O(1)
