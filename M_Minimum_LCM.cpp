@@ -7,18 +7,26 @@ int main()
     cin >> t;
     while (t--)
     {
-        long long n;
+        int n;
         cin >> n;
-        long long a = 1;
-        for (long long fac = 2; fac * fac <= n; fac++) // sqrtn
+        int l = INT_MAX;
+        int ans_a = 1;
+        int ans_b = n - 1;
+        for (int fac = 2; fac * fac <= n; fac++) // sqrtn
         {
             if (n % fac == 0)
             {
-                a = n / fac;
-                break;
+                int a = n / fac;
+                int b = n - a;
+                if (l > lcm(a, b))
+                {
+                    l = lcm(a, b);
+                    ans_a = a;
+                    ans_b = b;
+                }
             }
         }
-        cout << a << " " << n - a << endl;
+        cout << ans_a << " " << ans_b << endl;
     }
     return 0;
 }

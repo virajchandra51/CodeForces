@@ -12,22 +12,20 @@ int main()
         char color;
         cin >> color;
         string s;
-        cin >> s;
-        s += s;
-        vector<long long> index_of_green;
-        for (int i = 0; i < n * 2; i++)
+        cin >> s; // n
+        s += s; // n
+        n *= 2;
+
+        long long last_green_index = -1;
+        long long max_seconds = INT_MIN;
+
+        for (int i = n - 1; i >= 0; i--) // n
         {
             if (s[i] == 'g')
-                index_of_green.push_back(i);
-        }
-
-        long long max_seconds = INT_MIN;
-        for (int i = 0; i < n; i++)
-        {
+                last_green_index = i;
             if (s[i] == color)
             {
-                auto next_green_index = *lower_bound(index_of_green.begin(), index_of_green.end(), i);
-                long long difference = next_green_index - i;
+                long long difference = last_green_index - i;
                 max_seconds = max(max_seconds, difference);
             }
         }
@@ -35,3 +33,6 @@ int main()
     }
     return 0;
 }
+
+// tc = O(n) = O(2*10^5)
+// sc = O(n) = O(2*10^5)

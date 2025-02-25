@@ -1,4 +1,4 @@
-// 2025-02-20 20:46:00
+// 2025-02-21 13:26:40
 
 #include <bits/stdc++.h>
 
@@ -108,12 +108,52 @@ int32_t main()
     fastio()
     //Rating? Neh. In love with experience.
     //Code Karlo, Coz KHNH :)
+    auto solve = [&] () {
+        ll n;
+        cin>>n;
+        vl values(n);
+        cin>>values;
+        vvl adj(n);
+        for(int i=1;i<n;i++)
+        {
+            int x;
+            cin>>x;
+            adj[x-1].push_back(i);
+        }
+        auto dfs = [&](auto&& self, ll mid, ll node) -> bool {
+            if(mid>1e9) return false;
+            bool isLeaf = true;
+            if(node) mid += max(0LL,mid-values[node]);
+            for(auto child: adj[node])
+            {
+                isLeaf = false;
+                if(!self(self, mid, child)) return false;
+            }
+            return (!isLeaf || mid<=values[node]);
+        };
+        ll low = 0, high = 1e9;
+        ll ans;
+        while(low<=high)
+        {
+            ll mid = (low+high)>>1;
+            if(dfs(dfs, mid, 0))
+            {
+                ans = mid;
+                low = mid+1;
+            }
+            else
+            {
+                high = mid-1;
+            }
+        }
+        cout<<values[0]+ans<<endl;
+    };
 
-    int n;
-    cin>>n;
-    vi a(n);
-    cin>>a;
-    cout<<a<<endl;
-
+    int t;
+    cin>>t;
+    while(t--)
+    {
+        solve();
+    }
     return 0;
 }

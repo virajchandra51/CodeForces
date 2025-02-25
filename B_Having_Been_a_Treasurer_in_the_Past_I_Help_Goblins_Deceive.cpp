@@ -1,4 +1,4 @@
-// 2025-02-20 20:46:00
+// 2025-02-25 20:10:37
 
 #include <bits/stdc++.h>
 
@@ -108,12 +108,45 @@ int32_t main()
     fastio()
     //Rating? Neh. In love with experience.
     //Code Karlo, Coz KHNH :)
+    auto solve = [&] () {
+        ll n;
+        cin>>n;
+        string s;
+        cin>>s;
+        ll dash = 0;
+        ll low = 0;
+        for(auto it:s)
+        {
+            if(it=='_') low++;
+            else dash++;
+        }
+        if(dash<=1 || low==0) out(0)
+        else
+        {
+            if(dash&1)
+            {
+                ll left = dash/2;
+                ll right = dash/2+1;
+                ll a = left*right;
+                ll ans = a*low;
+                out(ans)
+            }
+            else
+            {
+                ll left = dash/2;
+                ll right = dash/2;
+                ll a = left*right;
+                ll ans = a*low;
+                out(ans)
+            }
+        }
+    };
 
-    int n;
-    cin>>n;
-    vi a(n);
-    cin>>a;
-    cout<<a<<endl;
-
+    int t;
+    cin>>t;
+    while(t--)
+    {
+        solve();
+    }
     return 0;
 }

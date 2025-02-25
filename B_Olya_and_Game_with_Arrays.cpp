@@ -10,30 +10,29 @@ int main()
         long long n;
         cin >> n;
 
-        vector<pair<long long, long long> > first_2_mins;
+        vector<long long> second_elements;
+        long long overall_minimum = INT_MAX;
 
         for (int i = 0; i < n; i++) // n
         {
             long long m;
             cin >> m;
             vector<long long> a(m);
-            for (long long j = 0; j < m; j++) // m
-                cin >> a[j];
-            sort(a.begin(), a.end()); // mlog2m
-            first_2_mins.push_back({a[1], a[0]});
+            for (auto &x : a)
+                cin >> x;
+            
+            sort(a.begin(), a.end());
+            
+            second_elements.push_back(a[1]);
+            overall_minimum = min(overall_minimum, a[0]);
         }
 
-        sort(first_2_mins.begin(), first_2_mins.end()); // nlog2n
-        long long answer = 0;
+        sort(second_elements.begin(), second_elements.end());
 
-        long long first_min = first_2_mins[0].second;
-        for (int i = 1; i < n; i++) // n
-        {
-            answer += first_2_mins[i].first;
-            first_min = min(first_min, first_2_mins[i].second);
-        }
-        answer += first_min;
+        long long sum_of_second_elements = accumulate(second_elements.begin(), second_elements.end(), 0LL);
+        long long second_minimum = second_elements[0];
 
+        long long answer = overall_minimum + sum_of_second_elements - second_minimum;
         cout << answer << endl;
     }
     return 0;

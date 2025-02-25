@@ -1,15 +1,5 @@
 #include <bits/stdc++.h>
-
 using namespace std;
-
-bool comparator(pair<int, int> &a, pair<int, int> &b)
-{
-    if (a.second == b.second)
-    {
-        return a.first < b.first;
-    }
-    return a.second > b.second;
-}
 
 int main()
 {
@@ -17,35 +7,35 @@ int main()
     cin >> t;
     while (t--)
     {
-        int n, k;
+        long long n, k;
         cin >> n >> k;
-        vector<pair<int, int> > a(n);
-        for (int i = 0; i < n; i++)
+        vector<pair<long long, long long> > health_points(n);
+        for (long long i = 0; i < n; i++) // n
         {
-            cin >> a[i].second;
-            a[i].first = i + 1;
+            long long x;
+            cin >> x;
+            health_points[i] = { x, i + 1 };
         }
 
-        for (int i = 0; i < n; i++)
+        for (long long i = 0; i < n; i++) // n
         {
-            a[i].second = a[i].second % k;
-            if (a[i].second <= 0)
-            {
-                a[i].second += k;
-            }
+            health_points[i].first = health_points[i].first % k;
+            if (health_points[i].first == 0)
+                health_points[i].first = k;
         }
 
-        sort(a.begin(), a.end(), comparator); // nlogn
-        // dec in second, inc in first
+        sort(health_points.begin(), health_points.end(), [&](pair<long long, long long> a, pair<long long, long long> b) {
+            if (a.first != b.first)
+                return a.first > b.first;
+            return a.second < b.second;
+        }); // nlogn
 
-        for (int i = 0; i < n; i++)
-        {
-            cout << a[i].first << " ";
-        }
+        for (auto it : health_points) // n
+            cout << it.second << " ";
         cout << endl;
     }
     return 0;
 }
 
-// Time Complexity: O(nlogn)
-// Space Complexity: O(n)
+// tc = O(nlogn) = O(3*10^5log(3*10^5)) = O(10^6)
+// sc = O(n)

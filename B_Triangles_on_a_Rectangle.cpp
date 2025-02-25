@@ -15,7 +15,8 @@ int main()
             long long k;
             cin >> k;
             long long first, last;
-            for (int j = 0; j < k; j++) // 10^5
+
+            for (int j = 0; j < k; j++) // k
             {
                 long long x;
                 cin >> x;
@@ -24,12 +25,20 @@ int main()
                 if (j == k - 1)
                     last = x;
             }
-            area = max(area, (last - first) * (i <= 1 ? h : w));
+
+            long long base = last - first;
+            long long height;
+            if (i <= 1)
+                height = h;
+            else
+                height = w;
+
+            area = max(area, base * height);
         }
         cout << area << endl;
     }
     return 0;
 }
 
-// tc = O(2*10^5)
+// tc = O(k) = O(2*10^5)
 // sc = O(1)

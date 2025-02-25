@@ -1,4 +1,4 @@
-// 2025-02-20 20:46:00
+// 2025-02-25 23:01:54
 
 #include <bits/stdc++.h>
 
@@ -108,12 +108,36 @@ int32_t main()
     fastio()
     //Rating? Neh. In love with experience.
     //Code Karlo, Coz KHNH :)
+    vl p(1e6+2,0);
+    for(ll i=1;i<=1e6;i++)
+    {
+        ll ci = i;
+        ll c = 0;
+        while(ci%2==0)
+        {
+            ci/=2;
+            c++;
+        }
+        p[i] = p[i-1]+c;
+    }
+    auto solve = [&] () {
+        ll n,k;
+        cin>>n>>k;
+        n--;
+        for (int i = 0; i <= n; i++){
+            if (p[n] - p[i] - p[n - i]){
+                cout << 0 << " \n"[i == n];
+            } else {
+                cout << k << " \n"[i == n];
+            }
+        }
+    };
 
-    int n;
-    cin>>n;
-    vi a(n);
-    cin>>a;
-    cout<<a<<endl;
-
+    int t;
+    cin>>t;
+    while(t--)
+    {
+        solve();
+    }
     return 0;
 }

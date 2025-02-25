@@ -1,4 +1,4 @@
-// 2025-02-20 20:46:00
+// 2025-02-26 00:31:10
 
 #include <bits/stdc++.h>
 
@@ -103,17 +103,66 @@ ll moduloMultiplication(ll a,ll b,ll mod){ll res = 0;a %= mod;while (b){if (b & 
 ll powermod(ll x, ll y, ll p){ll res = 1;x = x % p;if (x == 0) return 0;while (y > 0){if (y & 1)res = (res*x) % p;y = y>>1;x = (x*x) % p;}return res;}
 //To find modulo inverse, call powermod(A,M-2,M)
 
+ll closest(ll k)
+{
+    ll l = 0;
+    ll h = 1e9;
+    ll ans;
+    while(l<=h)
+    {
+        ll mid = (l+h)/2;
+        ll val = mid*(mid+1)/2;
+        if(val<=k)
+        {
+            ans = mid;
+            l = mid+1;
+        }
+        else
+        {
+            h = mid-1;
+        }
+    }
+    return ans;
+}
+
 int32_t main()
 {
     fastio()
     //Rating? Neh. In love with experience.
     //Code Karlo, Coz KHNH :)
+    auto solve = [&] () {
+        ll k;
+        cin>>k;
+        ll x = 0;
+        ll y = 0;
+        vector<pair<ll,ll>> ans;
+        while(true)
+        {
+            ll val = closest(k);
+            debug(val);
+            k-=(val*(val+1))/2;
+            ll points = val;
+            ans.pb({x,y});
+            for(ll i=1;i<=points;i++)
+            {
+                ans.pb({x,y+i});
+            }
+            y+=points;
+            y++;
+            x++;
+            if(k<=0)
+                break;
+        }
+        cout<<ans.size()<<endl;
+        for(auto i:ans)
+            cout<<i.first<<" "<<i.second<<endl;
+    };
 
-    int n;
-    cin>>n;
-    vi a(n);
-    cin>>a;
-    cout<<a<<endl;
-
+    int t;
+    cin>>t;
+    while(t--)
+    {
+        solve();
+    }
     return 0;
 }

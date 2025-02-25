@@ -5,11 +5,11 @@ int main()
 {
     long long n;
     cin >> n;
-    string s;
-    cin >> s;
+    string s; 
+    cin >> s;  // n
 
     int flag = 0;
-    for (int i = 0; i < n - 1; i++)
+    for (int i = 0; i < n - 1; i++) // n
     {
         if (s[i] > s[i + 1])
         {
@@ -24,3 +24,6 @@ int main()
         cout << "NO" << endl;
     return 0;
 }
+
+// tc = O(n) = O(3*10^5)
+// sc = O(n) = O(3*10^5)

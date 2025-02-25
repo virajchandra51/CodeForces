@@ -10,15 +10,10 @@ int main()
         long long n, k, q;
         cin >> n >> k >> q;
         vector<long long> a(n);
-        for (int i = 0; i < n; i++) // n
-            cin >> a[i];
-
         for (int i = 0; i < n; i++)
         {
-            if (a[i] > q)
-                a[i] = 0;
-            else
-                a[i] = 1;
+            cin >> a[i];
+            a[i] = (a[i] > q) ? 0 : 1;
         }
 
         long long count_of_1s = 0;
@@ -42,6 +37,7 @@ int main()
             long long diff = count_of_1s - k + 1;
             ways += (diff * (diff + 1)) / 2;
         }
+        
         cout << ways << endl;
     }
     return 0;
