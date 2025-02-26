@@ -1,4 +1,4 @@
-// 2025-02-26 20:27:42
+// 2025-02-26 19:48:56
 
 #include <bits/stdc++.h>
 
@@ -103,86 +103,27 @@ ll moduloMultiplication(ll a,ll b,ll mod){ll res = 0;a %= mod;while (b){if (b & 
 ll powermod(ll x, ll y, ll p){ll res = 1;x = x % p;if (x == 0) return 0;while (y > 0){if (y & 1)res = (res*x) % p;y = y>>1;x = (x*x) % p;}return res;}
 //To find modulo inverse, call powermod(A,M-2,M)
 
-bool checker(string &target, ll z, ll o)
-{
-    string now = "";
-    ll n = target.size();
-    rep(i,n)
-    {
-        if(target[i]=='0')
-        {
-            if(z>0)
-            {
-                now+='0';
-                z--;
-            }
-            else if(o>0)
-            {
-                now+='1';
-                o--;
-            }
-        }
-        else
-        {
-            if(o>0)
-            {
-                now+='1';
-                o--;
-            }
-            else if(z>0)
-            {
-                now+='0';
-                z--;
-            }
-        }
-    }
-    ll dis = 0;
-    rep(i,n)
-    {
-        if(target[i]!=now[i]) dis++;
-    }
-    if(dis==1) return true;
-    return false;
-}
-
 int32_t main()
 {
     fastio()
     //Rating? Neh. In love with experience.
     //Code Karlo, Coz KHNH :)
     auto solve = [&] () {
-        string s;
-        cin>>s;
-        ll n = s.size();
-        ll z = 0;
-        rep(i,n) if(s[i]=='0') z++;
-        ll o = n-z;
-        if(abs(o-z)<=1)
+        ll n;
+        cin>>n;
+        vl a(n);
+        cin>>a;
+        ll cn = n-1;
+        ll ans = 0;
+        for(int i=0;i<n;i++)
         {
-            ll flag = 0;
-            rep(i,n-1)
-            {
-                if(s[i]==s[i+1]) flag=1;
-            }
-            if(flag) cout<<1<<endl;
-            else cout<<0<<endl;
+            if((i&cn)==i) ans^=a[i];
         }
-        else
-        {
-            string target1 = "";
-            string target2 = "";
-            rep(i,n)
-            {
-                if(!(i%2)) target1+='0', target2+='1';
-                else target1+='1', target2+='0';
-            }
-            if(checker(target1,z,o)||checker(target2,z,o)) cout<<2<<endl;
-            else cout<<3<<endl;
-        }
+        cout<<ans<<endl;
     };
 
     int t;
-    cin>>t;
+    t=1;
     while(t--)
     {
         solve();

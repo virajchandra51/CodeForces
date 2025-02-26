@@ -1,4 +1,4 @@
-// 2025-02-26 20:27:42
+// 2025-02-26 20:01:00
 
 #include <bits/stdc++.h>
 
@@ -103,46 +103,10 @@ ll moduloMultiplication(ll a,ll b,ll mod){ll res = 0;a %= mod;while (b){if (b & 
 ll powermod(ll x, ll y, ll p){ll res = 1;x = x % p;if (x == 0) return 0;while (y > 0){if (y & 1)res = (res*x) % p;y = y>>1;x = (x*x) % p;}return res;}
 //To find modulo inverse, call powermod(A,M-2,M)
 
-bool checker(string &target, ll z, ll o)
-{
-    string now = "";
-    ll n = target.size();
-    rep(i,n)
-    {
-        if(target[i]=='0')
-        {
-            if(z>0)
-            {
-                now+='0';
-                z--;
-            }
-            else if(o>0)
-            {
-                now+='1';
-                o--;
-            }
-        }
-        else
-        {
-            if(o>0)
-            {
-                now+='1';
-                o--;
-            }
-            else if(z>0)
-            {
-                now+='0';
-                z--;
-            }
-        }
-    }
-    ll dis = 0;
-    rep(i,n)
-    {
-        if(target[i]!=now[i]) dis++;
-    }
-    if(dis==1) return true;
-    return false;
+ll computeSwapCost(ll m10, ll m01) {
+    ll paired = min(m10, m01);
+    ll leftover = llabs(m10 - m01);
+    return paired + 2LL * leftover;
 }
 
 int32_t main()
@@ -151,34 +115,46 @@ int32_t main()
     //Rating? Neh. In love with experience.
     //Code Karlo, Coz KHNH :)
     auto solve = [&] () {
-        string s;
-        cin>>s;
-        ll n = s.size();
-        ll z = 0;
-        rep(i,n) if(s[i]=='0') z++;
-        ll o = n-z;
-        if(abs(o-z)<=1)
-        {
-            ll flag = 0;
-            rep(i,n-1)
-            {
-                if(s[i]==s[i+1]) flag=1;
+        int n; 
+        cin >> n;
+        vector<string> S(3);
+        cin>>S;
+
+        ll totalOnes = 0;
+        rep(i,3){
+            for(char c : S[i]){
+                if(c == '1') totalOnes++;
             }
-            if(flag) cout<<1<<endl;
-            else cout<<0<<endl;
         }
-        else
-        {
-            string target1 = "";
-            string target2 = "";
-            rep(i,n)
-            {
-                if(!(i%2)) target1+='0', target2+='1';
-                else target1+='1', target2+='0';
+        ll bestCost = -1;
+
+        rep(pattern,8){
+            int X1 = (pattern & 1) ? 1 : 0;
+            int X2 = (pattern & 2) ? 1 : 0;
+            int X3 = (pattern & 4) ? 1 : 0;
+            ll neededOnes = (ll)(X1 + X2 + X3) * n;
+            if(neededOnes != totalOnes) {
+                continue;
             }
-            if(checker(target1,z,o)||checker(target2,z,o)) cout<<2<<endl;
-            else cout<<3<<endl;
+            ll mismatch1to0 = 0, mismatch0to1 = 0;
+            rep(j,n){
+                if(S[0][j] == '1' && X1 == 0) mismatch1to0++;
+                if(S[0][j] == '0' && X1 == 1) mismatch0to1++;
+            }
+            rep(j,n){
+                if(S[1][j] == '1' && X2 == 0) mismatch1to0++;
+                if(S[1][j] == '0' && X2 == 1) mismatch0to1++;
+            }
+            rep(j,n){
+                if(S[2][j] == '1' && X3 == 0) mismatch1to0++;
+                if(S[2][j] == '0' && X3 == 1) mismatch0to1++;
+            }
+            ll cost = computeSwapCost(mismatch1to0, mismatch0to1);
+            if(bestCost < 0 || cost < bestCost){
+                bestCost = cost;
+            }
         }
+        out(bestCost);
     };
 
     int t;

@@ -1,4 +1,4 @@
-// 2025-02-26 20:27:42
+// 2025-02-26 20:19:45
 
 #include <bits/stdc++.h>
 
@@ -101,49 +101,7 @@ ll gcd(ll a, ll b){if (b == 0)return a;return gcd(b, a % b);} //__gcd
 ll lcm(ll a, ll b){return (a/gcd(a,b)*b);}
 ll moduloMultiplication(ll a,ll b,ll mod){ll res = 0;a %= mod;while (b){if (b & 1)res = (res + a) % mod;b >>= 1;}return res;}
 ll powermod(ll x, ll y, ll p){ll res = 1;x = x % p;if (x == 0) return 0;while (y > 0){if (y & 1)res = (res*x) % p;y = y>>1;x = (x*x) % p;}return res;}
-//To find modulo inverse, call powermod(A,M-2,M)
-
-bool checker(string &target, ll z, ll o)
-{
-    string now = "";
-    ll n = target.size();
-    rep(i,n)
-    {
-        if(target[i]=='0')
-        {
-            if(z>0)
-            {
-                now+='0';
-                z--;
-            }
-            else if(o>0)
-            {
-                now+='1';
-                o--;
-            }
-        }
-        else
-        {
-            if(o>0)
-            {
-                now+='1';
-                o--;
-            }
-            else if(z>0)
-            {
-                now+='0';
-                z--;
-            }
-        }
-    }
-    ll dis = 0;
-    rep(i,n)
-    {
-        if(target[i]!=now[i]) dis++;
-    }
-    if(dis==1) return true;
-    return false;
-}
+//To find modulo inverse, call powermod(a,M-2,M)
 
 int32_t main()
 {
@@ -151,34 +109,55 @@ int32_t main()
     //Rating? Neh. In love with experience.
     //Code Karlo, Coz KHNH :)
     auto solve = [&] () {
-        string s;
-        cin>>s;
-        ll n = s.size();
-        ll z = 0;
-        rep(i,n) if(s[i]=='0') z++;
-        ll o = n-z;
-        if(abs(o-z)<=1)
-        {
-            ll flag = 0;
-            rep(i,n-1)
-            {
-                if(s[i]==s[i+1]) flag=1;
+        ll n, x;
+        cin >> n >> x;
+        vl a(n);
+        cin>>a;
+
+        map<ll, ll> freq;
+        for(auto it : a) freq[it]++;
+        
+        if(x == 1){
+            ll ans = 0;
+            for(auto it : freq){
+                ans = max(ans, it.second);
             }
-            if(flag) cout<<1<<endl;
-            else cout<<0<<endl;
+            cout<<ans<<endl;
+            return;
         }
-        else
-        {
-            string target1 = "";
-            string target2 = "";
-            rep(i,n)
+        
+        map<ll, ll> dp, bestVal;
+        
+        rep(i,n){
+            ll val = a[i];
+            ll t_plus = val * x;
             {
-                if(!(i%2)) target1+='0', target2+='1';
-                else target1+='1', target2+='0';
+                ll old_dp = (dp.find(t_plus)!=dp.end()? dp[t_plus] : 0LL);
+                ll new_dp = max(0LL, old_dp) + 1;
+                dp[t_plus] = new_dp;
+                ll &b = bestVal[t_plus];
+                if(new_dp > b) b = new_dp;
             }
-            if(checker(target1,z,o)||checker(target2,z,o)) cout<<2<<endl;
-            else cout<<3<<endl;
+            {
+                ll old_dp = (dp.find(val)!=dp.end()? dp[val] : 0LL);
+                ll new_dp = max(0LL, old_dp) - 1;
+                dp[val] = new_dp;
+                ll &b = bestVal[val];
+                if(new_dp > b) b = new_dp;
+            }
         }
+        ll ans = 0;
+        for (auto it : freq){
+            ll mxSubSum = (bestVal.find(it.first) != bestVal.end()? bestVal[it.first] : 0LL);
+            ll candidate = max(it.second, it.second + mxSubSum);
+            ans = max(ans, candidate);
+        }
+        for (auto it : bestVal){
+            ll mxSubSum = (freq.find(it.first) != freq.end()? freq[it.first] : 0LL);
+            ll candidate = max(it.second, it.second + mxSubSum);
+            ans = max(ans, candidate);
+        }
+        out(ans);
     };
 
     int t;
