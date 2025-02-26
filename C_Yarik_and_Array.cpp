@@ -1,4 +1,4 @@
-// 2025-02-26 23:11:25
+// 2025-02-27 00:24:59
 
 #include <bits/stdc++.h>
 
@@ -109,11 +109,30 @@ int32_t main()
     //Rating? Neh. In love with experience.
     //Code Karlo, Coz KHNH :)
     auto solve = [&] () {
-        vector<ll> v= {1,2,3,4};
-        map<ll,ll> m = {{1,2},{2,3}};
-        debug(v);
-        debug(m);
-
+        ll n;
+        cin>>n;
+        vl a(n);
+        cin>>a;
+        if(n==1)
+        {
+            out(a[0]);
+            return;
+        }
+        ll ans = a[0];
+        ll mn = min(0LL,a[0]);
+        ll sum = a[0];
+        for(int i=1;i<n;i++)
+        {
+            if(abs(a[i])%2==abs(a[i-1])%2)
+            {
+                mn = 0;
+                sum = 0;
+            }
+            sum+=a[i];
+            ans = max(ans,sum-mn);
+            mn = min(mn,sum);
+        }
+        out(ans);
     };
 
     int t;
