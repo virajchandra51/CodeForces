@@ -12,20 +12,17 @@ int main()
         vector<long long> a(n);
         for (long long i = 0; i < n; i++) // n
             cin >> a[i];
-        unordered_map<long long, long long> freq;
+        
+        unordered_set<long long> s;
         for (long long i = 0; i < n; i++) // n
-            freq[a[i]]++;
+            s.insert(a[i]); // 1
 
-        int flag = 0;
-        for (auto i : freq)
-        {
-            if (i.second > 1)
-                flag = 1;
-        }
-
-        if (flag)
+        if (s.size() < n)
             cout << "YES" << endl;
         else
             cout << "NO" << endl;
     }
 }
+
+// tc = O(n) = O(1000)
+// sc = O(n) = O(1000)
