@@ -11,16 +11,16 @@ int main()
         cin >> a >> b;
 
         long long ans = INT_MAX;
-        for (int addition = 0; addition < 32; addition++)
+        for (int addition = 0; addition < 32; addition++) // log2(a)
         {
-            long long temp = b + addition;
-            if (temp == 1)
-                continue;
-            long long temp_a = a;
             long long operations = addition;
-            while (temp_a)
+            long long new_b = b + addition;
+            if (new_b == 1) // corner
+                continue;
+            long long copy_a = a;
+            while (copy_a > 0) // log2(a)
             {
-                temp_a /= temp;
+                copy_a /= new_b;
                 operations++;
             }
             ans = min(ans, operations);
@@ -28,3 +28,6 @@ int main()
         cout << ans << endl;
     }
 }
+
+// tc = O(log2(a)^2)
+// sc = O(1)

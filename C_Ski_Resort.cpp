@@ -10,7 +10,7 @@ int main()
         long long n, k, q;
         cin >> n >> k >> q;
         vector<long long> a(n);
-        for (int i = 0; i < n; i++)
+        for (int i = 0; i < n; i++) // n
         {
             cin >> a[i];
             a[i] = (a[i] > q) ? 0 : 1;
@@ -18,7 +18,7 @@ int main()
 
         long long count_of_1s = 0;
         long long ways = 0;
-        for (int i = 0; i < n; i++)
+        for (int i = 0; i < n; i++) // n
         {
             if (a[i] == 1)
                 count_of_1s++;
@@ -42,3 +42,6 @@ int main()
     }
     return 0;
 }
+
+// tc = O(n) = O(2*10^5)
+// sc = O(n) = O(2*10^5)
