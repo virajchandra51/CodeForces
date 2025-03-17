@@ -10,10 +10,10 @@ int main()
         long long n;
         cin >> n;
         string s;
-        cin >> s;
+        cin >> s; // n
         long long sum = 0;
         long long ops = 0;
-        for (int i = 0; i < n; i++)
+        for (int i = 0; i < n; i++) // n
         {
             if (s[i] == ')')
                 sum--;
@@ -29,3 +29,6 @@ int main()
     }
     return 0;
 }
+
+// tc = O(n)
+// sc = O(n)

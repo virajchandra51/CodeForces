@@ -11,32 +11,32 @@ int main()
         cin >> n;
 
         vector<long long> second_elements;
-        long long overall_minimum = INT_MAX;
+        long long lowest_first_minimum = INT_MAX;
 
         for (int i = 0; i < n; i++) // n
         {
             long long m;
             cin >> m;
             vector<long long> a(m);
-            for (auto &x : a)
+            for (auto &x : a) // m
                 cin >> x;
             
-            sort(a.begin(), a.end());
+            sort(a.begin(), a.end()); // mlogm
             
             second_elements.push_back(a[1]);
-            overall_minimum = min(overall_minimum, a[0]);
+            lowest_first_minimum = min(lowest_first_minimum, a[0]);
         }
 
         sort(second_elements.begin(), second_elements.end());
 
         long long sum_of_second_elements = accumulate(second_elements.begin(), second_elements.end(), 0LL);
-        long long second_minimum = second_elements[0];
+        long long lowest_second_minimum = second_elements[0];
 
-        long long answer = overall_minimum + sum_of_second_elements - second_minimum;
+        long long answer = lowest_first_minimum + sum_of_second_elements - lowest_second_minimum;
         cout << answer << endl;
     }
     return 0;
 }
 
-// tc - O(n*mlog2m + nlog2n) ~ O(10^6)
-// sc - O(n)
+// tc = O(mlogm) = O(50000*log2(500000)) = O(50000*19) = O(950000) = O(10^6)
+// sc = O(m) = O(50000) = O(10^5)

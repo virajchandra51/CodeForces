@@ -10,51 +10,48 @@ int main()
         long long n, p;
         cin >> n >> p;
         vector<pair<long long, long long> > v(n);
+        vector<long long> a(n), b(n);
 
-        for (int i = 0; i < n; i++)
+        for (int i = 0; i < n; i++) // n
+            cin >> a[i];
+
+        for (int i = 0; i < n; i++) // n
+            cin >> b[i];
+
+        for (int i = 0; i < n; i++) // n
+            v[i] = {b[i], a[i]};
+
+        sort(v.begin(), v.end()); // nlogn
+
+        long long minimum_cost = p;
+        long long already_shared = 1;
+
+        for (auto it : v) // n
         {
-            long long x;
-            cin >> x;
-            v[i] = {0, x};
-        }
+            long long can_be_shared = it.second;
+            long long sharing_cost = it.first;
 
-        for (int i = 0; i < n; i++)
-        {
-            long long x;
-            cin >> x;
-            v[i].first = x;
-        }
-
-        // {2,4},{3,3},{2,2},{1,6}...
-
-        sort(v.begin(), v.end()); // O(nlogn)
-
-        long long cost = p;
-        long long people = 1;
-        for (auto it : v)
-        {
-            long long numberOfPeopleShared = it.second;
-            long long sharingCost = it.first;
-            if (sharingCost >= p)  
+            if (sharing_cost >= p)
                 break;
-            if (people + numberOfPeopleShared > n)
+
+            if (already_shared + can_be_shared > n)
             {
-                cost += (n - people) * sharingCost;
-                people = n;
+                minimum_cost += (n - already_shared) * sharing_cost;
+                already_shared = n;
                 break;
             }
             else
             {
-                cost += numberOfPeopleShared * sharingCost;
-                people += numberOfPeopleShared;
+                minimum_cost += can_be_shared * sharing_cost;
+                already_shared += can_be_shared;
             }
         }
 
-        cost += (n - people) * p; // chief sharing
-        cout << cost << endl;
+        minimum_cost += (n - already_shared) * p; // chief sharing
+        cout << minimum_cost << endl;
     }
     return 0;
 }
 
-// TC - O(nlogn)
-// SC - O(n)
+// TC - O(nlogn) = O(10^5(log2(10^5))) = O(10^5 * 17) = O(1.7 * 10^6)
+// SC - O(n) = O(10^5)
