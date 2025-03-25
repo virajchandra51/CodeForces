@@ -34,3 +34,6 @@ int main()
             cout << sum - 2 * abs(minimum) << endl;
     }
 }
+
+// tc = O(n*m) = O(100)
+// sc = O(n*m) = O(100)

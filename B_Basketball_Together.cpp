@@ -6,24 +6,24 @@ int main()
     long long n, d;
     cin >> n >> d;
     vector<long long> a(n);
-    for (int i = 0; i < n; i++)
+    for (int i = 0; i < n; i++) // n
         cin >> a[i];
 
-    sort(a.begin(), a.end());
+    sort(a.begin(), a.end()); // nlogn
 
     long long left = -1;
     long long right = n - 1;
     long long team_size = 1;
     long long teams = 0;
 
-    while (left < right)
+    while (left < right) // n
     {
-        while ((a[right] * team_size) <= d && left < right)
+        if ((a[right] * team_size) <= d && left < right)
         {
             left++;
             team_size++;
         }
-        if (left < right)
+        else
         {
             teams++;
             right--;
@@ -34,3 +34,6 @@ int main()
     cout << teams << endl;
     return 0;
 }
+
+// tc = O(nlogn) = O(10^5*log2(10^5)) = O(10^6)
+// sc = O(n)
