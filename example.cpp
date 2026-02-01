@@ -1,70 +1,43 @@
-int rows, cols;
-int answer;
-vector<vector<int> > grid;
-vector<vector<bool> > visited;
+int main() {
+    int T;
+    cin >> T;
+    while (T--) {
+        int N, K;
+        cin >> N >> K;
 
-void helper(int r, int c, int count)
-{
-    // If we reached the end
-    if (grid[r][c] == 2)
-    {
-        if (count == 1)
-        {
-            answer++;
+        vector<long long> A(N);
+        for (int i = 0; i < N; i++) {
+            cin >> A[i];
         }
-        return;
-    }
 
-    int dr[4] = {1, -1, 0, 0};
-    int dc[4] = {0, 0, 1, -1};
+        // contribution of each bit
+        vector<pair<long long, int>> bits; // (value, bit_index)
 
-    for (int i = 0; i < 4; i++)
-    {
-        int nr = r + dr[i];
-        int nc = c + dc[i];
-
-        if (nr < 0 || nc < 0 || nr >= rows || nc >= cols)
-            continue;
-        if (grid[nr][nc] == -1 || visited[nr][nc])
-            continue;
-
-        visited[nr][nc] = true;
-        helper(nr, nc, count - 1);
-        visited[nr][nc] = false; // backtrack
-    }
-}
-
-int uniquePathsIII(vector<vector<int> > &g)
-{
-    grid = g;
-    rows = grid.size();
-    cols = grid[0].size();
-    visited.assign(rows, vector<bool>(cols, false));
-
-    int startR = 0, startC = 0;
-    totalCells = 0;
-    answer = 0;
-
-    // Count cells & find start
-    for (int i = 0; i < rows; i++)
-    {
-        for (int j = 0; j < cols; j++)
-        {
-            if (grid[i][j] != -1)
-                totalCells++;
-            if (grid[i][j] == 1)
-            {
-                startR = i;
-                startC = j;
+        for (int b = 0; b <= 30; b++) {
+            long long cnt = 0;
+            for (long long x : A) {
+                if (x & (1LL << b))
+                    cnt++;
             }
+            long long value = cnt * (1LL << b);
+            bits.push_back({value, b});
         }
+
+        // sort by max contribution, tie -> smaller bit index
+        sort(bits.begin(), bits.end(), [](auto &p1, auto &p2) {
+            if (p1.first != p2.first)
+                return p1.first > p2.first;
+            return p1.second < p2.second;
+        });
+
+        long long X = 0;
+        for (int i = 0; i < K; i++) {
+            X |= (1LL << bits[i].second);
+        }
+
+        cout << X << "\n";
     }
-
-    visited[startR][startC] = true;
-    helper(startR, startC, totalCells);
-
-    return answer;
+    return 0;
 }
 
-// Time Complexity: O(4^(m*n)) in the worst case
-// Space Complexity: O(m*n) for the visited array and recursion stack
+
