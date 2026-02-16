@@ -1,6 +1,3 @@
-#include <bits/stdc++.h>
-using namespace std;
-
 int main()
 {
     int n;
@@ -15,5 +12,5 @@ int main()
     return 0;
 }
 
-// tc - O(n) = O(3000)
-// sc - O(n) = O(3000)
+// Time Complexity = O(n)
+// Space Complexity = O(n)

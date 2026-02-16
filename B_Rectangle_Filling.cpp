@@ -1,6 +1,3 @@
-#include <bits/stdc++.h>
-using namespace std;
-
 int main()
 {
     int t;
@@ -55,5 +52,5 @@ int main()
     return 0;
 }
 
-// tc - O(n*m) = O(500*500)
-// sc - O(n*m) = O(500*500)
+// Time Complexity = O(n*m)
+// Space Complexity = O(n*m)
