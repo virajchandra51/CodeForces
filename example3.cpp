@@ -1,24 +1,24 @@
-#include <bits/stdc++.h>
-using namespace std;
-using namespace std::chrono;
-
-int main()
+int longestValidParentheses(string s)
 {
-    // Get starting timepoint
-    auto start = high_resolution_clock::now();
+    stack<int> st;
+    st.push(-1); // base
+    int maxi = 0;
 
-    for(int i=0; i<1000; i++)
+    for (int i = 0; i < s.size(); i++)
     {
-        cout << "" << '\n';
+        if (s[i] == '(')
+            st.push(i);
+        else
+        {
+            st.pop();
+            if (st.empty())
+                st.push(i);
+            else
+                maxi = max(maxi, i - st.top());
+        }
     }
-
-    // Get ending timepoint
-    auto stop = high_resolution_clock::now();
-
-    auto duration = duration_cast<microseconds>(stop - start);
-
-    cout << "Time taken by function: "
-         << duration.count() << " microseconds" << endl;
-
-    return 0;
+    return maxi;
 }
+
+// Time Complexity: O(n)
+// Space Complexity: O(n)

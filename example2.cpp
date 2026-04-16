@@ -1,68 +1,31 @@
-#include <bits/stdc++.h>
-using namespace std;
-
 int main()
 {
-    int n;
-    cin >> n;
-    int a[n];
-    for (int i = 0; i < n; i++)
+    vector<pair<long long, long long> > queries = {
+        {50, 500},
+        {500, 1000},
+        {50, 1000}};
+
+    // ---------------------------------------
+    // STEP 1: Collect Important Points
+    // ---------------------------------------
+
+    set<long long> st;
+    for (auto q : queries)
     {
-        cin >> a[i];
+        st.insert(q.first);
+        st.insert(q.second + 1);
     }
 
-    for (int i = 0; i < n; i++)
+    // ---------------------------------------
+    // STEP 2: Assign Compressed Indices
+    // ---------------------------------------
+    map<long long, int> mp;
+    int rank = 0;
+    for (auto x : st)
     {
-        for (int j = i; j < n; j++)
-        {
-            cout << a[i] << " " << a[j] << endl;
-        }
+        mp[x] = rank;
+        rank++;
     }
 
     return 0;
 }
-
-// i = 0,0,0,1,1,2
-// j = 0,1,2,1,2,2
-
-// #include <bits/stdc++.h>
-// using namespace std;
-
-// int main()
-// {
-//     int n;
-//     cin >> n;
-//     int a[n];
-//     for (int i = 0; i < n; i++)
-//     {
-//         cin >> a[i];
-//     }
-
-//     int ans = INT_MIN; // lowest value a integer can have
-//     cout << ans << endl;
-//     for (int i = 0; i < n; i++)
-//     {
-//         ans = max(ans, a[i]);
-//         cout << ans << " ";
-//     }
-//     cout << endl;
-//     cout << ans << endl;
-
-//     return 0;
-// }
-
-// // #include <bits/stdc++.h>
-// // using namespace std;
-
-// // int main()
-// // {
-// //     int n;
-// //     cin >> n;
-// //     int ans = 1;
-// //     for (int i = 1; i <= n; i++)
-// //     {
-// //         ans = ans * i;
-// //     }
-// //     cout << ans << endl;
-// //     return 0;
-// // }
