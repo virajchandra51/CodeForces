@@ -50,3 +50,6 @@ int main()
     cout << ans << endl;
     return 0;
 }
+
+// Time Complexity: O(log2(SS)) = O(10^13) ~ O(43)
+// Space Complexity: O(1)
