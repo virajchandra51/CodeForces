@@ -1,70 +1,66 @@
-#define sz(x) ((int)(x).size())
-typedef long long ll;
+// Count of Divisors
+// p, k = prime factor and its exponent
 
-ll expo(ll a, ll b, ll mod) {ll res = 1; while (b > 0) {if (b & 1)res = (res * a) % mod; a = (a * a) % mod; b = b >> 1;} return res;}
-ll mminvprime(ll a, ll b) {return expo(a, b - 2, b);}
-
-struct Hashing
+long long divisorCount(vector<long long> &k)
 {
-    string s;
-    int n;
-    int primes;
-    vector<long long> hashPrimes = {1000000009, 100000007}; // double hashing to avoid collisions
-    const long long base = 31; // number of unique characters
-    vector<vector<long long> > hashValues;
-    vector<vector<long long> > powersOfBase;
-    vector<vector<long long> > inversePowersOfBase;
+    long long total = 1;
+    for (long long ki : k)
+        total = total * ((ki + 1) % MOD) % MOD;
+    return total;
+}
+
+// Sum of Divisors
+// p, k = prime factor and its exponent
+
+long long divisorSum(vector<long long> &p, vector<long long> &k)
+{
+    long long total = 1;
+    for (int i = 0; i < (int)p.size(); i++)
+    {
+        long long top = (binpowmod(p[i], k[i] + 1, MOD) - 1 + MOD) % MOD;
+        long long bottom = (p[i] - 1) % MOD;
+        total = total * top % MOD * inverse(bottom) % MOD;
+    }
+    return total;
+}
+
+// Product of Divisors
+// p, k = prime factor and its exponent
+
+const long long MOD = 1e9 + 7;
+const long long EXPM = MOD - 1;
+
+long long sumOfPowers(long long k)
+{
+    long long a = k, b = k + 1;
+    if (a % 2 == 0)
+        a /= 2;
+    else
+        b /= 2;
+    return (a % EXPM) * (b % EXPM) % EXPM;
+}
+
+long long divisorProduct(vector<long long> &p, vector<long long> &k)
+{
+    int m = p.size();
+
+    vector<long long> before(m + 1, 1), after(m + 1, 1);
+    for (int i = 0; i < m; i++)
+        before[i + 1] = before[i] * ((k[i] + 1) % EXPM) % EXPM;
+    for (int i = m - 1; i >= 0; i--)
+        after[i] = after[i + 1] * ((k[i] + 1) % EXPM) % EXPM;
     
-    Hashing(string a)
+    // before[i] = product of (k[j] + 1) for j = 0 to i-1
+    // after[i] = product of (k[j] + 1) for j = i+1 to m-1
+    // before[i] * after[i + 1] = product of (k[j] + 1) for j = 0 to i-1 and j = i+1 to m-1
+    // basically everything except k[i]
+
+    long long answer = 1;
+    for (int i = 0; i < m; i++)
     {
-        primes = sz(hashPrimes);
-        hashValues.resize(primes);
-        powersOfBase.resize(primes);
-        inversePowersOfBase.resize(primes);
-        s = a;
-        n = s.length();
-
-        for (int i = 0; i < sz(hashPrimes); i++)
-        {
-            powersOfBase[i].resize(n + 1); // Precompute powers of base modulo hashPrimes[i]
-            inversePowersOfBase[i].resize(n + 1); // Precompute inverse powers of base modulo hashPrimes[i]
-            powersOfBase[i][0] = 1; // powersOfBase[i][0] = base^0 = 1
-            
-            for (int j = 1; j <= n; j++)
-            {
-                powersOfBase[i][j] = (base * powersOfBase[i][j - 1]) % hashPrimes[i];
-            }
-            inversePowersOfBase[i][n] = mminvprime(powersOfBase[i][n], hashPrimes[i]);
-            for (int j = n - 1; j >= 0; j--)
-            {
-                inversePowersOfBase[i][j] = (inversePowersOfBase[i][j + 1] * base) % hashPrimes[i];
-            }
-        }
-
-        for (int i = 0; i < sz(hashPrimes); i++)
-        {
-            hashValues[i].resize(n); // Precompute hash values for the string s modulo hashPrimes[i]
-            for (int j = 0; j < n; j++)
-            {
-                hashValues[i][j] = ((s[j] - 'a' + 1LL) * powersOfBase[i][j]) % hashPrimes[i];
-                hashValues[i][j] = (hashValues[i][j] + (j > 0 ? hashValues[i][j - 1] : 0LL)) % hashPrimes[i];
-            }
-        }
+        long long othersMake = before[i] * after[i + 1] % EXPM;
+        long long exponent = sumOfPowers(k[i]) * othersMake % EXPM;
+        answer = answer * pw(p[i], exponent, MOD) % MOD;
     }
-
-    // Time Complexity: O(N) overall for precomputation
-
-    vector<long long> substringHash(int l, int r)
-    {
-        vector<long long> hash(primes);
-        for (int i = 0; i < primes; i++)
-        {
-            long long val1 = hashValues[i][r];
-            long long val2 = l > 0 ? hashValues[i][l - 1] : 0LL;
-            hash[i] = ((val1 - val2 + hashPrimes[i]) % hashPrimes[i] * inversePowersOfBase[i][l]) % hashPrimes[i];
-        }
-        return hash;
-    }
-
-    // Time Complexity: O(1) for each substring hash query
-};
+    return answer;
+}

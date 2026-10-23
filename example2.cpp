@@ -1,78 +1,37 @@
-const int BITS = 30;
-class TrieNode
+int findGCDEx(int a, int b)
 {
-public:
-    TrieNode *children[2];
-    int numbersGoingBelow;
-    TrieNode()
+    if (b == 0)
     {
-        children[0] = children[1] = NULL;
-        numbersGoingBelow = 0;
+        return a;
     }
-};
 
-class Solution
+    int x1, y1;
+    int d = findGCDEx(b, a % b, x1, y1);
+    x = y1;
+    y = x1 - y1 * (a / b);
+
+    return d;
+}
+
+int main()
 {
-public:
-    TrieNode *root = new TrieNode();
+    int a = 17;
+    int b = 5;
+    int x, y;
+    int gcd = findGCDEx(a, b, x, y);
+    cout << "GCD: " << gcd << endl;
+    cout << "Coefficients: x = " << x << ", y = " << y << endl;
+}
 
-    void insert(int x)
-    {
-        TrieNode *node = root;
-        for (int i = BITS - 1; i >= 0; i--)
-        {
-            int bit = (x >> i) & 1;
-            if (!node->children[bit])
-                node->children[bit] = new TrieNode();
-            node = node->children[bit];
-            node->numbersGoingBelow++;
-        }
-    }
+// Time Complexity: O(log(min(a, b)))
 
-    // how many numbers y give (x ^ y) < k
-    int countSmaller(int x, int k)
-    {
-        TrieNode *node = root;
-        int count = 0;
-        for (int i = BITS - 1; i >= 0; i--)
-        {
-            int xb = (x >> i) & 1, kb = (k >> i) & 1;
-            if (kb == 1)
-            {
-                // same-bit child (yb = xb): XOR bit = 0 < 1  -> all of it is < k, count it
-                if (node->children[xb])
-                    count += node->children[xb]->numbersGoingBelow;
-                // opposite child (yb = xb^1): XOR bit = 1 == kb -> walk into it
-                if (node->children[xb ^ 1])
-                    node = node->children[xb ^ 1];
-                else
-                    break;
-            }
-            else
-            {
-                // opposite child (yb = xb^1): XOR bit = 1 > 0 -> too big, ignore
-                // same-bit child (yb = xb):  XOR bit = 0 == kb -> walk into it
-                if (node->children[xb])
-                    node = node->children[xb];
-                else
-                    break;
-            }
-        }
-        return count;
-    }
+long long inverse(long long a, long long m)
+{
+    long long x, y;
+    long long g = findGCDEx(a, m, x, y);
+    if (g != 1)
+        return -1;            // no inverse exists
+    return ((x % m) + m) % m; // x can be negative,
+}
 
-    int cntPairs(vector<int> &arr, int k)
-    {
-        long long ans = 0;
-        for (int x : arr)
-            insert(x);
-        for (int x : arr)
-            ans += countSmaller(x, k);
-        ans = ans - arr.size(); // remove self-pairs
-        ans = ans / 2;          // remove double counting
-        return (int)(ans);
-    }
-};
-
-// Time Complexity = O(N * BITS) = O(N * 30)
-// Space Complexity = O(N * 30 * 2)
+// Time Complexity: O(log(m))
